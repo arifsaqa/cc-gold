@@ -46,7 +46,6 @@ class _SaldoState extends State<Saldo> {
   bool display = true;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

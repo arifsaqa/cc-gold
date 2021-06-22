@@ -78,7 +78,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pageCaller(_bottomNavIndex),
+      body: AnimatedSwitcher(
+          duration: const Duration(seconds: 1),
+          transitionBuilder: (Widget child, Animation<double> animation) =>
+              SlideTransition(
+                child: child,
+                position: MaterialPointArcTween(
+                        begin: const Offset(1.0, 0.0), end: Offset.zero)
+                    .animate(animation),
+              ),
+          child: pageCaller(_bottomNavIndex)),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
