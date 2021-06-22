@@ -7,7 +7,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 300,
+      height: 250,
       width: size.width,
       padding: EdgeInsets.only(
           top: size.height * .01, right: 24, left: 24, bottom: 20),

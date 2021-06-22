@@ -53,6 +53,19 @@ flutter:
     - images/sellGold.png
     - images/buyGold.png
     - images/profile.png
+    - images/faq.png
+    - images/logout.png
+    - images/setting.png
+    - images/star.png
+    - images/syaratkebijakan.png
+    - images/navs/homeActive.png
+    - images/navs/homeUnactive.png
+    - images/navs/barActive.png
+    - images/navs/barUnactive.png
+    - images/navs/cardActive.png
+    - images/navs/cardUnactive.png
+    - images/navs/personActive.png
+    - images/navs/personUnactive.png
   fonts:
     - family: MetroReg
       fonts:

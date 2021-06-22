@@ -1,13 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:learnUI/models/transactions.dart';
+import 'package:learnUI/constants/colors.dart';
 
-class Body extends StatefulWidget {
-  @override
-  _PromoBuildState createState() => _PromoBuildState();
+class Setting {
+  final String image, title, description;
+  final int id;
+
+  Setting({this.image, this.title, this.description, this.id});
 }
 
-class _PromoBuildState extends State<Body> {
+List<Setting> settings = [
+  Setting(
+    id: 1,
+    title: "Pengaturan Akun",
+    image: "images/setting.png",
+  ),
+  Setting(
+    id: 2,
+    title: "FAQ",
+    image: "images/faq.png",
+  ),
+  Setting(
+    id: 3,
+    title: "Syarat dan Kebijakan",
+    image: "images/syaratkebijakan.png",
+  ),
+  Setting(
+    id: 4,
+    title: "Beri Ulasan",
+    image: "images/star.png",
+  ),
+  Setting(
+    id: 5,
+    title: "Logout Akun",
+    image: "images/logout.png",
+  ),
+];
+
+class Body extends StatelessWidget {
   int selectedId = 0;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,16 +58,16 @@ class _PromoBuildState extends State<Body> {
                     blurRadius: 2,
                     offset: Offset(2, 10))
               ]),
-          padding: EdgeInsets.only(top: 20),
+          // padding: EdgeInsets.only(top: 20),
           child: SizedBox(
-              height: 300,
+              height: 370,
               width: size.width,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: transactions.length,
+                itemCount: settings.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    height: 100,
+                    height: 70,
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Container(
                       decoration: BoxDecoration(
@@ -46,28 +77,37 @@ class _PromoBuildState extends State<Body> {
                         color: Colors.grey.withOpacity(.05),
                       ))),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: Image.asset(
-                                transactions[index].type == "jual"
-                                    ? "images/sellGold.png"
-                                    : "images/buyGold.png"),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: size.width * .6,
-                                child: Text(
-                                  transactions[index].title,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
+                          Row(children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              child: Image.asset(settings[index].image),
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(38, 51, 70, .1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              height: 40,
+                              width: 40,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: size.width * .6,
+                                  child: Text(
+                                    settings[index].title,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            )
+                          ]),
+                          Icon(
+                            Icons.chevron_right,
+                            size: 30,
+                            color: Color(light),
                           )
                         ],
                       ),

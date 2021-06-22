@@ -76,29 +76,48 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pageCaller(_bottomNavIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Statistic',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        unselectedItemColor: Color(light),
-        currentIndex: _bottomNavIndex,
-        selectedItemColor: Color(background),
-        onTap: _onItemTapped,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: _bottomNavIndex == 0
+                  ? Image.asset("images/navs/homeActive.png")
+                  : Image.asset("images/navs/homeUnactive.png"),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: _bottomNavIndex == 1
+                  ? Image.asset("images/navs/barActive.png")
+                  : Image.asset("images/navs/barUnactive.png"),
+              label: 'Gold Price',
+            ),
+            BottomNavigationBarItem(
+              icon: _bottomNavIndex == 2
+                  ? Image.asset("images/navs/cardActive.png")
+                  : Image.asset("images/navs/cardUnactive.png"),
+              label: 'Wallet',
+            ),
+            BottomNavigationBarItem(
+              icon: _bottomNavIndex == 3
+                  ? Image.asset("images/navs/personActive.png")
+                  : Image.asset("images/navs/personUnactive.png"),
+              label: 'Profile',
+            ),
+          ],
+          unselectedItemColor: Color(light),
+          currentIndex: _bottomNavIndex,
+          selectedItemColor: Color(background),
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }

@@ -40,7 +40,7 @@ class _PromoBuildState extends State<Body> {
               ]),
           padding: EdgeInsets.only(top: 20),
           child: SizedBox(
-              height: 250,
+              height: 370,
               width: size.width,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,

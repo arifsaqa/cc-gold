@@ -7,7 +7,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 300,
+      height: 250,
       width: size.width,
       padding: EdgeInsets.only(
           top: size.height * .01, right: 24, left: 24, bottom: 20),
@@ -46,7 +46,6 @@ class _SaldoState extends State<Saldo> {
   bool display = true;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -64,10 +63,16 @@ class _SaldoState extends State<Saldo> {
                     fontWeight: FontWeight.w600),
               ),
             ),
-            Text(
-              "Senilai Rp. 1.080.000",
-              style: TextStyle(fontSize: normal),
-            )
+            Row(children: [
+              Text(
+                "Senilai Rp. ",
+                style: TextStyle(fontSize: normal),
+              ),
+              Text(
+                display ? "1.080.000" : "*********",
+                style: TextStyle(fontSize: normal),
+              )
+            ])
           ],
         ),
         IconButton(
