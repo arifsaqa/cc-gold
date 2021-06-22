@@ -4,7 +4,11 @@ class Transaction {
   final String title, date, type;
   final int id;
 
-  Transaction({this.title, this.date, this.id, this.type});
+  Transaction(
+      {required this.title,
+      required this.date,
+      required this.id,
+      required this.type});
 }
 
 List<Transaction> transactions = [

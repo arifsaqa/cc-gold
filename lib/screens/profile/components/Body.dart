@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 
 class Setting {
-  final String image, title, description;
+  final String image, title;
   final int id;
 
-  Setting({this.image, this.title, this.description, this.id});
+  Setting({required this.image, required this.title, required this.id});
 }
 
 List<Setting> settings = [

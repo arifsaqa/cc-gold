@@ -4,7 +4,11 @@ class News {
   final String image, title, date;
   final int id;
 
-  News({this.image, this.title, this.date, this.id});
+  News(
+      {required this.image,
+      required this.title,
+      required this.date,
+      required this.id});
 }
 
 List<News> news = [

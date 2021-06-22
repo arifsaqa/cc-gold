@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/screens/BuyGold/BuyGold.dart';
+import 'package:learnUI/screens/TransferGold/TransferGold.dart';
+import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';
 
 class ShortCuts extends StatelessWidget {
   @override
@@ -10,20 +13,23 @@ class ShortCuts extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn("images/buy.png", context, "Beli Emas"),
-          _buildButtonColumn("images/sell.png", context, "Jual Emas"),
-          _buildButtonColumn("images/transfer.png", context, "Transfer Emas")
+          _buildButtonColumn("images/buy.png", context, "Beli Emas", BuyGold()),
+          _buildButtonColumn(
+              "images/sell.png", context, "Jual Emas", SellGoldScreen()),
+          _buildButtonColumn(
+              "images/transfer.png", context, "Transfer Emas", TransferGold())
         ],
       ),
     );
   }
 
   GestureDetector _buildButtonColumn(
-      String image, BuildContext context, String label) {
+      String image, BuildContext context, String label, Widget destination) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ("/" + label));
+        Navigator.push<void>(
+            context, MaterialPageRoute(builder: (context) => destination));
       },
       child: Center(
         child: Container(

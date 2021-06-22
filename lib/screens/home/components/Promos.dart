@@ -72,7 +72,8 @@ class _PromoBuildState extends State<PromosBuild> {
                                       if (promos[index].description != null)
                                         SizedBox(height: 4),
                                       promos[index].description != null
-                                          ? Text(promos[index].description,
+                                          ? Text(
+                                              promos[index].description ?? "",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: xm))

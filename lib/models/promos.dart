@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Promo {
-  final String image, title, description;
+  final String image, title;
+  String? description;
   final int id;
 
-  Promo({this.image, this.title, this.description, this.id});
+  Promo(
+      {required this.image,
+      required this.title,
+      this.description,
+      required this.id});
 }
 
 List<Promo> promos = [
