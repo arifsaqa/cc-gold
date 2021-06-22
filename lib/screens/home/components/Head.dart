@@ -161,16 +161,26 @@ class _HeadState extends State<Head> {
                 ],
               ),
             ),
-            Positioned(
-              top: size.height * .07,
-              right: size.width * .1,
-              child: Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                  size: 30,
-                ),
+            Container(
+              margin: EdgeInsets.all(24),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Icon(
+                          Icons.notifications,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
           ],

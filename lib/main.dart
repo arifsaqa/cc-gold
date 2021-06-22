@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
+import 'package:learnUI/screens/profile/ProfileScreen.dart';
 import 'package:learnUI/screens/wallet/WalletScreen.dart';
 
 void main() => runApp(MyApp());
@@ -50,10 +51,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     HomeScreen(),
     Settings(),
     WalletScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
-    if (index != 3) {
+    if (index != 4) {
       setState(() {
         _bottomNavIndex = index;
       });
