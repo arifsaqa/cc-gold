@@ -7,7 +7,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * .35,
+      height: 300,
       width: size.width,
       padding: EdgeInsets.only(
           top: size.height * .01, right: 24, left: 24, bottom: 20),
@@ -46,6 +46,7 @@ class _SaldoState extends State<Saldo> {
   bool display = true;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

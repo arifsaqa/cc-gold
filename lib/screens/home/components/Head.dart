@@ -13,7 +13,7 @@ class _HeadState extends State<Head> {
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.only(bottom: 60),
-        height: size.height * .35,
+        height: 250,
         decoration: BoxDecoration(
           color: Color(background),
         ),

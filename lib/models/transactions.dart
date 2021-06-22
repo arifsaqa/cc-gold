@@ -1,0 +1,17 @@
+import 'package:flutter/material.dart';
+
+class Transaction {
+  final String title, date, type;
+  final int id;
+
+  Transaction({this.title, this.date, this.id, this.type});
+}
+
+List<Transaction> transactions = [
+  Transaction(
+      id: 1, title: "Beli Emas 10 gram", date: "10 Juni 2021", type: "beli"),
+  Transaction(
+      id: 1, title: "Beli Emas 2 gram", date: "10 Juni 2021", type: "beli"),
+  Transaction(
+      id: 1, title: "Jual Emas 2 gram", date: "10 Juni 2021", type: "jual"),
+];

@@ -46,7 +46,11 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _bottomNavIndex = 0;
-  List<Widget> pages = [HomeScreen(), WalletScreen(), Settings()];
+  List<Widget> pages = [
+    HomeScreen(),
+    Settings(),
+    WalletScreen(),
+  ];
 
   void _onItemTapped(int index) {
     if (index != 3) {

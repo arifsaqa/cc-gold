@@ -50,6 +50,8 @@ flutter:
     - images/sell.png
     - images/transfer.png
     - images/news.png
+    - images/sellGold.png
+    - images/buyGold.png
   fonts:
     - family: MetroReg
       fonts:
