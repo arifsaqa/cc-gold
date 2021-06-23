@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/screens/BuyGold/BuyGold.dart';
-import 'package:learnUI/screens/TransferGold/TransferGold.dart';
+import 'package:learnUI/screens/BuyGold/BuyGoldScreen.dart';
+import 'package:learnUI/screens/TransferGold/TransferGoldScreen.dart';
 import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';
 
 class ShortCuts extends StatelessWidget {

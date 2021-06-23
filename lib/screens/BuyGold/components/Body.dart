@@ -110,7 +110,6 @@ class _PromoBuildState extends State<Body> {
                                           )
                                         ],
                                       ),
-                                      SizedBox(height: 5),
                                       Row(
                                         children: [
                                           Text(

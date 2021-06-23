@@ -8,14 +8,11 @@ class HomeScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
-      child: Container(
-        height: size.height,
-        child: Column(
-          children: [
-            Head(),
-            Body(),
-          ],
-        ),
+      child: Column(
+        children: [
+          Head(),
+          Body(),
+        ],
       ),
     );
   }

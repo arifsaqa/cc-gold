@@ -8,7 +8,7 @@ class SellGoldScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [Head(), Body()],
+          children: [Head(), Center(child: Body())],
         ),
       ),
     );
