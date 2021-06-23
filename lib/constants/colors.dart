@@ -17,3 +17,5 @@ final background = HexColor._getColorFromHex("#202D3E");
 final upperGradient = HexColor._getColorFromHex("#FEE17E");
 final lowerGradient = HexColor._getColorFromHex("#AE8D2C");
 final light = HexColor._getColorFromHex("#CBCBDD");
+final priceLabel = HexColor._getColorFromHex("#222222");
+final price = HexColor._getColorFromHex("#202D3E");

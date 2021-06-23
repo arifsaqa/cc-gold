@@ -52,7 +52,7 @@ class Head extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Harga beli Emas"),
+                        Text("Harga Jual Emas"),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: RichText(

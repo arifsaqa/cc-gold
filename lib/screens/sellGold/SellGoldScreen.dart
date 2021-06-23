@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnUI/screens/sellGold/components/Body.dart';
 import 'package:learnUI/screens/sellGold/components/Head.dart';
 
 class SellGoldScreen extends StatelessWidget {
@@ -7,9 +8,7 @@ class SellGoldScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            Head(),
-          ],
+          children: [Head(), Body()],
         ),
       ),
     );
