@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/models/prices.dart';
+import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class Body extends StatefulWidget {
 class _PromoBuildState extends State<Body> {
   int selectedId = 0;
   String selectePrice = prices[0].price;
+  String selectedLabel = prices[0].label;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,6 +58,7 @@ class _PromoBuildState extends State<Body> {
                                 setState(() {
                                   selectedId = index;
                                   selectePrice = prices[index].price;
+                                  selectedLabel = prices[index].label;
                                 });
                               },
                               child: Container(
@@ -157,29 +160,17 @@ class _PromoBuildState extends State<Body> {
                     )
                   ],
                 ),
-                //           ElevatedButton(
-                //             onPressed: null,
-                //             style: ElevatedButton.styleFrom(
-                //                 primary: Colors.redAccent, //background color of button
-                // //border width and color
-                //                 elevation: 3, //elevation of button
-                //                 shape: RoundedRectangleBorder(
-                //                     borderRadius: BorderRadius.circular(30)
-                //                     //to set border radius to button
-                //                     // borderRaius: BorderRadius.circular(30)
-                //                     ),
-                //                 padding: EdgeInsets.all(20) //content padding inside button
-                //                 ),
-                //             child: Text(
-                //               "Konfirmasi",
-                //               style: TextStyle(
-                //                   color: Colors.white,
-                //                   fontSize: sm,
-                //                   fontWeight: FontWeight.w600),
-                //             ),
-                //           )
                 ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.push<TransationData>(
+                        context,
+                        MaterialPageRoute<TransationData>(
+                            builder: (context) => PaymentScreen(
+                                  label: selectedLabel,
+                                  price: selectePrice,
+                                  typeId: 0,
+                                )));
+                  },
                   child: Text(
                     "Konfirmasi",
                     style: TextStyle(

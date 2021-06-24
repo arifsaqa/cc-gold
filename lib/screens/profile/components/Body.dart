@@ -37,8 +37,6 @@ List<Setting> settings = [
 ];
 
 class Body extends StatelessWidget {
-  int selectedId = 0;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,7 +56,6 @@ class Body extends StatelessWidget {
                     blurRadius: 2,
                     offset: Offset(2, 10))
               ]),
-          // padding: EdgeInsets.only(top: 20),
           child: SizedBox(
               height: 370,
               width: size.width,

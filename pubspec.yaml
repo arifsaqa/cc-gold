@@ -67,6 +67,11 @@ flutter:
     - images/navs/cardUnactive.png
     - images/navs/personActive.png
     - images/navs/personUnactive.png
+    - images/banks/BNI.png
+    - images/banks/BRI.png
+    - images/banks/BSI.png
+    - images/banks/PERMATA.png
+    - images/banks/GOPAY.png
   fonts:
     - family: MetroReg
       fonts:
