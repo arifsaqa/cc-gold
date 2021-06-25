@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/models/paymentMethods.dart';
+import 'package:learnUI/screens/chooseBank/chooseBankScreen.dart';
+import 'package:learnUI/screens/successPayment/successPaymentScreen.dart';
 
 class Body extends StatefulWidget {
   final String label, price;
@@ -179,60 +179,67 @@ class _BodyState extends State<Body> {
                   ],
                 ),
               ),
-              Container(
-                  height: 100,
-                  width: 327,
-                  padding: EdgeInsets.only(left: 14, bottom: 22, top: 22),
-                  margin: EdgeInsets.only(left: 24, right: 24, top: 50),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(.08),
-                        offset: Offset(
-                          5.0,
-                          5.0,
+              GestureDetector(
+                onTap: () {
+                  _awaitBankChoice(context);
+                },
+                child: Container(
+                    height: 100,
+                    width: 327,
+                    padding: EdgeInsets.only(left: 14, bottom: 22, top: 22),
+                    margin: EdgeInsets.only(left: 24, right: 24, top: 50),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(.08),
+                          offset: Offset(
+                            5.0,
+                            5.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 2.0,
                         ),
-                        blurRadius: 10.0,
-                        spreadRadius: 2.0,
-                      ),
-                      BoxShadow(
-                        color: Colors.white,
-                        offset: Offset(0.0, 0.0),
-                        blurRadius: 0.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(0.0, 0.0),
+                          blurRadius: 0.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Container(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Metode Pembayaran",
-                              style: TextStyle(
-                                  fontSize: normal, color: Colors.black)),
-                          Row(children: [
-                            Container(
-                                width: 33,
-                                height: 10,
-                                child: Image.asset(
-                                    paymentMethods[bankIndex].image)),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              paymentMethods[bankIndex].label,
-                              style: TextStyle(color: Colors.black),
-                            )
-                          ]),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Metode Pembayaran",
+                                  style: TextStyle(
+                                      fontSize: normal, color: Colors.black)),
+                              Row(children: [
+                                Container(
+                                    width: 33,
+                                    height: 10,
+                                    child: Image.asset(
+                                        paymentMethods[bankIndex].image)),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  paymentMethods[bankIndex].label,
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ]),
+                            ],
+                          ),
+                          Icon(Icons.chevron_right)
                         ],
                       ),
-                      Icon(Icons.chevron_right)
-                    ],
-                  ))
+                    )),
+              )
             ],
           ),
           Container(
@@ -265,7 +272,16 @@ class _BodyState extends State<Body> {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (context) => SuccessPaymentScreen(
+                                  label: widget.label,
+                                  price: widget.price,
+                                  typeId: widget.typeId,
+                                )));
+                  },
                   child: Text(
                     "Konfirmasi",
                     style: TextStyle(
@@ -290,5 +306,17 @@ class _BodyState extends State<Body> {
         ],
       ),
     );
+  }
+
+  void _awaitBankChoice(BuildContext context) async {
+    final result = await Navigator.push<int>(
+        context,
+        MaterialPageRoute<int>(
+          builder: (context) => ChooseBankScreen(),
+        ));
+
+    setState(() {
+      bankIndex = result!;
+    });
   }
 }

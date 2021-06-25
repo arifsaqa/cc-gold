@@ -10,7 +10,7 @@ class Head extends StatefulWidget {
 class _HeadState extends State<Head> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size; 
     return Container(
         margin: EdgeInsets.only(bottom: 60),
         height: 250,

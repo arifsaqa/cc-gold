@@ -5,12 +5,16 @@ import 'package:learnUI/screens/home/components/ShortCuts.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ShortCuts(),
-        PromosBuild(),
-      ],
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height - 250,
+      child: Column(
+        children: [
+          ShortCuts(),
+          PromosBuild(),
+        ],
+      ),
     );
   }
 }

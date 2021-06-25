@@ -17,10 +17,10 @@ class _PromoBuildState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
+    return Container(
+      height: size.height - 230,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +169,7 @@ class _PromoBuildState extends State<Body> {
                             builder: (context) => PaymentScreen(
                                   label: selectedLabel,
                                   price: selectePrice,
-                                  typeId: 0,
+                                  typeId: 1,
                                 )));
                   },
                   child: Text(

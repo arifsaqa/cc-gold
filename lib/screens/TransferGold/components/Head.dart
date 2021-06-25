@@ -1,142 +1,215 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+// import 'package:learnUI/screens/TransferGold/components/CustomForm.dart';
 
-class Head extends StatelessWidget {
+class Head extends StatefulWidget {
+  @override
+  _StateHead createState() => _StateHead();
+}
+
+class _StateHead extends State<Head> {
+  // _currentInput ="";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 230,
+      height: 260,
       width: size.width,
       padding: EdgeInsets.only(
-          top: size.height * .01, right: 24, left: 24, bottom: 20),
+        top: size.height * .01,
+        right: 24,
+        left: 24,
+      ),
       decoration: BoxDecoration(
         color: Color(background),
       ),
       child: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.chevron_left,
-                          color: Colors.white,
-                          size: 30,
+            padding: EdgeInsets.only(top: 20),
+            child: Stack(
+                alignment: Alignment.topCenter,
+                clipBehavior: Clip.none,
+                children: [
+                  Row(children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.chevron_left,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          Container(
+                              child: Text(
+                            "Transfer Emas",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: header,
+                                fontWeight: FontWeight.w600),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ]),
+                  Positioned(
+                      bottom: -115,
+                      width: size.width,
+                      child: SizedBox(
+                        height: 120,
+                        child: Container(
+                          color: Colors.yellow,
                         ),
-                        Container(
-                            child: Text(
-                          "Transfer Emas",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: header,
-                              fontWeight: FontWeight.w600),
-                        ))
-                      ],
+                      )),
+                  Positioned(
+                    bottom: -50,
+                    child: Container(
+                      padding: EdgeInsets.all(24),
+                      height: 150,
+                      width: 340,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            bottomLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
+                            bottomRight: Radius.circular(8)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(.08),
+                            offset: Offset(
+                              5.0,
+                              5.0,
+                            ),
+                            blurRadius: 10.0,
+                            spreadRadius: 2.0,
+                          ),
+                          BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(0.0, 0.0),
+                            blurRadius: 0.0,
+                            spreadRadius: 0.0,
+                          ),
+                        ],
+                      ),
+                      child: Stack(children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Masukkan Nomor HP",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: sm),
+                            ),
+                            Container(
+                              width: 300,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Color.fromRGBO(151, 151, 151, 1)),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    bottomLeft: Radius.circular(8),
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8)),
+                              ),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: SizedBox(
+                                        height: 50,
+                                        width: 220,
+                                        child: MyCustomForm(
+                                          onChange: (context) => setState(() {
+                                            // _currentInput = context;
+                                            print(context);
+                                          }),
+                                        )),
+                                  ),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              left: BorderSide(
+                                                  color: Color.fromRGBO(
+                                                      151, 151, 151, 1)))),
+                                      padding: EdgeInsets.all(10),
+                                      child: Image.asset("images/contact.png"))
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ]),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Harga beli Emas"),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: RichText(
-                            text: TextSpan(
-                                text: "Rp. 893.252",
-                                style: TextStyle(
-                                    fontSize: input,
-                                    color: Color(upperGradient),
-                                    fontWeight: FontWeight.w600),
-                                children: [
-                                  TextSpan(
-                                      text: "/gram",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 18))
-                                ]),
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Kamis",
-                          style: TextStyle(color: Colors.white, fontSize: sm),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 14),
-                          child: Text(
-                            "10 Juni 2021",
-                            style: TextStyle(color: Colors.white, fontSize: sm),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ]),
-        ),
+                ])),
       ),
     );
   }
 }
 
-class Saldo extends StatelessWidget {
+class MyCustomForm extends StatefulWidget {
+  final Function(String) onChange;
+  MyCustomForm({required this.onChange});
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+class MyCustomFormState extends State<MyCustomForm> {
+  final myController = TextEditingController();
+  dynamic clearTextInput() {
+    myController.clear();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Saldo Emas Kamu"),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(
-                "2,000 gram",
-                style: TextStyle(
-                    fontSize: input,
-                    color: Color(upperGradient),
-                    fontWeight: FontWeight.w600),
-              ),
+    return TextFormField(
+      controller: myController,
+      onChanged: widget.onChange,
+      decoration: InputDecoration(
+        suffixIcon: Container(
+          padding: EdgeInsets.symmetric(vertical: 13),
+          child: RawMaterialButton(
+            onPressed: () {
+              myController.clear();
+            },
+            elevation: 0.0,
+            padding: EdgeInsets.all(0),
+            fillColor: Color.fromRGBO(151, 151, 151, .5),
+            child: Icon(
+              Icons.close,
+              size: 15.0,
+              color: Colors.white,
             ),
-            Row(children: [
-              Text(
-                "Senilai Rp. ",
-                style: TextStyle(fontSize: normal),
-              ),
-              Text(
-                "1.080.000",
-                style: TextStyle(fontSize: normal),
-              )
-            ])
-          ],
+            constraints: BoxConstraints.tight(Size(20, 20)),
+            shape: CircleBorder(),
+          ),
         ),
-        Icon(
-          Icons.visibility,
-          color: Colors.white,
-        )
-      ],
+        // border: UnderlineInputBorder(
+        //     borderSide: BorderSide(color: Color.fromRGBO(151, 151, 151, 1))),
+      ),
+      keyboardType: TextInputType.number,
+      style: TextStyle(
+          color: Colors.black, fontSize: normal, fontWeight: FontWeight.w600),
     );
   }
 }

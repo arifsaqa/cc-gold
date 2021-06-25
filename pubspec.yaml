@@ -72,6 +72,9 @@ flutter:
     - images/banks/BSI.png
     - images/banks/PERMATA.png
     - images/banks/GOPAY.png
+    - images/success.png
+    - images/barcode.png
+    - images/contact.png
   fonts:
     - family: MetroReg
       fonts:
