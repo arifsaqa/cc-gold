@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/screens/TransferGold/components/Head.dart';
+import 'package:learnUI/screens/TransferGold/components/Body.dart';
 
 class TransferGold extends StatelessWidget {
   @override
@@ -7,9 +8,7 @@ class TransferGold extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            Head(),
-          ],
+          children: [Head(), Body()],
         ),
       ),
     );

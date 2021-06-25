@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/screens/TransferGold/NominalScreen.dart';
 // import 'package:learnUI/screens/TransferGold/components/CustomForm.dart';
 
 class Head extends StatefulWidget {
@@ -61,12 +62,9 @@ class _StateHead extends State<Head> {
                       width: size.width,
                       child: SizedBox(
                         height: 120,
-                        child: Container(
-                          color: Colors.yellow,
-                        ),
                       )),
                   Positioned(
-                    bottom: -50,
+                    bottom: -53,
                     child: Container(
                       padding: EdgeInsets.all(24),
                       height: 150,
@@ -121,24 +119,36 @@ class _StateHead extends State<Head> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 10),
-                                    child: SizedBox(
-                                        height: 50,
-                                        width: 220,
-                                        child: MyCustomForm(
-                                          onChange: (context) => setState(() {
-                                            // _currentInput = context;
-                                            print(context);
-                                          }),
-                                        )),
+                                    child: Center(
+                                      child: SizedBox(
+                                          height: 50,
+                                          width: 231,
+                                          child: MyCustomForm(
+                                            onChange: (context) => setState(() {
+                                              // _currentInput = context;
+                                              print(context);
+                                            }),
+                                          )),
+                                    ),
                                   ),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              left: BorderSide(
-                                                  color: Color.fromRGBO(
-                                                      151, 151, 151, 1)))),
-                                      padding: EdgeInsets.all(10),
-                                      child: Image.asset("images/contact.png"))
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute<void>(
+                                              builder: (context) =>
+                                                  NominalScreen()));
+                                    },
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                left: BorderSide(
+                                                    color: Color.fromRGBO(
+                                                        151, 151, 151, 1)))),
+                                        padding: EdgeInsets.all(15),
+                                        child:
+                                            Image.asset("images/contact.png")),
+                                  )
                                 ],
                               ),
                             )
@@ -175,19 +185,18 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     myController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
       controller: myController,
       onChanged: widget.onChange,
       decoration: InputDecoration(
         suffixIcon: Container(
-          padding: EdgeInsets.symmetric(vertical: 13),
+          padding: EdgeInsets.symmetric(vertical: 15),
           child: RawMaterialButton(
             onPressed: () {
               myController.clear();
@@ -197,15 +206,14 @@ class MyCustomFormState extends State<MyCustomForm> {
             fillColor: Color.fromRGBO(151, 151, 151, .5),
             child: Icon(
               Icons.close,
-              size: 15.0,
+              size: 13.0,
               color: Colors.white,
             ),
             constraints: BoxConstraints.tight(Size(20, 20)),
             shape: CircleBorder(),
           ),
         ),
-        // border: UnderlineInputBorder(
-        //     borderSide: BorderSide(color: Color.fromRGBO(151, 151, 151, 1))),
+        border: InputBorder.none,
       ),
       keyboardType: TextInputType.number,
       style: TextStyle(
