@@ -18,8 +18,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20, top: 40),
-      padding: EdgeInsets.symmetric(horizontal: 24),
+      margin: EdgeInsets.only(left: 20, right: 20, top: 26, bottom: 26),
+      padding: EdgeInsets.all(24),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),

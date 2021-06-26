@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/screens/SharedComponents/MyGradient.dart';
 
 class Head extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class Head extends StatefulWidget {
 class _HeadState extends State<Head> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size; 
+    Size size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.only(bottom: 60),
         height: 250,
@@ -32,11 +33,11 @@ class _HeadState extends State<Head> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        GradientText(
+                            child: Text(
                           "Selamat Pagi,",
-                          style: TextStyle(
-                              color: Color(lowerGradient), fontSize: sm),
-                        ),
+                          style: TextStyle(fontSize: sm),
+                        )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: Text(
@@ -53,18 +54,18 @@ class _HeadState extends State<Head> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
+                        GradientText(
+                            child: Text(
                           "Kamis",
-                          style: TextStyle(
-                              color: Color(lowerGradient), fontSize: sm),
-                        ),
+                          style: TextStyle(fontSize: sm),
+                        )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text(
+                          child: GradientText(
+                              child: Text(
                             "10 Juni 2021",
-                            style: TextStyle(
-                                color: Color(lowerGradient), fontSize: sm),
-                          ),
+                            style: TextStyle(fontSize: sm),
+                          )),
                         )
                       ],
                     )
@@ -73,22 +74,30 @@ class _HeadState extends State<Head> {
               ),
             ),
             Positioned(
-              bottom: -40,
+              bottom: -60,
               child: Row(
                 children: [
                   Container(
-                    height: 100,
-                    width: 170,
+                    height: 120,
+                    width: size.width / 2 - 24,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            bottomLeft: Radius.circular(8)),
-                        color: Color(lowerGradient)),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          bottomLeft: Radius.circular(8)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(upperGradient1),
+                            Color(middleGradient1),
+                            Color(lowerGragdient1),
+                          ]),
+                    ),
                     child: Container(
                       padding: EdgeInsets.only(left: 24, top: 15, bottom: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Row(children: [
                             Icon(
@@ -118,22 +127,30 @@ class _HeadState extends State<Head> {
                     ),
                   ),
                   Container(
-                    height: 100,
-                    width: 170,
+                    height: 120,
+                    width: size.width / 2 - 24,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8)),
-                        color: Color(upperGradient)),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(upperGradient),
+                            Color(middleGradient),
+                            Color(lowerGradient),
+                          ]),
+                    ),
                     child: Container(
                       padding: EdgeInsets.only(left: 24, top: 15, bottom: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Row(children: [
                             Icon(
-                              Icons.trending_up,
+                              Icons.trending_down,
                               size: 20,
                               color: Colors.black38,
                             ),
@@ -142,7 +159,7 @@ class _HeadState extends State<Head> {
                                     fontSize: xm, color: Colors.black38))
                           ]),
                           Text(
-                            "Harga Jual :",
+                            "Harga Beli :",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600),

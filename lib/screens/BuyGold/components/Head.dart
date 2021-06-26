@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/screens/SharedComponents/MyGradient.dart';
 
 class Head extends StatelessWidget {
   @override
@@ -49,24 +50,22 @@ class Head extends StatelessWidget {
               children: [
                 Text("Harga beli Emas"),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: RichText(
-                    text: TextSpan(
-                        text: "Rp. 893.252",
-                        style: TextStyle(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        GradientText(
+                            child: Text(
+                          "Rp. 893.252",
+                          style: TextStyle(
                             fontSize: input,
-                            color: Color(upperGradient),
-                            fontWeight: FontWeight.w600),
-                        children: [
-                          TextSpan(
-                              text: "/gram",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 18))
-                        ]),
-                  ),
-                )
+                            // color: Color(upperGradient),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )),
+                        Text("/gram")
+                      ],
+                    ))
               ],
             ),
             Column(

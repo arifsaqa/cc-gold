@@ -63,12 +63,21 @@ class _SaldoState extends State<Saldo> {
               margin: EdgeInsets.only(top: 5),
               padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
               decoration: BoxDecoration(
-                  color: Color(upperGradient),
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(upperGradient),
+                        Color(middleGradient),
+                        Color(lowerGradient),
+                      ]),
                   borderRadius: BorderRadius.circular(4)),
               child: Text(
                 "Akun Terverifikasi",
                 style: TextStyle(
-                    color: Color(background), fontWeight: FontWeight.w500),
+                  fontFamily: "MetroMedium",
+                  color: Color(background),
+                ),
               ),
             ),
           ],

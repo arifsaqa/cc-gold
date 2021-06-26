@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/screens/SharedComponents/MyGradient.dart';
 
 class Head extends StatelessWidget {
   @override
@@ -54,15 +55,12 @@ class _SaldoState extends State<Saldo> {
           children: [
             Text("Saldo Emas Kamu"),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(
-                display ? "2,000 gram" : "**********",
-                style: TextStyle(
-                    fontSize: input,
-                    color: Color(upperGradient),
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: GradientText(
+                    child: Text(
+                  display ? "2,000 gram" : "**********",
+                  style: TextStyle(fontSize: input, fontFamily: "MetroMedium"),
+                ))),
             Row(children: [
               Text(
                 "Senilai Rp. ",

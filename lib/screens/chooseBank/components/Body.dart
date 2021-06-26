@@ -21,7 +21,6 @@ class Body extends StatelessWidget {
           ]),
       child: SizedBox(
           height: 370,
-          width: size.width,
           child: ListView.builder(
             scrollDirection: Axis.vertical,
             itemCount: paymentMethods.length,
@@ -64,7 +63,6 @@ class Body extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    width: size.width * .6,
                                     child: Text(
                                       paymentMethods[index].label,
                                       style: TextStyle(
