@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
             ),
           ),
           SizedBox(
-              height: 370,
+              height: 300,
               width: size.width,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,

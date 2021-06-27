@@ -12,7 +12,6 @@ class HexColor extends Color {
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
 
-final icin = HexColor._getColorFromHex("#202D3E");
 final background = HexColor._getColorFromHex("#202D3E");
 final upperGradient = HexColor._getColorFromHex("#F7D976");
 final upperGradient1 = HexColor._getColorFromHex("#e3c76b");

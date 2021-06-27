@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
-import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
 import 'package:learnUI/screens/profile/ProfileScreen.dart';
 import 'package:learnUI/screens/wallet/WalletScreen.dart';
+import 'package:learnUI/screens/welcome/auth.dart';
+import 'package:learnUI/screens/welcome/welcome.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,21 +35,34 @@ class MyApp extends StatelessWidget {
               fontFamily: "MetroReg"),
           visualDensity: VisualDensity.adaptivePlatformDensity),
       title: _title,
-      home: MyStatefulWidget(
-        key: null,
-      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Welcome(),
+        '/login': (context) => Auth(
+              title: "Masuk",
+              description: "Silahkan masukkan nomor HP-mu yang aktif",
+              onClick: "login",
+            ),
+        '/verifikasi': (context) => Auth(
+              title: "Verifikasi",
+              description:
+                  "Silahkan masukkan kode verifikasi yang dikirim melalui SMS",
+              onClick: "verif",
+            ),
+        '/logged': (context) => LoggedIn()
+      },
     );
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key? key}) : super(key: key);
+class LoggedIn extends StatefulWidget {
+  LoggedIn({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  _LoggedInState createState() => _LoggedInState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _LoggedInState extends State<LoggedIn> {
   int _bottomNavIndex = 0;
   List<Widget> pages = [
     HomeScreen(),

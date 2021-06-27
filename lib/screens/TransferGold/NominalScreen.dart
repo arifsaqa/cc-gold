@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/models/prices.dart';
+import 'package:learnUI/screens/SharedComponents/MyGradient.dart';
 import 'package:learnUI/screens/TransferGold/SetMessageScreen.dart';
 import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
@@ -64,26 +65,24 @@ class Head extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Harga Jual Emas"),
+                Text("Harga jual Emas"),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: RichText(
-                    text: TextSpan(
-                        text: "Rp. 893.252",
-                        style: TextStyle(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        GradientText(
+                            child: Text(
+                          "Rp. 893.252",
+                          style: TextStyle(
                             fontSize: input,
-                            color: Color(upperGradient),
-                            fontWeight: FontWeight.w600),
-                        children: [
-                          TextSpan(
-                              text: "/gram",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 18))
-                        ]),
-                  ),
-                )
+                            // color: Color(upperGradient),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )),
+                        Text("/gram")
+                      ],
+                    ))
               ],
             ),
             Column(
@@ -164,7 +163,6 @@ class _PromoBuildState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height - 230,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
