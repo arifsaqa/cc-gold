@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
 import 'package:learnUI/screens/profile/ProfileScreen.dart';
 import 'package:learnUI/screens/wallet/WalletScreen.dart';
@@ -66,7 +67,7 @@ class _LoggedInState extends State<LoggedIn> {
   int _bottomNavIndex = 0;
   List<Widget> pages = [
     HomeScreen(),
-    Settings(),
+    GoldGraphScreen(),
     WalletScreen(),
     ProfileScreen(),
   ];
@@ -78,11 +79,12 @@ class _LoggedInState extends State<LoggedIn> {
       });
 
       print(_bottomNavIndex);
-    } else {
-      Navigator.of(context).push(
-        MaterialPageRoute<void>(builder: (context) => Settings()),
-      );
     }
+    // else {
+    //   Navigator.of(context).push(
+    //     MaterialPageRoute<void>(builder: (context) => Settings()),
+    //   );
+    // }
   }
 
   Widget pageCaller(int index) {
@@ -97,10 +99,7 @@ class _LoggedInState extends State<LoggedIn> {
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 10,
-            ),
+            BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 1),
           ],
         ),
         child: BottomNavigationBar(
@@ -162,26 +161,13 @@ class _LoggedInState extends State<LoggedIn> {
               label: 'Profile',
             ),
           ],
+          type: BottomNavigationBarType.fixed,
           unselectedItemColor: Color(light),
           currentIndex: _bottomNavIndex,
           selectedItemColor: Color(background),
           showSelectedLabels: false,
           onTap: _onItemTapped,
         ),
-      ),
-    );
-  }
-}
-
-class Settings extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Center(
-        child: Text("Settings"),
       ),
     );
   }

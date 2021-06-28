@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/screens/TransferGold/Confirmation.dart';
-import 'package:learnUI/screens/TransferGold/components/MyBackButton.dart';
+import 'package:learnUI/screens/transferGold/Confirmation.dart';
+import 'package:learnUI/screens/transferGold/components/MyBackButton.dart';
 
 class SetMessage extends StatelessWidget {
   @override

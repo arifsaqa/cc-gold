@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/screens/BuyGold/BuyGoldScreen.dart';
-import 'package:learnUI/screens/TransferGold/TransferGoldScreen.dart';
+import 'package:learnUI/screens/buyGold/BuyGoldScreen.dart';
+import 'package:learnUI/screens/transferGold/TransferGoldScreen.dart';
 import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';
 
 class ShortCuts extends StatelessWidget {
@@ -17,7 +17,7 @@ class ShortCuts extends StatelessWidget {
           _buildButtonColumn(
               "images/sell.png", context, "Jual Emas", SellGoldScreen()),
           _buildButtonColumn(
-              "images/transfer.png", context, "Transfer Emas", TransferGold())
+              "images/transfer.png", context, "Transfer Emas", transferGold())
         ],
       ),
     );

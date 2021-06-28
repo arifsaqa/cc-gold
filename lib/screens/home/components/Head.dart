@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/screens/SharedComponents/MyGradient.dart';
+import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 
 class Head extends StatefulWidget {
   @override

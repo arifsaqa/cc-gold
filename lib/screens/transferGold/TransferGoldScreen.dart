@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:learnUI/screens/BuyGold/components/Head.dart';
-import 'package:learnUI/screens/BuyGold/components/Body.dart';
+import 'package:learnUI/screens/transferGold/components/Head.dart';
+import 'package:learnUI/screens/transferGold/components/Body.dart';
 
-class BuyGold extends StatelessWidget {
+class transferGold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

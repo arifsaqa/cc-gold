@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/screens/TransferGold/NominalScreen.dart';
-// import 'package:learnUI/screens/TransferGold/components/CustomForm.dart';
+import 'package:learnUI/screens/transferGold/NominalScreen.dart';
+// import 'package:learnUI/screens/transferGold/components/CustomForm.dart';
 
 class Head extends StatefulWidget {
   @override
@@ -121,7 +121,7 @@ class _StateHead extends State<Head> {
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Center(
                                       child: SizedBox(
-                                          height: 50,
+                                          height: 40,
                                           width: 231,
                                           child: MyCustomForm(
                                             onChange: (context) => setState(() {
@@ -196,7 +196,7 @@ class MyCustomFormState extends State<MyCustomForm> {
       onChanged: widget.onChange,
       decoration: InputDecoration(
         suffixIcon: Container(
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: RawMaterialButton(
             onPressed: () {
               myController.clear();
