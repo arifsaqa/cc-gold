@@ -20,6 +20,7 @@ class _PromoBuildState extends State<Body> {
           padding: EdgeInsets.only(left: 24, right: 24, bottom: 0),
           child: Text(
             "Berita Terkini",
+            textScaleFactor: 1.0,
             style: TextStyle(
                 color: Color.fromRGBO(32, 45, 62, 0.5),
                 fontSize: sm,
@@ -71,6 +72,7 @@ class _PromoBuildState extends State<Body> {
                                 width: size.width * .6,
                                 child: Text(
                                   news[index].title,
+                                  textScaleFactor: 1.0,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600),
@@ -80,6 +82,7 @@ class _PromoBuildState extends State<Body> {
                                 width: size.width * .6,
                                 child: Text(
                                   news[index].date,
+                                  textScaleFactor: 1.0,
                                   style: TextStyle(
                                       color: Colors.black45, fontSize: 12),
                                 ),

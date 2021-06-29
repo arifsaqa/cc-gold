@@ -51,6 +51,7 @@ class ShortCuts extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 8),
                 child: Text(
                   label,
+                  textScaleFactor: 1.0,
                   style: TextStyle(
                     fontSize: xm,
                     fontWeight: FontWeight.w600,

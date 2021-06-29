@@ -36,12 +36,14 @@ class _HeadState extends State<Head> {
                         GradientText(
                             child: Text(
                           "Selamat Pagi,",
+                          textScaleFactor: 1.0,
                           style: TextStyle(fontSize: sm),
                         )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: Text(
                             "Mr. Subaidi",
+                            textScaleFactor: 1.0,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: normal,
@@ -57,6 +59,7 @@ class _HeadState extends State<Head> {
                         GradientText(
                             child: Text(
                           "Kamis",
+                          textScaleFactor: 1.0,
                           style: TextStyle(fontSize: sm),
                         )),
                         Padding(
@@ -64,6 +67,7 @@ class _HeadState extends State<Head> {
                           child: GradientText(
                               child: Text(
                             "10 Juni 2021",
+                            textScaleFactor: 1.0,
                             style: TextStyle(fontSize: sm),
                           )),
                         )
@@ -106,17 +110,20 @@ class _HeadState extends State<Head> {
                               color: Colors.black38,
                             ),
                             Text("0,74%",
+                                textScaleFactor: 1.0,
                                 style: TextStyle(
                                     fontSize: xm, color: Colors.black38))
                           ]),
                           Text(
                             "Harga Jual :",
+                            textScaleFactor: 1.0,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600),
                           ),
                           Text(
                             "Rp.891.452/gr",
+                            textScaleFactor: 1.0,
                             style: TextStyle(
                                 fontSize: sm,
                                 color: Colors.black,
@@ -155,17 +162,20 @@ class _HeadState extends State<Head> {
                               color: Colors.black38,
                             ),
                             Text("0,74%",
+                                textScaleFactor: 1.0,
                                 style: TextStyle(
                                     fontSize: xm, color: Colors.black38))
                           ]),
                           Text(
                             "Harga Beli :",
+                            textScaleFactor: 1.0,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600),
                           ),
                           Text(
                             "Rp.891.452/gr",
+                            textScaleFactor: 1.0,
                             style: TextStyle(
                                 fontSize: sm,
                                 color: Colors.black,

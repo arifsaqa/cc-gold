@@ -14,7 +14,7 @@ class _StateHead extends State<Head> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height / 1.5,
+      height: size.height / 2,
       width: size.width,
       decoration: BoxDecoration(
         color: Color(background),
@@ -25,24 +25,6 @@ class _StateHead extends State<Head> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 30),
-                  padding: EdgeInsets.only(right: 24, left: 24),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Grafik Emas",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: header,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -62,6 +44,7 @@ class _StateHead extends State<Head> {
                             : Colors.white10,
                         child: Text(
                           "Harga Jual",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                               fontSize: sm, fontFamily: "MetroMedium"),
                         ),
@@ -83,6 +66,7 @@ class _StateHead extends State<Head> {
                             : Colors.white10,
                         child: Text(
                           "Harga Beli",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                               fontSize: sm, fontFamily: "MetroMedium"),
                         ),

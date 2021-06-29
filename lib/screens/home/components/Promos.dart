@@ -12,6 +12,7 @@ class _PromoBuildState extends State<PromosBuild> {
   int selectedId = 0;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       child: SafeArea(
         child: Column(
@@ -21,6 +22,7 @@ class _PromoBuildState extends State<PromosBuild> {
               padding: EdgeInsets.only(left: 24, right: 24, bottom: 0),
               child: Text(
                 "Promo Hari Ini",
+                textScaleFactor: 1.0,
                 style: TextStyle(
                     color: Color.fromRGBO(32, 45, 62, 0.5),
                     fontSize: sm,
@@ -29,16 +31,18 @@ class _PromoBuildState extends State<PromosBuild> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
-              child: SizedBox(
-                  height: 120,
+              child: Container(
+                  height: size.height / 3.5,
+                  width: size.width,
                   child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
+                    scrollDirection: Axis.vertical,
                     itemCount: promos.length,
                     itemBuilder: (context, index) {
                       return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 24),
+                            margin: EdgeInsets.symmetric(vertical: 24),
                             width: 327,
                             decoration: BoxDecoration(
                                 color: Color(background),
@@ -51,13 +55,14 @@ class _PromoBuildState extends State<PromosBuild> {
                                   padding: const EdgeInsets.all(22.0),
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       promos[index].description == null
                                           ? Center(
                                               heightFactor: 1.5,
                                               child: Text(
                                                 promos[index].title,
+                                                textScaleFactor: 1.0,
                                                 style: TextStyle(
                                                     color: Color(upperGradient),
                                                     fontSize: normal),
@@ -65,6 +70,7 @@ class _PromoBuildState extends State<PromosBuild> {
                                             )
                                           : Text(
                                               promos[index].title,
+                                              textScaleFactor: 1.0,
                                               style: TextStyle(
                                                   color: Color(upperGradient),
                                                   fontSize: normal),
@@ -74,11 +80,13 @@ class _PromoBuildState extends State<PromosBuild> {
                                       promos[index].description != null
                                           ? Text(
                                               promos[index].description ?? "",
+                                              textScaleFactor: 1.0,
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: xm))
                                           : Text(
                                               "",
+                                              textScaleFactor: 1.0,
                                               style: TextStyle(fontSize: 0),
                                             )
                                     ],

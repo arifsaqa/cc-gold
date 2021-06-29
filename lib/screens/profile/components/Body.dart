@@ -93,6 +93,7 @@ class Body extends StatelessWidget {
                                   width: size.width * .6,
                                   child: Text(
                                     settings[index].title,
+                                    textScaleFactor: 1.0,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600),

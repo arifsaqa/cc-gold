@@ -65,6 +65,7 @@ class Body extends StatelessWidget {
                                   Container(
                                     child: Text(
                                       paymentMethods[index].label,
+                                      textScaleFactor: 1.0,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: normal,

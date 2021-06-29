@@ -62,6 +62,7 @@ class Body extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RichText(
+                    textScaleFactor: 1.0,
                     text: TextSpan(
                         text: typeId == 0 ? 'Beli' : 'Jual',
                         style: TextStyle(
@@ -89,6 +90,7 @@ class Body extends StatelessWidget {
                     height: 5,
                   ),
                   RichText(
+                    textScaleFactor: 1.0,
                     text: TextSpan(
                         text: "Harga Emas : ",
                         style:
@@ -122,10 +124,12 @@ class Body extends StatelessWidget {
                   children: [
                     Text(
                       "Nominal",
+                      textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     ),
                     Text(
                       price,
+                      textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     )
                   ],
@@ -135,10 +139,12 @@ class Body extends StatelessWidget {
                   children: [
                     Text(
                       "Biaya Admin",
+                      textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     ),
                     Text(
                       "Rp 0",
+                      textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     )
                   ],
@@ -148,10 +154,12 @@ class Body extends StatelessWidget {
                   children: [
                     Text(
                       "Total",
+                      textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     ),
                     Text(
                       price,
+                      textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     )
                   ],
@@ -179,6 +187,7 @@ class Body extends StatelessWidget {
   Widget checkType(int id) {
     return Text(
       transactionTypes[id].title + " Sukses",
+      textScaleFactor: 1.0,
       style: TextStyle(
           fontSize: header, fontWeight: FontWeight.w600, color: Colors.black),
     );

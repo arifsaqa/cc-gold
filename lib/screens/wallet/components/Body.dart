@@ -20,6 +20,7 @@ class _PromoBuildState extends State<Body> {
           padding: EdgeInsets.only(left: 24, right: 24, bottom: 0),
           child: Text(
             "Riwayat Transaksi",
+            textScaleFactor: 1.0,
             style: TextStyle(
                 color: Color.fromRGBO(32, 45, 62, 0.5),
                 fontSize: sm,
@@ -74,6 +75,7 @@ class _PromoBuildState extends State<Body> {
                                 width: size.width * .6,
                                 child: Text(
                                   transactions[index].title,
+                                  textScaleFactor: 1.0,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600),
@@ -83,6 +85,7 @@ class _PromoBuildState extends State<Body> {
                                 width: size.width * .6,
                                 child: Text(
                                   transactions[index].date,
+                                  textScaleFactor: 1.0,
                                   style: TextStyle(
                                       color: Colors.black45, fontSize: 12),
                                 ),

@@ -8,7 +8,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 230,
+      height: 150,
       width: size.width,
       padding: EdgeInsets.only(right: 24, left: 24),
       decoration: BoxDecoration(
@@ -16,31 +16,6 @@ class Head extends StatelessWidget {
       ),
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        Container(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.chevron_left,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                Container(
-                    child: Text(
-                  "Beli Emas",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: header,
-                      fontWeight: FontWeight.w600),
-                ))
-              ],
-            ),
-          ),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -48,7 +23,10 @@ class Head extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Harga beli Emas"),
+                Text(
+                  "Harga beli Emas",
+                  textScaleFactor: 1.0,
+                ),
                 Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Row(
@@ -57,13 +35,16 @@ class Head extends StatelessWidget {
                         GradientText(
                             child: Text(
                           "Rp. 893.252",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                             fontSize: input,
-                            // color: Color(upperGradient),
                             fontWeight: FontWeight.w600,
                           ),
                         )),
-                        Text("/gram")
+                        Text(
+                          "/gram",
+                          textScaleFactor: 1.0,
+                        )
                       ],
                     ))
               ],
@@ -74,12 +55,14 @@ class Head extends StatelessWidget {
               children: [
                 Text(
                   "Kamis",
+                  textScaleFactor: 1.0,
                   style: TextStyle(color: Colors.white, fontSize: sm),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 14),
                   child: Text(
                     "10 Juni 2021",
+                    textScaleFactor: 1.0,
                     style: TextStyle(color: Colors.white, fontSize: sm),
                   ),
                 )
@@ -101,11 +84,15 @@ class Saldo extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Saldo Emas Kamu"),
+            Text(
+              "Saldo Emas Kamu",
+              textScaleFactor: 1.0,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Text(
                 "2,000 gram",
+                textScaleFactor: 1.0,
                 style: TextStyle(
                     fontSize: input,
                     color: Color(upperGradient),
@@ -115,10 +102,12 @@ class Saldo extends StatelessWidget {
             Row(children: [
               Text(
                 "Senilai Rp. ",
+                textScaleFactor: 1.0,
                 style: TextStyle(fontSize: normal),
               ),
               Text(
                 "1.080.000",
+                textScaleFactor: 1.0,
                 style: TextStyle(fontSize: normal),
               )
             ])

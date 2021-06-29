@@ -23,6 +23,7 @@ class Head extends StatelessWidget {
               children: [
                 Text(
                   "Dompet Emas",
+                  textScaleFactor: 1.0,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: header,
@@ -59,15 +60,18 @@ class _SaldoState extends State<Saldo> {
                 child: GradientText(
                     child: Text(
                   display ? "2,000 gram" : "**********",
+                  textScaleFactor: 1.0,
                   style: TextStyle(fontSize: input, fontFamily: "MetroMedium"),
                 ))),
             Row(children: [
               Text(
                 "Senilai Rp. ",
+                textScaleFactor: 1.0,
                 style: TextStyle(fontSize: normal),
               ),
               Text(
                 display ? "1.080.000" : "*********",
+                textScaleFactor: 1.0,
                 style: TextStyle(fontSize: normal),
               )
             ])

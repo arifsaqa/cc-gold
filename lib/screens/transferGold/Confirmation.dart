@@ -79,6 +79,7 @@ class _BodyState extends State<Body> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RichText(
+                          textScaleFactor: 1.0,
                           text: TextSpan(
                               text: 'Transfer ',
                               style: TextStyle(
@@ -103,6 +104,7 @@ class _BodyState extends State<Body> {
                               ]),
                         ),
                         RichText(
+                          textScaleFactor: 1.0,
                           text: TextSpan(
                               text: "Harga Emas : ",
                               style: TextStyle(
@@ -154,6 +156,7 @@ class _BodyState extends State<Body> {
                       children: [
                         Text(
                           "No Tujuan",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Color(priceLabel),
@@ -161,14 +164,17 @@ class _BodyState extends State<Body> {
                         ),
                         Text(
                           "0812 3456 7890",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Color(priceLabel),
                               fontSize: normal),
                         ),
                         Text("a/n Albert Einstein",
+                            textScaleFactor: 1.0,
                             style: TextStyle(color: Color(priceLabel))),
                         Text("Pesan : Selamat Menempuh Hidup Baru",
+                            textScaleFactor: 1.0,
                             style: TextStyle(color: Color(priceLabel))),
                       ],
                     ),
@@ -188,6 +194,7 @@ class _BodyState extends State<Body> {
                       children: [
                         Text(
                           "Total :",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                             color: Colors.black,
                           ),
@@ -197,6 +204,7 @@ class _BodyState extends State<Body> {
                         ),
                         Text(
                           "Rp. 893.252",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: normal,
@@ -217,6 +225,7 @@ class _BodyState extends State<Body> {
                       },
                       child: Text(
                         "Konfirmasi",
+                        textScaleFactor: 1.0,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: sm,

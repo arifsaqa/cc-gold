@@ -49,6 +49,7 @@ class Head extends StatelessWidget {
                 Container(
                     child: Text(
                   "Nominal Transfer",
+                  textScaleFactor: 1.0,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: header,
@@ -74,6 +75,7 @@ class Head extends StatelessWidget {
                         GradientText(
                             child: Text(
                           "Rp. 893.252",
+                          textScaleFactor: 1.0,
                           style: TextStyle(
                             fontSize: input,
                             // color: Color(upperGradient),
@@ -91,12 +93,14 @@ class Head extends StatelessWidget {
               children: [
                 Text(
                   "Kamis",
+                  textScaleFactor: 1.0,
                   style: TextStyle(color: Colors.white, fontSize: sm),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 14),
                   child: Text(
                     "10 Juni 2021",
+                    textScaleFactor: 1.0,
                     style: TextStyle(color: Colors.white, fontSize: sm),
                   ),
                 )
@@ -123,6 +127,7 @@ class Saldo extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Text(
                 "2,000 gram",
+                textScaleFactor: 1.0,
                 style: TextStyle(
                     fontSize: input,
                     color: Color(upperGradient),
@@ -132,10 +137,12 @@ class Saldo extends StatelessWidget {
             Row(children: [
               Text(
                 "Senilai Rp. ",
+                textScaleFactor: 1.0,
                 style: TextStyle(fontSize: normal),
               ),
               Text(
                 "1.080.000",
+                textScaleFactor: 1.0,
                 style: TextStyle(fontSize: normal),
               )
             ])
@@ -174,6 +181,7 @@ class _PromoBuildState extends State<Body> {
                     EdgeInsets.only(left: 24, right: 24, bottom: 0, top: 24),
                 child: Text(
                   "Pilih Emas",
+                  textScaleFactor: 1.0,
                   style: TextStyle(
                       color: Color.fromRGBO(32, 45, 62, 0.5),
                       fontSize: sm,
@@ -250,6 +258,7 @@ class _PromoBuildState extends State<Body> {
                                         children: [
                                           Text(
                                             prices[index].label,
+                                            textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 color: Color(priceLabel),
@@ -262,6 +271,7 @@ class _PromoBuildState extends State<Body> {
                                         children: [
                                           Text(
                                             prices[index].price,
+                                            textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 color: Color(price),
                                                 fontSize: xm),
@@ -289,6 +299,7 @@ class _PromoBuildState extends State<Body> {
                   children: [
                     Text(
                       "Total :",
+                      textScaleFactor: 1.0,
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -298,6 +309,7 @@ class _PromoBuildState extends State<Body> {
                     ),
                     Text(
                       selectePrice,
+                      textScaleFactor: 1.0,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: normal,
@@ -314,6 +326,7 @@ class _PromoBuildState extends State<Body> {
                   },
                   child: Text(
                     "Konfirmasi",
+                    textScaleFactor: 1.0,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: sm,

@@ -57,6 +57,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             alignment: Alignment.bottomLeft,
             child: Text(
               "Tambahkan Pesan",
+              textScaleFactor: 1.0,
               style: TextStyle(
                   color: Color.fromRGBO(32, 45, 62, 0.5),
                   fontSize: sm,
@@ -98,6 +99,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
               },
               child: Text(
                 "Konfirmasi",
+                textScaleFactor: 1.0,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: sm,

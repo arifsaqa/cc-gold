@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(color: Color(background)),
           backgroundColor: Colors.white,
           inputDecorationTheme: InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(
@@ -163,6 +164,7 @@ class _LoggedInState extends State<LoggedIn> {
           ],
           type: BottomNavigationBarType.fixed,
           unselectedItemColor: Color(light),
+          showUnselectedLabels: false,
           currentIndex: _bottomNavIndex,
           selectedItemColor: Color(background),
           showSelectedLabels: false,

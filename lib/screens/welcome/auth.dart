@@ -18,11 +18,13 @@ class _StateHandlingField extends State<HandlingField> {
     if (cek == "verif") {
       return Text(
         "Verifikasi",
+        textScaleFactor: 1.0,
         style: TextStyle(color: Colors.black),
       );
     } else {
       return Text(
         "Login",
+        textScaleFactor: 1.0,
         style: TextStyle(color: Colors.black),
       );
     }
@@ -101,6 +103,7 @@ class Auth extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 10, top: 100),
                     child: Text(
                       title,
+                      textScaleFactor: 1.0,
                       style: TextStyle(
                         fontFamily: "MetroBold",
                         fontSize: md,
@@ -114,6 +117,7 @@ class Auth extends StatelessWidget {
                   Expanded(
                     child: Text(
                       description,
+                      textScaleFactor: 1.0,
                       style: TextStyle(
                         fontSize: sm,
                       ),

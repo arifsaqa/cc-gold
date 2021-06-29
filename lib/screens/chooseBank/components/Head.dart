@@ -35,6 +35,7 @@ class Head extends StatelessWidget {
                         Container(
                           child: Text(
                             "Pilih Bank",
+                            textScaleFactor: 1.0,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: header,

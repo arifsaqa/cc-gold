@@ -81,6 +81,7 @@ class _ChartState extends State<Chart> {
           getTextStyles: (value) => const TextStyle(
               color: Color(0xff68737d),
               fontWeight: FontWeight.bold,
+              fontFamily: "MetroReg",
               fontSize: 16),
           getTitles: (value) {
             int toWatch = value.toInt();
@@ -93,11 +94,11 @@ class _ChartState extends State<Chart> {
                 return bottomTitles[2];
               case 7:
                 return bottomTitles[3];
-              case 8:
+              case 9:
                 return bottomTitles[4];
-              case 10:
+              case 11:
                 return bottomTitles[5];
-              case 8:
+              case 13:
                 return bottomTitles[6];
             }
             return '';
@@ -105,10 +106,11 @@ class _ChartState extends State<Chart> {
           margin: 8,
         ),
         leftTitles: SideTitles(
-          showTitles: true,
+          showTitles: false,
           getTextStyles: (value) => const TextStyle(
-            color: Color(0xffffff),
+            color: Colors.white,
             fontWeight: FontWeight.bold,
+            fontFamily: "MetroReg",
             fontSize: 15,
           ),
           getTitles: (value) {
@@ -132,7 +134,7 @@ class _ChartState extends State<Chart> {
         show: false,
       ),
       minX: 0,
-      maxX: 11,
+      maxX: 14,
       minY: 0,
       maxY: 6,
       lineBarsData: [
@@ -145,7 +147,8 @@ class _ChartState extends State<Chart> {
             FlSpot(6.8, 3.1),
             FlSpot(8, 4),
             FlSpot(9.5, 3),
-            FlSpot(11, 4),
+            FlSpot(13, 4),
+            FlSpot(14, 3),
           ],
           isCurved: true,
           colors: [

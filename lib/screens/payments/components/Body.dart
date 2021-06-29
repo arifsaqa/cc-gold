@@ -63,6 +63,7 @@ class _BodyState extends State<Body> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RichText(
+                      textScaleFactor: 1.0,
                       text: TextSpan(
                           text: widget.typeId == 0 ? 'Beli' : 'Jual',
                           style: TextStyle(
@@ -87,6 +88,7 @@ class _BodyState extends State<Body> {
                           ]),
                     ),
                     RichText(
+                      textScaleFactor: 1.0,
                       text: TextSpan(
                           text: "Harga Emas : ",
                           style:
@@ -142,10 +144,12 @@ class _BodyState extends State<Body> {
                       children: [
                         Text(
                           "Nominal",
+                          textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         ),
                         Text(
                           widget.price,
+                          textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         )
                       ],
@@ -155,10 +159,12 @@ class _BodyState extends State<Body> {
                       children: [
                         Text(
                           "Biaya Admin",
+                          textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         ),
                         Text(
                           "Rp 0",
+                          textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         )
                       ],
@@ -168,10 +174,12 @@ class _BodyState extends State<Body> {
                       children: [
                         Text(
                           "Total",
+                          textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         ),
                         Text(
                           widget.price,
+                          textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         )
                       ],
@@ -217,6 +225,7 @@ class _BodyState extends State<Body> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Metode Pembayaran",
+                                  textScaleFactor: 1.0,
                                   style: TextStyle(
                                       fontSize: normal, color: Colors.black)),
                               Row(children: [
@@ -230,6 +239,7 @@ class _BodyState extends State<Body> {
                                 ),
                                 Text(
                                   paymentMethods[bankIndex].label,
+                                  textScaleFactor: 1.0,
                                   style: TextStyle(color: Colors.black),
                                 )
                               ]),
@@ -255,6 +265,7 @@ class _BodyState extends State<Body> {
                   children: [
                     Text(
                       "Total :",
+                      textScaleFactor: 1.0,
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -264,6 +275,7 @@ class _BodyState extends State<Body> {
                     ),
                     Text(
                       widget.price,
+                      textScaleFactor: 1.0,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: normal,
@@ -284,6 +296,7 @@ class _BodyState extends State<Body> {
                   },
                   child: Text(
                     "Konfirmasi",
+                    textScaleFactor: 1.0,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: sm,

@@ -22,6 +22,7 @@ class Head extends StatelessWidget {
               children: [
                 Text(
                   "Profile Saya",
+                  textScaleFactor: 1.0,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: header,
@@ -54,6 +55,7 @@ class _SaldoState extends State<Saldo> {
           children: [
             Text(
               "Mr. Subaidi",
+              textScaleFactor: 1.0,
               style: TextStyle(
                 fontSize: name,
                 fontWeight: FontWeight.w600,
@@ -74,6 +76,7 @@ class _SaldoState extends State<Saldo> {
                   borderRadius: BorderRadius.circular(4)),
               child: Text(
                 "Akun Terverifikasi",
+                textScaleFactor: 1.0,
                 style: TextStyle(
                   fontFamily: "MetroMedium",
                   color: Color(background),
