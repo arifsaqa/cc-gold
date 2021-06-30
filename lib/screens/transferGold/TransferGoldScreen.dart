@@ -3,7 +3,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/screens/transferGold/components/Head.dart';
 import 'package:learnUI/screens/transferGold/components/Body.dart';
 
-class transferGold extends StatelessWidget {
+class TransferGold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,6 +14,7 @@ class transferGold extends StatelessWidget {
             child: Text(
               "Transfer Emas",
               textScaleFactor: 1.0,
+              style: TextStyle(fontFamily: "MetroBold"),
             )),
       ),
       body: SingleChildScrollView(

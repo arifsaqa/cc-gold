@@ -13,6 +13,7 @@ class NotificationScreen extends StatelessWidget {
             child: Text(
               "Notifikasi",
               textScaleFactor: 1.0,
+              style: TextStyle(fontFamily: "MetroBold"),
             )),
       ),
       body: SingleChildScrollView(

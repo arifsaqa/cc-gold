@@ -18,6 +18,7 @@ class NominalScreen extends StatelessWidget {
             child: Text(
               "Nominal Transfer",
               textScaleFactor: 1.0,
+              style: TextStyle(fontFamily: "MetroBold"),
             )),
       ),
       body: SingleChildScrollView(
@@ -96,49 +97,49 @@ class Head extends StatelessWidget {
   }
 }
 
-class Saldo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Saldo Emas Kamu"),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(
-                "2,000 gram",
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                    fontSize: input,
-                    color: Color(upperGradient),
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-            Row(children: [
-              Text(
-                "Senilai Rp. ",
-                textScaleFactor: 1.0,
-                style: TextStyle(fontSize: normal),
-              ),
-              Text(
-                "1.080.000",
-                textScaleFactor: 1.0,
-                style: TextStyle(fontSize: normal),
-              )
-            ])
-          ],
-        ),
-        Icon(
-          Icons.visibility,
-          color: Colors.white,
-        )
-      ],
-    );
-  }
-}
+// class Saldo extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text("Saldo Emas Kamu"),
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 5.0),
+//               child: Text(
+//                 "2,000 gram",
+//                 textScaleFactor: 1.0,
+//                 style: TextStyle(
+//                     fontSize: input,
+//                     color: Color(upperGradient),
+//                     fontWeight: FontWeight.w600),
+//               ),
+//             ),
+//             Row(children: [
+//               Text(
+//                 "Senilai Rp. ",
+//                 textScaleFactor: 1.0,
+//                 style: TextStyle(fontSize: normal),
+//               ),
+//               Text(
+//                 "1.080.000",
+//                 textScaleFactor: 1.0,
+//                 style: TextStyle(fontSize: normal),
+//               )
+//             ])
+//           ],
+//         ),
+//         Icon(
+//           Icons.visibility,
+//           color: Colors.white,
+//         )
+//       ],
+//     );
+//   }
+// }
 
 class Body extends StatefulWidget {
   @override
@@ -153,7 +154,7 @@ class _PromoBuildState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height - 230,
+      height: size.height - 150,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -271,7 +272,7 @@ class _PromoBuildState extends State<Body> {
             ],
           ),
           Container(
-            height: 96,
+            padding: EdgeInsets.symmetric(vertical: 20),
             margin: EdgeInsets.symmetric(horizontal: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

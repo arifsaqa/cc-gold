@@ -11,9 +11,13 @@ class GoldGraphScreen extends StatelessWidget {
         elevation: 0,
         title: Title(
             color: Color(background),
-            child: Text(
-              "Grafik Emas",
-              textScaleFactor: 1.0,
+            child: Container(
+              margin: EdgeInsets.only(left: 10),
+              child: Text(
+                "Grafik Emas",
+                textScaleFactor: 1.0,
+                style: TextStyle(fontFamily: "MetroBold"),
+              ),
             )),
         automaticallyImplyLeading: false,
         backgroundColor: Color(background),

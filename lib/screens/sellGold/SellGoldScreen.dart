@@ -15,6 +15,7 @@ class SellGoldScreen extends StatelessWidget {
               child: Text(
                 "Jual Emas",
                 textScaleFactor: 1.0,
+                style: TextStyle(fontFamily: "MetroBold"),
               )),
         ),
         body: SingleChildScrollView(

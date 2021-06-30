@@ -26,6 +26,7 @@ class SuccessPaymentScreen extends StatelessWidget {
             child: Text(
               "Laporan Traksaksi",
               textScaleFactor: 1.0,
+              style: TextStyle(fontFamily: "MetroBold"),
             )),
       ),
       body: SingleChildScrollView(

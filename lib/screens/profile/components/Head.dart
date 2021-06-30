@@ -7,7 +7,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 250,
+      height: 150,
       width: size.width,
       padding: EdgeInsets.only(
           top: size.height * .01, right: 24, left: 24, bottom: 20),
@@ -18,18 +18,6 @@ class Head extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              children: [
-                Text(
-                  "Profile Saya",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: header,
-                      fontWeight: FontWeight.w600),
-                )
-              ],
-            ),
             Saldo(),
           ],
         ),

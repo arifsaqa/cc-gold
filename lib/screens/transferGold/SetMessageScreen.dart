@@ -15,6 +15,7 @@ class SetMessage extends StatelessWidget {
             child: Text(
               "Pesan",
               textScaleFactor: 1.0,
+              style: TextStyle(fontFamily: "MetroBold"),
             )),
       ),
       body: SingleChildScrollView(

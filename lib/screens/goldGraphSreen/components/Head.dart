@@ -36,19 +36,22 @@ class _StateHead extends State<Head> {
                         });
                       },
                       child: Container(
-                        width: size.width / 2,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 20),
-                        color: _selectedGraph != 0
-                            ? Colors.black12
-                            : Colors.white10,
-                        child: Text(
-                          "Harga Jual",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              fontSize: sm, fontFamily: "MetroMedium"),
-                        ),
-                      ),
+                          width: size.width / 2,
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          color: _selectedGraph != 0
+                              ? Colors.black12
+                              : Colors.white10,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Harga Jual",
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                    fontSize: sm, fontFamily: "MetroMedium"),
+                              )
+                            ],
+                          )),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -58,19 +61,22 @@ class _StateHead extends State<Head> {
                         });
                       },
                       child: Container(
-                        width: size.width / 2,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 20),
-                        color: _selectedGraph != 1
-                            ? Colors.black12
-                            : Colors.white10,
-                        child: Text(
-                          "Harga Beli",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              fontSize: sm, fontFamily: "MetroMedium"),
-                        ),
-                      ),
+                          width: size.width / 2,
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          color: _selectedGraph != 1
+                              ? Colors.black12
+                              : Colors.white10,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Harga Beli",
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                    fontSize: sm, fontFamily: "MetroMedium"),
+                              )
+                            ],
+                          )),
                     )
                   ],
                 ),

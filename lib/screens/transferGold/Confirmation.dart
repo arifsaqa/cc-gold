@@ -15,6 +15,7 @@ class Confirmation extends StatelessWidget {
             child: Text(
               "Detail Transfer",
               textScaleFactor: 1.0,
+              style: TextStyle(fontFamily: "MetroBold"),
             )),
       ),
       body: SingleChildScrollView(

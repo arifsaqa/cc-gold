@@ -27,6 +27,7 @@ class PaymentScreen extends StatelessWidget {
             color: Color(background),
             child: Text(
               "Pembayaran",
+              style: TextStyle(fontFamily: "MetroBold"),
               textScaleFactor: 1.0,
             )),
       ),

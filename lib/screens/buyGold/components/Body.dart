@@ -45,7 +45,7 @@ class _PromoBuildState extends State<Body> {
                 ),
                 padding: EdgeInsets.only(top: 20),
                 child: SizedBox(
-                    height: 370,
+                    height: 300,
                     width: size.width,
                     child: GridView.builder(
                         physics: NeverScrollableScrollPhysics(),
@@ -138,7 +138,7 @@ class _PromoBuildState extends State<Body> {
             ],
           ),
           Container(
-            height: 96,
+            padding: EdgeInsets.symmetric(vertical: 20),
             margin: EdgeInsets.symmetric(horizontal: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

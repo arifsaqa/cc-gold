@@ -17,7 +17,7 @@ class ShortCuts extends StatelessWidget {
           _buildButtonColumn(
               "images/sell.png", context, "Jual Emas", SellGoldScreen()),
           _buildButtonColumn(
-              "images/transfer.png", context, "Transfer Emas", transferGold())
+              "images/transfer1.png", context, "Transfer Emas", TransferGold())
         ],
       ),
     );

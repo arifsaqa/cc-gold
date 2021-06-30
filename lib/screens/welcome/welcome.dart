@@ -20,7 +20,7 @@ class _StateWelcome extends State<Welcome> {
 
   @override
   Widget build(BuildContext context) {
-    // _autoPress();
+    _autoPress();
     return Scaffold(
         body: Container(
       color: Color(background),

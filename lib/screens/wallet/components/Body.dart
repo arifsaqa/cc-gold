@@ -17,7 +17,7 @@ class _PromoBuildState extends State<Body> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
+          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 24),
           child: Text(
             "Riwayat Transaksi",
             textScaleFactor: 1.0,

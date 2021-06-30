@@ -90,7 +90,6 @@ class Body extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: size.width * .6,
                                   child: Text(
                                     settings[index].title,
                                     textScaleFactor: 1.0,
