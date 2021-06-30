@@ -17,6 +17,7 @@ class Body extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: Text(
               "Transaksi Terakhir",
+              textScaleFactor: 1.0,
               style: TextStyle(
                   color: Color.fromRGBO(32, 45, 62, 0.5),
                   fontSize: sm,
@@ -48,6 +49,7 @@ class Body extends StatelessWidget {
                               width: size.width * .6,
                               child: Text(
                                 numbers[index].number,
+                                textScaleFactor: 1.0,
                                 style: TextStyle(
                                     color: Colors.black, fontSize: sm),
                               ),

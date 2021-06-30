@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
+import 'package:learnUI/screens/notifications/notificationScreen.dart';
 import 'package:learnUI/screens/profile/ProfileScreen.dart';
 import 'package:learnUI/screens/wallet/WalletScreen.dart';
 import 'package:learnUI/screens/welcome/auth.dart';
@@ -51,7 +52,8 @@ class MyApp extends StatelessWidget {
                   "Silahkan masukkan kode verifikasi yang dikirim melalui SMS",
               onClick: "verif",
             ),
-        '/logged': (context) => LoggedIn()
+        '/logged': (context) => LoggedIn(),
+        'notifications': (context) => NotificationScreen(),
       },
     );
   }
@@ -81,11 +83,6 @@ class _LoggedInState extends State<LoggedIn> {
 
       print(_bottomNavIndex);
     }
-    // else {
-    //   Navigator.of(context).push(
-    //     MaterialPageRoute<void>(builder: (context) => Settings()),
-    //   );
-    // }
   }
 
   Widget pageCaller(int index) {

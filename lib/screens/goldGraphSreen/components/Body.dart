@@ -17,7 +17,7 @@ class _PromoBuildState extends State<Body> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 24, right: 24, bottom: 0),
+          padding: EdgeInsets.all(24),
           child: Text(
             "Berita Terkini",
             textScaleFactor: 1.0,
@@ -39,11 +39,11 @@ class _PromoBuildState extends State<Body> {
                     blurRadius: 2,
                     offset: Offset(2, 10))
               ]),
-          padding: EdgeInsets.only(top: 20),
           child: SizedBox(
-              height: 270,
               width: size.width,
               child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemCount: news.length,
                 itemBuilder: (context, index) {

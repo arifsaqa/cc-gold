@@ -8,14 +8,18 @@ class Confirmation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Title(
+            color: Color(background),
+            child: Text(
+              "Detail Transfer",
+              textScaleFactor: 1.0,
+            )),
+      ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            MyBackButton(
-              title: "Detail Transfer",
-            ),
-            Body()
-          ],
+          children: [Container(child: Body())],
         ),
       ),
     );
@@ -42,7 +46,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-        height: size.height - 120,
+        height: size.height - 80,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

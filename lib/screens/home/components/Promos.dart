@@ -32,7 +32,7 @@ class _PromoBuildState extends State<PromosBuild> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Container(
-                  height: size.height / 3.5,
+                  height: size.height / 3.1,
                   width: size.width,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,

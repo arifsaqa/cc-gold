@@ -14,7 +14,7 @@ class _HeadState extends State<Head> {
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.only(bottom: 60),
-        height: 250,
+        height: 170,
         decoration: BoxDecoration(
           color: Color(background),
         ),
@@ -25,12 +25,13 @@ class _HeadState extends State<Head> {
             SafeArea(
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 24),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GradientText(
@@ -53,7 +54,7 @@ class _HeadState extends State<Head> {
                       ],
                     ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         GradientText(
@@ -184,28 +185,6 @@ class _HeadState extends State<Head> {
                         ],
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(24),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Icon(
-                          Icons.notifications,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      )
-                    ],
                   )
                 ],
               ),

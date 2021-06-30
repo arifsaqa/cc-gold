@@ -25,7 +25,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height - 120,
+      height: size.height - 80,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,

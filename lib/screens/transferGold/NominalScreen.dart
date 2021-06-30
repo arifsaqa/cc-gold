@@ -11,6 +11,15 @@ class NominalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Title(
+            color: Color(background),
+            child: Text(
+              "Nominal Transfer",
+              textScaleFactor: 1.0,
+            )),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [Head(), Body()],
@@ -25,7 +34,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 230,
+      height: 150,
       width: size.width,
       padding: EdgeInsets.only(right: 24, left: 24),
       decoration: BoxDecoration(
@@ -33,32 +42,6 @@ class Head extends StatelessWidget {
       ),
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Container(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.chevron_left,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                Container(
-                    child: Text(
-                  "Nominal Transfer",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: header,
-                      fontWeight: FontWeight.w600),
-                ))
-              ],
-            ),
-          ),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -170,6 +153,7 @@ class _PromoBuildState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
+      height: size.height - 230,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

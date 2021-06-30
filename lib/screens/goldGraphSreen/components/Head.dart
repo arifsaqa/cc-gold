@@ -14,7 +14,7 @@ class _StateHead extends State<Head> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height / 2,
+      height: size.height / 2.5,
       width: size.width,
       decoration: BoxDecoration(
         color: Color(background),
@@ -22,7 +22,7 @@ class _StateHead extends State<Head> {
       child: SafeArea(
         child: Container(
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(

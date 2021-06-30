@@ -65,7 +65,7 @@ class Body extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Container(
                     height: 70,
-                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border(
@@ -95,7 +95,9 @@ class Body extends StatelessWidget {
                                     settings[index].title,
                                     textScaleFactor: 1.0,
                                     style: TextStyle(
-                                        color: Colors.black,
+                                        color: index == settings.length - 1
+                                            ? Colors.black26
+                                            : Colors.black,
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),

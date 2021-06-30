@@ -15,7 +15,7 @@ class _StateHead extends State<Head> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 260,
+      height: 150,
       width: size.width,
       padding: EdgeInsets.only(
         top: size.height * .01,
@@ -32,31 +32,6 @@ class _StateHead extends State<Head> {
                 alignment: Alignment.topCenter,
                 clipBehavior: Clip.none,
                 children: [
-                  Row(children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.chevron_left,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          Container(
-                              child: Text(
-                            "Transfer Emas",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: header,
-                                fontWeight: FontWeight.w600),
-                          ))
-                        ],
-                      ),
-                    ),
-                  ]),
                   Positioned(
                       bottom: -115,
                       width: size.width,
@@ -100,6 +75,7 @@ class _StateHead extends State<Head> {
                           children: [
                             Text(
                               "Masukkan Nomor HP",
+                              textScaleFactor: 1.0,
                               style:
                                   TextStyle(color: Colors.black, fontSize: sm),
                             ),

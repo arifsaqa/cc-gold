@@ -8,12 +8,18 @@ class SetMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Title(
+            color: Color(background),
+            child: Text(
+              "Pesan",
+              textScaleFactor: 1.0,
+            )),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            MyBackButton(
-              title: "Pesan",
-            ),
             MyCustomForm(
               onChange: (context) => (() {
                 print(context);
@@ -87,7 +93,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
           ),
         ]),
         Container(
-          height: 96,
+          height: 60,
           child: Align(
             alignment: Alignment.topRight,
             child: ElevatedButton(

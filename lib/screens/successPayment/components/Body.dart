@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
               SizedBox(
                   height: 58,
                   width: 58,
-                  child: Image.asset("images/success.png")),
+                  child: Image.asset("images/success1.png")),
               SizedBox(
                 height: 10,
               ),
