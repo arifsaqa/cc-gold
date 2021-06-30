@@ -10,20 +10,22 @@ import 'package:learnUI/screens/payments/PaymentScreen.dart';
 class NominalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Title(
-            color: Color(background),
-            child: Text(
-              "Nominal Transfer",
-              textScaleFactor: 1.0,
-              style: TextStyle(fontFamily: "MetroBold"),
-            )),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [Head(), Body()],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          title: Title(
+              color: Color(background),
+              child: Text(
+                "Nominal Transfer",
+                textScaleFactor: 1.0,
+                style: TextStyle(fontFamily: "MetroBold"),
+              )),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [Head(), Body()],
+          ),
         ),
       ),
     );
@@ -154,7 +156,7 @@ class _PromoBuildState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height - 150,
+      height: size.height - 230,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -181,7 +183,7 @@ class _PromoBuildState extends State<Body> {
                 ),
                 padding: EdgeInsets.only(top: 20),
                 child: SizedBox(
-                    height: 370,
+                    height: 300,
                     width: size.width,
                     child: GridView.builder(
                         physics: NeverScrollableScrollPhysics(),

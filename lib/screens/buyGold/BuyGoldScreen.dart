@@ -15,6 +15,7 @@ class BuyGold extends StatelessWidget {
               child: Text(
                 "Beli Emas",
                 textScaleFactor: 1.0,
+                style: TextStyle(fontFamily: "MetroBold"),
               )),
         ),
         body: SingleChildScrollView(
