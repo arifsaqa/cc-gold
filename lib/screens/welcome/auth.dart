@@ -59,8 +59,8 @@ class _StateHandlingField extends State<HandlingField> {
                   Navigator.push<void>(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              Password(redirecto: LoggedIn())));
+                          builder: (context) => Password(
+                              redirecto: LoggedIn(), isLoggingin: true)));
                 }
               },
               child: Container(

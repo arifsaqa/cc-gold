@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/main.dart';
 
 class Password extends StatefulWidget {
   final Widget redirecto;
+  final bool isLoggingin;
 
-  const Password({Key? key, required this.redirecto}) : super(key: key);
+  const Password({Key? key, required this.redirecto, required this.isLoggingin})
+      : super(key: key);
   _StatePassword createState() => _StatePassword();
 }
 
@@ -52,8 +53,6 @@ class _StatePassword extends State<Password> {
   @override
   Widget build(BuildContext context) {
     cekPassword();
-    bool whereTo = widget.redirecto == LoggedIn();
-    print(whereTo);
     return SafeArea(
       child: Scaffold(
           // appBar: PreferredSize(
@@ -155,13 +154,24 @@ class _StatePassword extends State<Password> {
             buttons(['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '0'],
                 context, onTap, onPress, inputController),
             SizedBox(height: 20),
-            TextButton(
-                onPressed: null,
-                child: Text("Ganti Akun Lain",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ))),
+            Container(
+              child: widget.isLoggingin
+                  ? TextButton(
+                      onPressed: null,
+                      child: Text("Ganti Akun Lain",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            color: Colors.white,
+                          )))
+                  : SizedBox(height: 0),
+            ),
+            // TextButton(
+            //     onPressed: null,
+            //     child: Text("Ganti Akun Lain",
+            //         textScaleFactor: 1.0,
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //         ))),
             // SizedBox(
             //   height: 20,
             // ),

@@ -70,21 +70,24 @@ class _BodyState extends State<Body> {
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Color(priceLabel),
-                              fontSize: normal),
+                              fontSize: normal,
+                              fontFamily: 'MetroReg'),
                           children: [
                             TextSpan(
                               text: ' Emas ',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(priceLabel),
-                                  fontSize: normal),
+                                  fontSize: normal,
+                                  fontFamily: 'MetroReg'),
                             ),
                             TextSpan(
                               text: widget.label,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(priceLabel),
-                                  fontSize: normal),
+                                  fontSize: normal,
+                                  fontFamily: 'MetroReg'),
                             ),
                           ]),
                     ),
@@ -92,18 +95,24 @@ class _BodyState extends State<Body> {
                       textScaleFactor: 1.0,
                       text: TextSpan(
                           text: "Harga Emas : ",
-                          style:
-                              TextStyle(color: Color(priceLabel), fontSize: sm),
+                          style: TextStyle(
+                              color: Color(priceLabel),
+                              fontSize: sm,
+                              fontFamily: "MetroReg"),
                           children: [
                             TextSpan(
                               text: widget.price,
                               style: TextStyle(
-                                  color: Color(priceLabel), fontSize: sm),
+                                  color: Color(priceLabel),
+                                  fontSize: sm,
+                                  fontFamily: "MetroReg"),
                             ),
                             TextSpan(
                               text: "/gram",
                               style: TextStyle(
-                                  color: Color(priceLabel), fontSize: sm),
+                                  color: Color(priceLabel),
+                                  fontSize: sm,
+                                  fontFamily: "MetroReg"),
                             ),
                           ]),
                     )
@@ -294,7 +303,8 @@ class _BodyState extends State<Body> {
                                     redirecto: SuccessPaymentScreen(
                                         label: widget.label,
                                         price: widget.price,
-                                        typeId: widget.typeId))
+                                        typeId: widget.typeId),
+                                    isLoggingin: false)
                                 : SuccessPaymentScreen(
                                     label: widget.label,
                                     price: widget.price,

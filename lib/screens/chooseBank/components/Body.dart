@@ -10,15 +10,26 @@ class Body extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20, top: 40),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(.05),
-                spreadRadius: 10,
-                blurRadius: 2,
-                offset: Offset(2, 10))
-          ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(.08),
+            offset: Offset(
+              5.0,
+              5.0,
+            ),
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
+          ),
+          BoxShadow(
+            color: Colors.white,
+            offset: Offset(0.0, 0.0),
+            blurRadius: 0.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
       child: SizedBox(
           height: 370,
           child: ListView.builder(

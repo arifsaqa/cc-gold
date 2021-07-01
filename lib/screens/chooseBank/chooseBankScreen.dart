@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/screens/chooseBank/components/Body.dart';
-import 'package:learnUI/screens/chooseBank/components/Head.dart';
 
 class ChooseBankScreen extends StatelessWidget {
   @override
@@ -17,14 +16,7 @@ class ChooseBankScreen extends StatelessWidget {
               textScaleFactor: 1.0,
             )),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Head(),
-            Body(),
-          ],
-        ),
-      ),
+      body: Center(child: Column(children: [Body()])),
     );
   }
 }

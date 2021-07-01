@@ -68,21 +68,24 @@ class Body extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Color(priceLabel),
-                            fontSize: normal),
+                            fontSize: normal,
+                            fontFamily: "MetroReg"),
                         children: [
                           TextSpan(
                             text: ' Emas ',
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(priceLabel),
-                                fontSize: normal),
+                                fontSize: normal,
+                                fontFamily: "MetroReg"),
                           ),
                           TextSpan(
                             text: label,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(priceLabel),
-                                fontSize: normal),
+                                fontSize: normal,
+                                fontFamily: "MetroReg"),
                           ),
                         ]),
                   ),
@@ -93,18 +96,24 @@ class Body extends StatelessWidget {
                     textScaleFactor: 1.0,
                     text: TextSpan(
                         text: "Harga Emas : ",
-                        style:
-                            TextStyle(color: Color(priceLabel), fontSize: sm),
+                        style: TextStyle(
+                            color: Color(priceLabel),
+                            fontSize: sm,
+                            fontFamily: "MetroReg"),
                         children: [
                           TextSpan(
                             text: price,
                             style: TextStyle(
-                                color: Color(priceLabel), fontSize: sm),
+                                color: Color(priceLabel),
+                                fontSize: sm,
+                                fontFamily: "MetroReg"),
                           ),
                           TextSpan(
                             text: "/gram",
                             style: TextStyle(
-                                color: Color(priceLabel), fontSize: sm),
+                                color: Color(priceLabel),
+                                fontSize: sm,
+                                fontFamily: "MetroReg"),
                           ),
                         ]),
                   )
