@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/main.dart';
+import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/screens/welcome/textField.dart';
 
 class HandlingField extends StatefulWidget {
@@ -54,7 +56,11 @@ class _StateHandlingField extends State<HandlingField> {
                 if (widget.onClick == 'login') {
                   Navigator.pushNamed(context, "/verifikasi");
                 } else {
-                  Navigator.pushNamed(context, "/logged");
+                  Navigator.push<void>(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Password(redirecto: LoggedIn())));
                 }
               },
               child: Container(
@@ -118,9 +124,7 @@ class Auth extends StatelessWidget {
                     child: Text(
                       description,
                       textScaleFactor: 1.0,
-                      style: TextStyle(
-                        fontSize: sm,
-                      ),
+                      style: TextStyle(fontSize: sm, height: 1.5),
                     ),
                   )
                 ],

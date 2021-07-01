@@ -32,12 +32,12 @@ class _PromoBuildState extends State<PromosBuild> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Container(
-                  height: size.height / 3.1,
+                  // height: size.height / 3.1,
                   width: size.width,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    // shrinkWrap: true,
-                    // physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: promos.length,
                     itemBuilder: (context, index) {
                       return Row(

@@ -4,6 +4,7 @@ import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/models/paymentMethods.dart';
 import 'package:learnUI/screens/chooseBank/chooseBankScreen.dart';
 import 'package:learnUI/screens/successPayment/successPaymentScreen.dart';
+import 'package:learnUI/screens/welcome/password.dart';
 
 class Body extends StatefulWidget {
   final String label, price;
@@ -288,11 +289,17 @@ class _BodyState extends State<Body> {
                     Navigator.push(
                         context,
                         MaterialPageRoute<void>(
-                            builder: (context) => SuccessPaymentScreen(
-                                  label: widget.label,
-                                  price: widget.price,
-                                  typeId: widget.typeId,
-                                )));
+                            builder: (context) => widget.typeId != 0
+                                ? Password(
+                                    redirecto: SuccessPaymentScreen(
+                                        label: widget.label,
+                                        price: widget.price,
+                                        typeId: widget.typeId))
+                                : SuccessPaymentScreen(
+                                    label: widget.label,
+                                    price: widget.price,
+                                    typeId: widget.typeId,
+                                  )));
                   },
                   child: Text(
                     "Konfirmasi",

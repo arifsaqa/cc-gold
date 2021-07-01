@@ -68,7 +68,7 @@ class Body extends StatelessWidget {
                                       textScaleFactor: 1.0,
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: normal,
+                                          fontSize: sm,
                                           fontWeight: FontWeight.w600),
                                     ),
                                   ),

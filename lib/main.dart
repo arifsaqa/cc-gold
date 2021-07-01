@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
                   "Silahkan masukkan kode verifikasi yang dikirim melalui SMS",
               onClick: "verif",
             ),
+        // '/password': (context) => Password(),
         '/logged': (context) => LoggedIn(),
         'notifications': (context) => NotificationScreen(),
       },
