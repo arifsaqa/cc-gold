@@ -250,7 +250,9 @@ class _BodyState extends State<Body> {
                                 Text(
                                   paymentMethods[bankIndex].label,
                                   textScaleFactor: 1.0,
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'MetroMedium'),
                                 )
                               ]),
                             ],

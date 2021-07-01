@@ -66,49 +66,56 @@ class Body extends StatelessWidget {
                   return Container(
                     height: 70,
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        width: 1.0,
-                        color: Colors.grey.withOpacity(.05),
-                      ))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 10),
-                              child: Image.asset(settings[index].image),
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(38, 51, 70, .1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              height: 40,
-                              width: 40,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    settings[index].title,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: index == settings.length - 1
-                                            ? Colors.black26
-                                            : Colors.black,
-                                        fontWeight: FontWeight.w600),
+                    child: GestureDetector(
+                      onTap: index == settings.length - 1
+                          ? () {
+                              Navigator.pushNamed(context, '/login');
+                            }
+                          : null,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          width: 1.0,
+                          color: Colors.grey.withOpacity(.05),
+                        ))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(children: [
+                              Container(
+                                margin: EdgeInsets.only(right: 10),
+                                child: Image.asset(settings[index].image),
+                                decoration: BoxDecoration(
+                                    color: Color.fromRGBO(38, 51, 70, .1),
+                                    borderRadius: BorderRadius.circular(8)),
+                                height: 40,
+                                width: 40,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      settings[index].title,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: index == settings.length - 1
+                                              ? Colors.black26
+                                              : Colors.black,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              )
+                            ]),
+                            Icon(
+                              Icons.chevron_right,
+                              size: 30,
+                              color: Color(light),
                             )
-                          ]),
-                          Icon(
-                            Icons.chevron_right,
-                            size: 30,
-                            color: Color(light),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
