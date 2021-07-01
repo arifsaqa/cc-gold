@@ -19,7 +19,7 @@ class _PromoBuildState extends State<PromosBuild> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 24, right: 24, bottom: 0),
+              padding: EdgeInsets.only(left: 24, right: 24, top: 10),
               child: Text(
                 "Promo Hari Ini",
                 textScaleFactor: 1.0,
@@ -30,7 +30,7 @@ class _PromoBuildState extends State<PromosBuild> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 0),
               child: Container(
                   // height: size.height / 3.1,
                   width: size.width,

@@ -54,116 +54,121 @@ class _StatePassword extends State<Password> {
     cekPassword();
     bool whereTo = widget.redirecto == LoggedIn();
     print(whereTo);
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: whereTo
-              ? Size.fromHeight(150.0)
-              : Size.fromHeight(0), // here the des
-          child: AppBar(
-            automaticallyImplyLeading: whereTo,
-            // toolbarHeight: whereTo ? 150 : 0,
-          ),
-        ),
-        body: SafeArea(
-            child: Container(
-          color: Color(background),
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              Container(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Container(
-                            margin: EdgeInsets.only(bottom: 10, top: 100),
-                            child: Text(
-                              "Password",
-                              textScaleFactor: 1.0,
-                              style: TextStyle(
-                                fontFamily: "MetroBold",
-                                fontSize: md,
-                              ),
-                            ),
-                          ))
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "Masukkan password akun anda",
-                              textScaleFactor: 1.0,
-                              style: TextStyle(
-                                fontSize: sm,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ]),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 39),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: Scaffold(
+          // appBar: PreferredSize(
+          //   preferredSize: whereTo
+          //       ? Size.fromHeight(150.0)
+          //       : Size.fromHeight(0), // here the des
+          //   child: AppBar(
+          //     automaticallyImplyLeading: whereTo,
+          //     // toolbarHeight: whereTo ? 150 : 0,
+          //   ),
+          // ),
+          body: SafeArea(
+              child: Container(
+        color: Color(background),
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Circle(
-                      isFill: _typedPassword.length >= 1,
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Container(
+                          margin: EdgeInsets.only(
+                            bottom: 10,
+                          ),
+                          child: Text(
+                            "Password",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontFamily: "MetroBold",
+                              fontSize: md,
+                            ),
+                          ),
+                        ))
+                      ],
                     ),
-                    Circle(
-                      isFill: _typedPassword.length >= 2,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Masukkan password akun anda",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: sm,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    Circle(
-                      isFill: _typedPassword.length >= 3,
-                    ),
-                    Circle(
-                      isFill: _typedPassword.length >= 4,
-                    ),
-                    Circle(
-                      isFill: _typedPassword.length >= 5,
-                    ),
-                    Circle(
-                      isFill: _typedPassword.length >= 6,
-                    )
-                  ],
-                ),
+                  ]),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 39),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Circle(
+                    isFill: _typedPassword.length >= 1,
+                  ),
+                  Circle(
+                    isFill: _typedPassword.length >= 2,
+                  ),
+                  Circle(
+                    isFill: _typedPassword.length >= 3,
+                  ),
+                  Circle(
+                    isFill: _typedPassword.length >= 4,
+                  ),
+                  Circle(
+                    isFill: _typedPassword.length >= 5,
+                  ),
+                  Circle(
+                    isFill: _typedPassword.length >= 6,
+                  )
+                ],
               ),
-              TextButton(
-                  style: ButtonStyle(
-                      padding: MaterialStateProperty.resolveWith(
-                          (states) => EdgeInsets.symmetric(horizontal: 10)),
-                      backgroundColor: MaterialStateProperty.resolveWith(
-                          (state) => Colors.white10),
-                      foregroundColor: MaterialStateProperty.resolveWith(
-                          (state) => Colors.white)),
-                  onPressed: null,
-                  child: Text(
-                    'Lupa Password?',
-                    style: TextStyle(fontSize: sm),
+            ),
+            TextButton(
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.resolveWith(
+                        (states) => EdgeInsets.symmetric(horizontal: 10)),
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (state) => Colors.white10),
+                    foregroundColor: MaterialStateProperty.resolveWith(
+                        (state) => Colors.white)),
+                onPressed: null,
+                child: Text(
+                  'Lupa Password?',
+                  style: TextStyle(fontSize: sm),
+                  textScaleFactor: 1.0,
+                )),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            buttons(['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '0'],
+                context, onTap, onPress, inputController),
+            SizedBox(height: 20),
+            TextButton(
+                onPressed: null,
+                child: Text("Ganti Akun Lain",
                     textScaleFactor: 1.0,
-                  )),
-              SizedBox(
-                height: 20,
-              ),
-              buttons(
-                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '0'],
-                  context,
-                  onTap,
-                  onPress,
-                  inputController),
-              SizedBox(height: 44),
-              TextButton(
-                  onPressed: null,
-                  child: Text("Ganti Akun Lain",
-                      style: TextStyle(
-                        color: Colors.white,
-                      )))
-            ],
-          ),
-        )));
+                    style: TextStyle(
+                      color: Colors.white,
+                    ))),
+            // SizedBox(
+            //   height: 20,
+            // ),
+          ],
+        ),
+      ))),
+    );
   }
 }
 
@@ -173,8 +178,8 @@ class Circle extends StatelessWidget {
   const Circle({Key? key, required this.isFill}) : super(key: key);
   Widget build(BuildContext context) {
     return Container(
-      width: 24.0,
-      height: 24.0,
+      width: 22.0,
+      height: 22.0,
       margin: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -220,6 +225,7 @@ SizedBox buttons(List<String> child, BuildContext context, Function onTap,
                         },
                         child: Text(
                           child[index],
+                          textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.white, fontSize: name),
                         ))
                     : GestureDetector(

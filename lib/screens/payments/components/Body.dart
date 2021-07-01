@@ -336,7 +336,9 @@ class _BodyState extends State<Body> {
         ));
 
     setState(() {
-      bankIndex = result!;
+      if (result != null) {
+        bankIndex = result;
+      }
     });
   }
 }
