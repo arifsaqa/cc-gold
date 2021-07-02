@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/screens/transferGold/components/MyBackButton.dart';
 import 'package:learnUI/screens/successPayment/successPaymentScreen.dart';
 
 class Confirmation extends StatelessWidget {
@@ -131,7 +130,7 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   Container(
-                    height: 120,
+                    height: 150,
                     width: 327,
                     padding: EdgeInsets.only(left: 14, bottom: 22, top: 22),
                     margin: EdgeInsets.only(left: 24, right: 24, top: 50),

@@ -22,22 +22,28 @@ class _ChartState extends State<Chart> {
   List<String> bottomTitles = ["1D", "1W", "1M", "3M", "1Y", "5Y", "6Y"];
 
   Widget listTitle(String value, int index) {
-    return SizedBox(
-      width: 50,
-      height: 30,
-      child: TextButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                  _active == index ? Colors.white10 : Colors.transparent)),
-          onPressed: () {
-            setState(() {
-              _active = index;
-            });
-          },
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _active = index;
+          print(_active);
+        });
+      },
+      child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          margin: EdgeInsets.only(left: 2, right: 2, top: 10),
+          decoration: BoxDecoration(
+            color: _active == index ? Colors.white12 : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Text(
             value,
             textScaleFactor: 1.0,
-            style: TextStyle(color: Colors.white, fontSize: normal),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: sm,
+                fontWeight:
+                    _active == index ? FontWeight.w600 : FontWeight.normal),
           )),
     );
   }
@@ -45,39 +51,40 @@ class _ChartState extends State<Chart> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        AspectRatio(
-          aspectRatio: 2,
-          child: Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(18),
+    return Container(
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Stack(
+          alignment: Alignment.bottomCenter,
+          clipBehavior: Clip.none,
+          children: [
+            AspectRatio(
+              aspectRatio: 2.5,
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(18),
+                    ),
+                    color: Color(0xff232d37)),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 18.0, left: 12.0),
+                  child: LineChart(
+                    widget.isSale ? salePrice() : buyPrice(),
+                  ),
                 ),
-                color: Color(0xff232d37)),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 18.0, left: 12.0, top: 24, bottom: 12),
-              child: LineChart(
-                widget.isSale ? salePrice() : buyPrice(),
               ),
             ),
-          ),
+          ],
         ),
-        Positioned(
-          bottom: -20,
-          width: size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (int index = 0; index < bottomTitles.length; index++)
-                listTitle(bottomTitles[index], index)
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (int index = 0; index < bottomTitles.length; index++)
+              listTitle(bottomTitles[index], index)
+          ],
         )
-      ],
+      ]),
     );
   }
 

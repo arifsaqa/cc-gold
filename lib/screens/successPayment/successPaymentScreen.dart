@@ -7,7 +7,7 @@ class SuccessPaymentScreen extends StatelessWidget {
   final String label, price;
   final int typeId;
 
-  String from, message;
+  final String? from, message;
 
   SuccessPaymentScreen(
       {Key? key,

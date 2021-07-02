@@ -191,7 +191,8 @@ class Body extends StatelessWidget {
                                   height: 1.5, color: Color(priceLabel))),
                           Text("Pesan : Selamat Menempuh Hidup Baru",
                               textScaleFactor: 1.0,
-                              style: TextStyle(color: Color(priceLabel))),
+                              style: TextStyle(
+                                  height: 1.5, color: Color(priceLabel))),
                         ],
                       )
                     : Row(

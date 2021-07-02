@@ -78,7 +78,7 @@ class _StateHead extends State<Head> {
                 ),
                 Chart(
                   isSale: isSale,
-                )
+                ),
               ]),
         ),
       ),
