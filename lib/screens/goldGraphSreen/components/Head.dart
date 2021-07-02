@@ -9,7 +9,7 @@ class Head extends StatefulWidget {
 }
 
 class _StateHead extends State<Head> {
-  int _selectedGraph = 0;
+  bool isSale = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,16 +31,14 @@ class _StateHead extends State<Head> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          _selectedGraph = 0;
-                          print(_selectedGraph);
+                          isSale = true;
+                          print(isSale);
                         });
                       },
                       child: Container(
                           width: size.width / 2,
                           padding: EdgeInsets.symmetric(vertical: 20),
-                          color: _selectedGraph != 0
-                              ? Colors.black12
-                              : Colors.white10,
+                          color: !isSale ? Colors.black12 : Colors.white10,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -56,16 +54,14 @@ class _StateHead extends State<Head> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          _selectedGraph = 1;
-                          print(_selectedGraph);
+                          isSale = false;
+                          print(isSale);
                         });
                       },
                       child: Container(
                           width: size.width / 2,
                           padding: EdgeInsets.symmetric(vertical: 20),
-                          color: _selectedGraph != 1
-                              ? Colors.black12
-                              : Colors.white10,
+                          color: isSale ? Colors.black12 : Colors.white10,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -80,7 +76,9 @@ class _StateHead extends State<Head> {
                     )
                   ],
                 ),
-                Chart()
+                Chart(
+                  isSale: isSale,
+                )
               ]),
         ),
       ),

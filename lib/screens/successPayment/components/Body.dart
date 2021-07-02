@@ -64,7 +64,7 @@ class Body extends StatelessWidget {
                   RichText(
                     textScaleFactor: 1.0,
                     text: TextSpan(
-                        text: typeId == 0 ? 'Beli' : 'Jual',
+                        text: getTitle(typeId),
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Color(priceLabel),
@@ -132,47 +132,83 @@ class Body extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Nominal",
+                      typeId == 2 ? "Jumlah" : "Nominal",
                       textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     ),
                     Text(
-                      price,
+                      typeId == 2 ? label : price,
                       textScaleFactor: 1.0,
                       style: TextStyle(color: Colors.black, fontSize: sm),
                     )
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Biaya Admin",
-                      textScaleFactor: 1.0,
-                      style: TextStyle(color: Colors.black, fontSize: sm),
-                    ),
-                    Text(
-                      "Rp 0",
-                      textScaleFactor: 1.0,
-                      style: TextStyle(color: Colors.black, fontSize: sm),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Total",
-                      textScaleFactor: 1.0,
-                      style: TextStyle(color: Colors.black, fontSize: sm),
-                    ),
-                    Text(
-                      price,
-                      textScaleFactor: 1.0,
-                      style: TextStyle(color: Colors.black, fontSize: sm),
-                    )
-                  ],
-                ),
+                typeId == 2
+                    ? SizedBox(
+                        height: 0,
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Biaya Admin",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(color: Colors.black, fontSize: sm),
+                          ),
+                          Text(
+                            "Rp 0",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(color: Colors.black, fontSize: sm),
+                          )
+                        ],
+                      ),
+                typeId == 2
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "No Tujuan",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                                height: 1.5,
+                                fontWeight: FontWeight.w500,
+                                color: Color(priceLabel),
+                                fontSize: normal),
+                          ),
+                          Text(
+                            "0812 3456 7890",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                                height: 1.5,
+                                fontWeight: FontWeight.w500,
+                                color: Color(priceLabel),
+                                fontSize: normal),
+                          ),
+                          Text("a/n Albert Einstein",
+                              textScaleFactor: 1.0,
+                              style: TextStyle(
+                                  height: 1.5, color: Color(priceLabel))),
+                          Text("Pesan : Selamat Menempuh Hidup Baru",
+                              textScaleFactor: 1.0,
+                              style: TextStyle(color: Color(priceLabel))),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Total",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(color: Colors.black, fontSize: sm),
+                          ),
+                          Text(
+                            price,
+                            textScaleFactor: 1.0,
+                            style: TextStyle(color: Colors.black, fontSize: sm),
+                          )
+                        ],
+                      ),
               ],
             ),
           ),
@@ -200,5 +236,9 @@ class Body extends StatelessWidget {
       style: TextStyle(
           fontSize: header, fontWeight: FontWeight.w600, color: Colors.black),
     );
+  }
+
+  String getTitle(int id) {
+    return transactionTypes[id].title;
   }
 }

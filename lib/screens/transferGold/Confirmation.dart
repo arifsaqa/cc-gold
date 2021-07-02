@@ -163,6 +163,7 @@ class _BodyState extends State<Body> {
                           "No Tujuan",
                           textScaleFactor: 1.0,
                           style: TextStyle(
+                              height: 1,
                               fontWeight: FontWeight.w500,
                               color: Color(priceLabel),
                               fontSize: normal),
@@ -171,16 +172,19 @@ class _BodyState extends State<Body> {
                           "0812 3456 7890",
                           textScaleFactor: 1.0,
                           style: TextStyle(
-                              fontWeight: FontWeight.w600,
+                              height: 1,
+                              fontWeight: FontWeight.w500,
                               color: Color(priceLabel),
                               fontSize: normal),
                         ),
                         Text("a/n Albert Einstein",
                             textScaleFactor: 1.0,
-                            style: TextStyle(color: Color(priceLabel))),
+                            style:
+                                TextStyle(height: 1, color: Color(priceLabel))),
                         Text("Pesan : Selamat Menempuh Hidup Baru",
                             textScaleFactor: 1.0,
-                            style: TextStyle(color: Color(priceLabel))),
+                            style:
+                                TextStyle(height: 1, color: Color(priceLabel))),
                       ],
                     ),
                   ),
