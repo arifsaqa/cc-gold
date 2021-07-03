@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/models/firebaseFunctions/auth.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 
 class Welcome extends StatefulWidget {
@@ -10,11 +10,19 @@ class Welcome extends StatefulWidget {
 }
 
 class _StateWelcome extends State<Welcome> {
-  late Timer _timer;
-  void _autoPress() {
-    _timer = new Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, '/login');
-    });
+  // late Timer _timer;
+  void _autoPress() async {
+    bool isLoggedin = await Auth1.cekCurrentUser();
+    isLoggedin
+        ? Navigator.pushNamed(context, '/logged')
+        : Navigator.pushNamed(context, '/login');
+
+    print(isLoggedin);
+    // if (Auth1.cekCurrentUSer()) {
+    // } else {}
+    // _timer = new Timer(const Duration(seconds: 3), () {
+    //   Navigator.pushNamed(context, '/login');
+    // });
   }
 
   @override

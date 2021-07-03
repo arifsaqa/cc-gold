@@ -52,6 +52,7 @@ class _StatePassword extends State<Password> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     cekPassword();
     return SafeArea(
       child: Scaffold(
@@ -64,8 +65,9 @@ class _StatePassword extends State<Password> {
           //     // toolbarHeight: whereTo ? 150 : 0,
           //   ),
           // ),
-          body: SafeArea(
+          body: SingleChildScrollView(
               child: Container(
+        height: size.height,
         color: Color(background),
         padding: const EdgeInsets.all(24),
         child: Column(

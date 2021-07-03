@@ -5,6 +5,9 @@ import 'package:learnUI/screens/successPayment/successPaymentScreen.dart';
 
 class Confirmation extends StatelessWidget {
   @override
+  final String message;
+
+  const Confirmation({Key? key, required this.message}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -19,7 +22,7 @@ class Confirmation extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [Container(child: Body())],
+          children: [Container(child: Body(message: message))],
         ),
       ),
     );
@@ -27,15 +30,9 @@ class Confirmation extends StatelessWidget {
 }
 
 class Body extends StatefulWidget {
-  // final String label, price;
-  // final int typeId;
+  final String message;
 
-  // const Body(
-  //     {Key? key,
-  //     required this.label,
-  //     required this.price,
-  //     required this.typeId})
-  //     : super(key: key);
+  const Body({Key? key, required this.message}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -89,6 +86,7 @@ class _BodyState extends State<Body> {
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(priceLabel),
+                                  fontFamily: "MetroReg",
                                   fontSize: normal),
                               children: [
                                 TextSpan(
@@ -96,12 +94,14 @@ class _BodyState extends State<Body> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: Color(priceLabel),
+                                      fontFamily: "MetroReg",
                                       fontSize: normal),
                                 ),
                                 TextSpan(
-                                  text: '1 gram',
+                                  text: ' 1 gram',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
+                                      fontFamily: "MetroReg",
                                       color: Color(priceLabel),
                                       fontSize: normal),
                                 ),
@@ -112,17 +112,23 @@ class _BodyState extends State<Body> {
                           text: TextSpan(
                               text: "Harga Emas : ",
                               style: TextStyle(
-                                  color: Color(priceLabel), fontSize: sm),
+                                  fontFamily: "MetroReg",
+                                  color: Color(priceLabel),
+                                  fontSize: sm),
                               children: [
                                 TextSpan(
                                   text: "Rp. 893.252",
                                   style: TextStyle(
-                                      color: Color(priceLabel), fontSize: sm),
+                                      fontFamily: "MetroReg",
+                                      color: Color(priceLabel),
+                                      fontSize: sm),
                                 ),
                                 TextSpan(
                                   text: "/gram",
                                   style: TextStyle(
-                                      color: Color(priceLabel), fontSize: sm),
+                                      fontFamily: "MetroReg",
+                                      color: Color(priceLabel),
+                                      fontSize: sm),
                                 ),
                               ]),
                         )
@@ -180,7 +186,7 @@ class _BodyState extends State<Body> {
                             textScaleFactor: 1.0,
                             style:
                                 TextStyle(height: 1, color: Color(priceLabel))),
-                        Text("Pesan : Selamat Menempuh Hidup Baru",
+                        Text("Pesan : " + widget.message,
                             textScaleFactor: 1.0,
                             style:
                                 TextStyle(height: 1, color: Color(priceLabel))),

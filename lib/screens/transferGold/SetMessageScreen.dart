@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/screens/transferGold/Confirmation.dart';
-import 'package:learnUI/screens/transferGold/components/MyBackButton.dart';
 
 class SetMessage extends StatelessWidget {
   @override
@@ -52,6 +51,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(myController.text);
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 120,
@@ -80,6 +80,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             ))),
             child: TextField(
               maxLines: null,
+              controller: myController,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(
@@ -102,7 +103,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 Navigator.push<void>(
                     context,
                     MaterialPageRoute<void>(
-                        builder: (context) => Confirmation()));
+                        builder: (context) =>
+                            Confirmation(message: myController.text)));
               },
               child: Text(
                 "Konfirmasi",
