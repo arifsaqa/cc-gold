@@ -3,6 +3,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/main.dart';
 import 'package:learnUI/screens/welcome/password.dart';
+import 'package:learnUI/screens/welcome/registerScreen.dart';
 import 'package:learnUI/screens/welcome/textField.dart';
 
 class HandlingField extends StatefulWidget {
@@ -48,8 +49,27 @@ class _StateHandlingField extends State<HandlingField> {
               }),
             )),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            widget.onClick == 'login'
+                ? Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.push<void>(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Register())),
+                        child: Text(
+                          "Belum Punya Akun?",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                            fontSize: sm,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                : Container(),
             FloatingActionButton(
               onPressed: () {
                 print(_currentInput);
@@ -80,7 +100,7 @@ class _StateHandlingField extends State<HandlingField> {
               foregroundColor: Color(background),
             )
           ],
-        )
+        ),
       ],
     )));
   }

@@ -94,7 +94,6 @@ class _AppState extends State<MyApp> {
             ),
           ));
     }
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

@@ -10,7 +10,6 @@ class Welcome extends StatefulWidget {
 }
 
 class _StateWelcome extends State<Welcome> {
-  // late Timer _timer;
   void _autoPress() async {
     bool isLoggedin = await Auth1.cekCurrentUser();
     isLoggedin
@@ -18,11 +17,6 @@ class _StateWelcome extends State<Welcome> {
         : Navigator.pushNamed(context, '/login');
 
     print(isLoggedin);
-    // if (Auth1.cekCurrentUSer()) {
-    // } else {}
-    // _timer = new Timer(const Duration(seconds: 3), () {
-    //   Navigator.pushNamed(context, '/login');
-    // });
   }
 
   @override
