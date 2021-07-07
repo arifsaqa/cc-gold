@@ -85,6 +85,7 @@ class Body extends StatelessWidget {
                             Row(children: [
                               Container(
                                 margin: EdgeInsets.only(right: 10),
+                                padding: EdgeInsets.all(),
                                 child: Image.asset(settings[index].image),
                                 decoration: BoxDecoration(
                                     color: Color.fromRGBO(38, 51, 70, .1),
