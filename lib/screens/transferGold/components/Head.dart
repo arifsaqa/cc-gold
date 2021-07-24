@@ -25,116 +25,112 @@ class _StateHead extends State<Head> {
       decoration: BoxDecoration(
         color: Color(background),
       ),
-      child: SafeArea(
-        child: Container(
-            padding: EdgeInsets.only(top: 20),
-            child: Stack(
-                alignment: Alignment.topCenter,
-                clipBehavior: Clip.none,
-                children: [
-                  Positioned(
-                      bottom: -115,
-                      width: size.width,
-                      child: SizedBox(
-                        height: 120,
-                      )),
-                  Positioned(
-                    bottom: -53,
-                    child: Container(
-                      padding: EdgeInsets.all(24),
-                      height: 150,
-                      width: 340,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            bottomLeft: Radius.circular(8),
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(.08),
-                            offset: Offset(
-                              5.0,
-                              5.0,
+      child: Container(
+          padding: EdgeInsets.only(top: 20),
+          child: Stack(
+              alignment: Alignment.topCenter,
+              clipBehavior: Clip.none,
+              children: [
+                Positioned(
+                    bottom: -115,
+                    width: size.width,
+                    child: SizedBox(
+                      height: 120,
+                    )),
+                Positioned(
+                  bottom: -53,
+                  child: Container(
+                    padding: EdgeInsets.all(24),
+                    height: 150,
+                    width: 340,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          bottomLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(.08),
+                          offset: Offset(
+                            5.0,
+                            5.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 2.0,
+                        ),
+                        BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(0.0, 0.0),
+                          blurRadius: 0.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                    ),
+                    child: Stack(children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Masukkan Nomor HP",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(color: Colors.black, fontSize: sm),
+                          ),
+                          Container(
+                            width: 300,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromRGBO(151, 151, 151, 1)),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8),
+                                  topRight: Radius.circular(8),
+                                  bottomRight: Radius.circular(8)),
                             ),
-                            blurRadius: 10.0,
-                            spreadRadius: 2.0,
-                          ),
-                          BoxShadow(
-                            color: Colors.white,
-                            offset: Offset(0.0, 0.0),
-                            blurRadius: 0.0,
-                            spreadRadius: 0.0,
-                          ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Center(
+                                    child: SizedBox(
+                                        height: 40,
+                                        width: 231,
+                                        child: MyCustomForm(
+                                          onChange: (context) => setState(() {
+                                            // _currentInput = context;
+                                            print(context);
+                                          }),
+                                        )),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute<void>(
+                                            builder: (context) =>
+                                                NominalScreen()));
+                                  },
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              left: BorderSide(
+                                                  color: Color.fromRGBO(
+                                                      151, 151, 151, 1)))),
+                                      padding: EdgeInsets.all(15),
+                                      child: Image.asset("images/contact.png")),
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                      child: Stack(children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Masukkan Nomor HP",
-                              textScaleFactor: 1.0,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: sm),
-                            ),
-                            Container(
-                              width: 300,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color.fromRGBO(151, 151, 151, 1)),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(8),
-                                    bottomLeft: Radius.circular(8),
-                                    topRight: Radius.circular(8),
-                                    bottomRight: Radius.circular(8)),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Center(
-                                      child: SizedBox(
-                                          height: 40,
-                                          width: 231,
-                                          child: MyCustomForm(
-                                            onChange: (context) => setState(() {
-                                              // _currentInput = context;
-                                              print(context);
-                                            }),
-                                          )),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute<void>(
-                                              builder: (context) =>
-                                                  NominalScreen()));
-                                    },
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border(
-                                                left: BorderSide(
-                                                    color: Color.fromRGBO(
-                                                        151, 151, 151, 1)))),
-                                        padding: EdgeInsets.all(15),
-                                        child:
-                                            Image.asset("images/contact.png")),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ]),
-                    ),
+                    ]),
                   ),
-                ])),
-      ),
+                ),
+              ])),
     );
   }
 }

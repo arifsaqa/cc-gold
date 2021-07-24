@@ -8,7 +8,6 @@ import 'package:learnUI/screens/profile/ProfileScreen.dart';
 import 'package:learnUI/screens/wallet/WalletScreen.dart';
 import 'package:learnUI/screens/welcome/auth.dart';
 import 'package:learnUI/screens/welcome/welcome.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,74 +25,13 @@ class _AppState extends State<MyApp> {
   bool _initialized = false;
   bool _error = false;
 
-  // Define an async function to initialize FlutterFire
-  void initializeFlutterFire() async {
-    try {
-      // Wait for Firebase to initialize and set `_initialized` state to true
-      await Firebase.initializeApp();
-      setState(() {
-        _initialized = true;
-      });
-    } catch (e) {
-      // Set `_error` state to true if Firebase initialization fails
-      setState(() {
-        _error = true;
-      });
-    }
-  }
-
   @override
   void initState() {
-    initializeFlutterFire();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Show error message if initialization failed
-    if (_error) {
-      print('error');
-      return MediaQuery(
-          data: MediaQueryData(),
-          child: MaterialApp(
-            builder: (context, child) => Scaffold(
-              body: Container(
-                color: Color(background),
-                child: Center(
-                  child: Text(
-                    "Error",
-                    style: TextStyle(
-                        fontSize: header,
-                        color: Colors.white,
-                        fontFamily: "MetroReg"),
-                  ),
-                ),
-              ),
-            ),
-          ));
-    }
-
-    // Show a loader until FlutterFire is initialized
-    if (!_initialized) {
-      return MediaQuery(
-          data: MediaQueryData(),
-          child: MaterialApp(
-            builder: (context, child) => Scaffold(
-              body: Container(
-                color: Color(background),
-                child: Center(
-                  child: Text(
-                    "Loading",
-                    style: TextStyle(
-                        fontSize: header,
-                        color: Colors.white,
-                        fontFamily: "MetroReg"),
-                  ),
-                ),
-              ),
-            ),
-          ));
-    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

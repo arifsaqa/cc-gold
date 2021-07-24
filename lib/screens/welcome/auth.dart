@@ -58,7 +58,7 @@ class _StateHandlingField extends State<HandlingField> {
                         onTap: () => Navigator.push<void>(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Register())),
+                                builder: (context) => RegisterScreen())),
                         child: Text(
                           "Belum Punya Akun?",
                           textScaleFactor: 1.0,

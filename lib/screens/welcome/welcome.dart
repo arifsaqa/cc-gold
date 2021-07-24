@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/models/firebaseFunctions/auth.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
+import 'package:learnUI/sharedPreferrences/userLocal.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -10,18 +10,29 @@ class Welcome extends StatefulWidget {
 }
 
 class _StateWelcome extends State<Welcome> {
-  void _autoPress() async {
-    bool isLoggedin = await Auth1.cekCurrentUser();
-    isLoggedin
-        ? Navigator.pushNamed(context, '/logged')
-        : Navigator.pushNamed(context, '/login');
+  LocalUser cek = LocalUser();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      await cek.setLocalUser(false, 0, '');
+      bool cok = false;
+      await cek.getIsSignin().then((value) => {cok = value});
+      print(cok);
+      redirect(cok);
+    });
+  }
 
-    print(isLoggedin);
+  Future<void> redirect(bool isSignin) async {
+    if (isSignin) {
+      Navigator.pushReplacementNamed(context, "/logged");
+    } else {
+      Navigator.pushReplacementNamed(context, "/login");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    _autoPress();
     return Scaffold(
         body: Container(
       color: Color(background),
