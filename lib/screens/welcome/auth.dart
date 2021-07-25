@@ -5,6 +5,8 @@ import 'package:learnUI/main.dart';
 import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/screens/welcome/registerScreen.dart';
 import 'package:learnUI/screens/welcome/textField.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HandlingField extends StatefulWidget {
   final String onClick;
@@ -31,6 +33,11 @@ class _StateHandlingField extends State<HandlingField> {
         style: TextStyle(color: Colors.black),
       );
     }
+  }
+
+  Future<void> saveInput(String phone) async {
+    SharedPreferences ref = await SharedPreferences.getInstance();
+    ref.setString("phone", phone);
   }
 
   @override
@@ -71,11 +78,10 @@ class _StateHandlingField extends State<HandlingField> {
                   )
                 : Container(),
             FloatingActionButton(
-              onPressed: () {
+              onPressed: () async {
                 print(_currentInput);
                 if (widget.onClick == 'login') {
-                  Navigator.pushNamed(context, "/verifikasi");
-                } else {
+                  await saveInput(_currentInput);
                   Navigator.push<void>(
                       context,
                       MaterialPageRoute(

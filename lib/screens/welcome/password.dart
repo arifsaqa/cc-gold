@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/userController.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+enum StateStatus { done, not }
 
 class Password extends StatefulWidget {
   final Widget redirecto;
@@ -12,174 +18,226 @@ class Password extends StatefulWidget {
 }
 
 class _StatePassword extends State<Password> {
+  final UserController controller = Get.put(UserController());
+  final key = new GlobalKey<ScaffoldState>();
   String _typedPassword = '';
+  // bool isLoading = false;
   void onTap() {
-    setState(() {
-      if (_typedPassword.length > 0) {
-        String finalStr =
-            _typedPassword.substring(0, _typedPassword.length - 1) +
-                _typedPassword.substring(_typedPassword.length - 1 + 1);
-        _typedPassword = finalStr;
-      }
-    });
+    if (mounted) {
+      setState(() {
+        if (_typedPassword.length > 0) {
+          String finalStr =
+              _typedPassword.substring(0, _typedPassword.length - 1) +
+                  _typedPassword.substring(_typedPassword.length - 1 + 1);
+          _typedPassword = finalStr;
+        }
+      });
+    }
   }
 
   void onPress() {
-    setState(() {
-      if (_typedPassword.length > 0) {
-        _typedPassword = '';
-      }
-    });
+    if (mounted) {
+      setState(() {
+        if (_typedPassword.length > 0) {
+          _typedPassword = '';
+        }
+      });
+    }
   }
 
   void inputController(String input) {
-    setState(() {
-      if (_typedPassword.length <= 6) {
-        _typedPassword += input;
-      }
-    });
+    if (mounted) {
+      setState(() {
+        if (_typedPassword.length <= 6) {
+          _typedPassword += input;
+        }
+      });
+    }
   }
 
   void cekPassword() async {
-    int cek = await _typedPassword.length;
-    if (cek == 6) {
-      Navigator.push<void>(
-          context, MaterialPageRoute(builder: (context) => widget.redirecto));
+    SharedPreferences ref = await SharedPreferences.getInstance();
+    String? phone = await ref.getString("phone");
+    if (mounted) {
+      // setState(() {
+      //   isLoading = true;
+      // });
+      await controller.login(_typedPassword);
+      if (controller.user.value.user != null) {
+        await Navigator.pushReplacement<void, void>(
+            context, MaterialPageRoute(builder: (context) => widget.redirecto));
+        // setState(() {
+        //   isLoading = false;
+        // });
+      }
+    }
+  }
+
+  StateStatus cekchit() {
+    if (_typedPassword == 6) {
+      return StateStatus.done;
     } else {
-      print(_typedPassword);
+      return StateStatus.not;
     }
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    const spinkit = SpinKitCircle(
+      color: Colors.white,
+      size: 50.0,
+    );
+
     Size size = MediaQuery.of(context).size;
-    cekPassword();
+    if (mounted) {
+      _typedPassword.length == 6 ? cekPassword() : "";
+      // _asu == true
+      //     ? Get.snackbar<void>('User 123', 'Successfully created',
+      //         snackPosition: SnackPosition.BOTTOM)
+      //     : "";
+    }
+
     return SafeArea(
       child: Scaffold(
-          // appBar: PreferredSize(
-          //   preferredSize: whereTo
-          //       ? Size.fromHeight(150.0)
-          //       : Size.fromHeight(0), // here the des
-          //   child: AppBar(
-          //     automaticallyImplyLeading: whereTo,
-          //     // toolbarHeight: whereTo ? 150 : 0,
-          //   ),
-          // ),
+          key: key,
           body: SingleChildScrollView(
               child: Container(
-        height: size.height,
-        color: Color(background),
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+            height: size.height,
+            color: Color(background),
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                            child: Container(
-                          margin: EdgeInsets.only(
-                            bottom: 10,
-                          ),
-                          child: Text(
-                            "Password",
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontFamily: "MetroBold",
-                              fontSize: md,
-                            ),
-                          ),
-                        ))
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Masukkan password akun anda",
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                              fontSize: sm,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ]),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Container(
+                              margin: EdgeInsets.only(
+                                bottom: 10,
+                              ),
+                              child: Text(
+                                "PIN",
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                  fontFamily: "MetroBold",
+                                  fontSize: md,
+                                ),
+                              ),
+                            ))
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Masukkan PIN anda",
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                  fontSize: sm,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ]),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 39),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Circle(
+                        isFill: _typedPassword.length >= 1,
+                      ),
+                      Circle(
+                        isFill: _typedPassword.length >= 2,
+                      ),
+                      Circle(
+                        isFill: _typedPassword.length >= 3,
+                      ),
+                      Circle(
+                        isFill: _typedPassword.length >= 4,
+                      ),
+                      Circle(
+                        isFill: _typedPassword.length >= 5,
+                      ),
+                      Circle(
+                        isFill: _typedPassword.length >= 6,
+                      )
+                    ],
+                  ),
+                ),
+                TextButton(
+                    style: ButtonStyle(
+                        padding: MaterialStateProperty.resolveWith(
+                            (states) => EdgeInsets.symmetric(horizontal: 10)),
+                        backgroundColor: MaterialStateProperty.resolveWith(
+                            (state) => Colors.white10),
+                        foregroundColor: MaterialStateProperty.resolveWith(
+                            (state) => Colors.white)),
+                    onPressed: null,
+                    child: Text(
+                      'Lupa Pin?',
+                      style: TextStyle(fontSize: sm),
+                      textScaleFactor: 1.0,
+                    )),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                GetX<UserController>(
+                    init: UserController(),
+                    builder: (_) => Container(
+                          child: _.loading.value
+                              ? spinkit
+                              : buttons([
+                                  '1',
+                                  '2',
+                                  '3',
+                                  '4',
+                                  '5',
+                                  '6',
+                                  '7',
+                                  '8',
+                                  '9',
+                                  '',
+                                  '0',
+                                  '0'
+                                ], context, onTap, onPress, inputController),
+                        )),
+                SizedBox(height: 20),
+                Container(
+                  child: widget.isLoggingin
+                      ? TextButton(
+                          onPressed: null,
+                          child: Text("Ganti Akun Lain",
+                              textScaleFactor: 1.0,
+                              style: TextStyle(
+                                color: Colors.white,
+                              )))
+                      : SizedBox(height: 0),
+                ),
+                // TextButton(
+                //     onPressed: null,
+                //     child: Text("Ganti Akun Lain",
+                //         textScaleFactor: 1.0,
+                //         style: TextStyle(
+                //           color: Colors.white,
+                //         ))),
+                // SizedBox(
+                //   height: 20,
+                // ),
+              ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 39),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Circle(
-                    isFill: _typedPassword.length >= 1,
-                  ),
-                  Circle(
-                    isFill: _typedPassword.length >= 2,
-                  ),
-                  Circle(
-                    isFill: _typedPassword.length >= 3,
-                  ),
-                  Circle(
-                    isFill: _typedPassword.length >= 4,
-                  ),
-                  Circle(
-                    isFill: _typedPassword.length >= 5,
-                  ),
-                  Circle(
-                    isFill: _typedPassword.length >= 6,
-                  )
-                ],
-              ),
-            ),
-            TextButton(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.resolveWith(
-                        (states) => EdgeInsets.symmetric(horizontal: 10)),
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                        (state) => Colors.white10),
-                    foregroundColor: MaterialStateProperty.resolveWith(
-                        (state) => Colors.white)),
-                onPressed: null,
-                child: Text(
-                  'Lupa Password?',
-                  style: TextStyle(fontSize: sm),
-                  textScaleFactor: 1.0,
-                )),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            buttons(['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '0'],
-                context, onTap, onPress, inputController),
-            SizedBox(height: 20),
-            Container(
-              child: widget.isLoggingin
-                  ? TextButton(
-                      onPressed: null,
-                      child: Text("Ganti Akun Lain",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            color: Colors.white,
-                          )))
-                  : SizedBox(height: 0),
-            ),
-            // TextButton(
-            //     onPressed: null,
-            //     child: Text("Ganti Akun Lain",
-            //         textScaleFactor: 1.0,
-            //         style: TextStyle(
-            //           color: Colors.white,
-            //         ))),
-            // SizedBox(
-            //   height: 20,
-            // ),
-          ],
-        ),
-      ))),
+          ))),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 
 class Head extends StatefulWidget {
@@ -42,15 +44,17 @@ class _HeadState extends State<Head> {
                         )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: Text(
-                            "Mr. Subaidi",
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: normal,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        )
+                          child: GetX<UserController>(
+                              init: UserController(),
+                              builder: (_) => Text(
+                                    _.user.value.user!.name.toString(),
+                                    textScaleFactor: 1.0,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: normal,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                        ),
                       ],
                     ),
                     Column(

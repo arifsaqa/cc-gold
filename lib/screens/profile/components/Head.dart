@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/userController.dart';
 
 class Head extends StatelessWidget {
   @override
@@ -41,14 +43,23 @@ class _SaldoState extends State<Saldo> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Mr. Subaidi",
-              textScaleFactor: 1.0,
-              style: TextStyle(
-                fontSize: name,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            GetX<UserController>(
+                init: UserController(),
+                builder: (_) => Text(
+                      _.user.value.user!.name.toString(),
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                        fontSize: name,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )),
+            // Text(
+            //   "Mr. Subaidi",
+            //   textScaleFactor: 1.0,
+            //   style: TextStyle(
+            //     fontSize: name,
+            //     fontWeight: FontWeight.w600,
+            //   ),
             Container(
               margin: EdgeInsets.only(top: 5),
               padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),

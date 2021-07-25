@@ -4,15 +4,15 @@ class LocalUser {
   Future<void> setLocalUser(bool isSignin, int userId, String token) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    pref.setBool("isSignin", isSignin);
     pref.setInt("userId", userId);
     pref.setString("token", token);
+    pref.setString("deviceId", token);
   }
 
-  Future<bool> getIsSignin() async {
+  Future<String> getDeviceId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    return pref.getBool("isSignin") ?? false;
+    return pref.getString("isSignin") ?? "";
   }
 
   Future<int> getUserId() async {

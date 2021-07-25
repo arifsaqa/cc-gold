@@ -15,16 +15,18 @@ class _StateWelcome extends State<Welcome> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      await cek.setLocalUser(false, 0, '');
-      bool cok = false;
-      await cek.getIsSignin().then((value) => {cok = value});
+      // await cek.setLocalUser(false, 0, '');
+      int cok = 0;
+      String deviceId = '';
+      await cek.getUserId().then((value) => {cok = value});
+      await cek.getDeviceId().then((value) => {deviceId = value});
       print(cok);
       redirect(cok);
     });
   }
 
-  Future<void> redirect(bool isSignin) async {
-    if (isSignin) {
+  Future<void> redirect(int isSignin) async {
+    if (isSignin != 0) {
       Navigator.pushReplacementNamed(context, "/logged");
     } else {
       Navigator.pushReplacementNamed(context, "/login");
