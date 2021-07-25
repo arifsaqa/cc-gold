@@ -6,7 +6,6 @@ import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/screens/welcome/registerScreen.dart';
 import 'package:learnUI/screens/welcome/textField.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class HandlingField extends StatefulWidget {
   final String onClick;
