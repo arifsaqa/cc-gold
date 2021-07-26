@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/controllers/deviceDataController.dart';
 import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
 import 'package:learnUI/screens/notifications/notificationScreen.dart';
@@ -8,6 +13,7 @@ import 'package:learnUI/screens/profile/ProfileScreen.dart';
 import 'package:learnUI/screens/wallet/WalletScreen.dart';
 import 'package:learnUI/screens/welcome/auth.dart';
 import 'package:learnUI/screens/welcome/welcome.dart';
+import 'package:get/get.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,16 +28,100 @@ class MyApp extends StatefulWidget {
 /// This Widget is the main application widget.
 class _AppState extends State<MyApp> {
   // Set default `_initialized` and `_error` state to false
+  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
+  DeviceDataController controller = Get.put(DeviceDataController());
+
   bool _initialized = false;
   bool _error = false;
 
   @override
   void initState() {
     super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    Map<String, dynamic> deviceData = <String, dynamic>{};
+
+    try {
+      if (Platform.isAndroid) {
+        deviceData =
+            await _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+      } else if (Platform.isIOS) {
+        deviceData = await _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
+      }
+    } on PlatformException {
+      deviceData = <String, dynamic>{
+        'Error:': 'Failed to get platform version.'
+      };
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _deviceData = deviceData;
+    });
+  }
+
+  Future<Map<String, dynamic>> _readAndroidBuildData(
+      AndroidDeviceInfo build) async {
+    print(build.model);
+    await controller
+        .setDeviceId(build.model + build.isPhysicalDevice.toString());
+    return <String, dynamic>{
+      'version.securityPatch': build.version.securityPatch,
+      'version.sdkInt': build.version.sdkInt,
+      'version.release': build.version.release,
+      'version.previewSdkInt': build.version.previewSdkInt,
+      'version.incremental': build.version.incremental,
+      'version.codename': build.version.codename,
+      'version.baseOS': build.version.baseOS,
+      'board': build.board,
+      'bootloader': build.bootloader,
+      'brand': build.brand,
+      'device': build.device,
+      'display': build.display,
+      'fingerprint': build.fingerprint,
+      'hardware': build.hardware,
+      'host': build.host,
+      'id': build.id,
+      'manufacturer': build.manufacturer,
+      'model': build.model,
+      'product': build.product,
+      'supported32BitAbis': build.supported32BitAbis,
+      'supported64BitAbis': build.supported64BitAbis,
+      'supportedAbis': build.supportedAbis,
+      'tags': build.tags,
+      'type': build.type,
+      'isPhysicalDevice': build.isPhysicalDevice,
+      'androidId': build.androidId,
+      'systemFeatures': build.systemFeatures,
+    };
+  }
+
+  Future<Map<String, dynamic>> _readIosDeviceInfo(IosDeviceInfo data) async {
+    await controller.setDeviceId(data.model + data.isPhysicalDevice.toString());
+    print(data.model);
+    return <String, dynamic>{
+      'name': data.name,
+      'systemName': data.systemName,
+      'systemVersion': data.systemVersion,
+      'model': data.model,
+      'localizedModel': data.localizedModel,
+      'identifierForVendor': data.identifierForVendor,
+      'isPhysicalDevice': data.isPhysicalDevice,
+      'utsname.sysname:': data.utsname.sysname,
+      'utsname.nodename:': data.utsname.nodename,
+      'utsname.release:': data.utsname.release,
+      'utsname.version:': data.utsname.version,
+      'utsname.machine:': data.utsname.machine,
+    };
   }
 
   @override
   Widget build(BuildContext context) {
+    print(_deviceData);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

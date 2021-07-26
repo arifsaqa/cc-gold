@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/deviceDataController.dart';
+import 'package:learnUI/controllers/userController.dart';
+import 'package:learnUI/main.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
+import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -11,24 +17,38 @@ class Welcome extends StatefulWidget {
 
 class _StateWelcome extends State<Welcome> {
   LocalUser cek = LocalUser();
+  UserController controller = Get.put(UserController());
+  DeviceDataController deviceController = Get.put(DeviceDataController());
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       // await cek.setLocalUser(false, 0, '');
-      int cok = 0;
-      String deviceId = '';
-      await cek.getUserId().then((value) => {cok = value});
-      await cek.getDeviceId().then((value) => {deviceId = value});
-      print(cok);
+
+      print('coooooooook' + deviceController.deviceId.value);
+      int cok = await cek.getUserId();
       redirect(cok);
     });
   }
 
-  Future<void> redirect(int isSignin) async {
+  void redirect(int isSignin) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     if (isSignin != 0) {
-      Navigator.pushReplacementNamed(context, "/logged");
+      var token = await pref.getString("token");
+      await controller.istokenValid(token!);
+      if (controller.tokenStatus.value.status != 0) {
+        await controller.getUserById(isSignin);
+        Navigator.pushReplacementNamed(context, "/logged");
+      } else {
+        await controller.getUserById(isSignin);
+        Navigator.push<void>(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    Password(redirecto: LoggedIn(), isLoggingin: true)));
+      }
     } else {
+      print("go to login screen  " + isSignin.toString());
       Navigator.pushReplacementNamed(context, "/login");
     }
   }
@@ -71,8 +91,11 @@ class _StateWelcome extends State<Welcome> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 17,
+                    GetBuilder<DeviceDataController>(
+                      init: deviceController, // INIT IT ONLY THE FIRST TIME
+                      builder: (_) => Text(
+                        '${_.deviceId}',
+                      ),
                     ),
                     Text(
                       "CC Gold hadir dalam platform digital untuk jual beli emas dengan aman. Anda dapat membeli emas kapan saja dan di mana saja",

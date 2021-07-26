@@ -8,6 +8,7 @@ class AuthURL {
   String get register => base_url + apiVersion + 'register';
   String get photoUpload => base_url + apiVersion + 'user/upload';
   String get getAllUsers => base_url + apiVersion + 'getAllUsers';
+  String get getUserById => base_url + apiVersion + 'getUserById/';
   String get logout => base_url + apiVersion + 'logout';
 }
 

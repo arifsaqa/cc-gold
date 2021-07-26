@@ -46,7 +46,7 @@ class _SaldoState extends State<Saldo> {
             GetX<UserController>(
                 init: UserController(),
                 builder: (_) => Text(
-                      _.user.value.user!.name.toString(),
+                      _.userData.value.user!.name.toString(),
                       textScaleFactor: 1.0,
                       style: TextStyle(
                         fontSize: name,

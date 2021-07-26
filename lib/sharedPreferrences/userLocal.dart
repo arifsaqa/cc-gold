@@ -1,12 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalUser {
-  Future<void> setLocalUser(bool isSignin, int userId, String token) async {
+  Future<void> setLocalUser(
+      {required String phoneNumber,
+      required int userId,
+      required String token}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
+    pref.setString("phoneNumber", phoneNumber);
     pref.setInt("userId", userId);
     pref.setString("token", token);
-    pref.setString("deviceId", token);
   }
 
   Future<String> getDeviceId() async {
@@ -21,9 +24,9 @@ class LocalUser {
     return pref.getInt("userId") ?? 0;
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    return pref.getString("token") ?? "";
+    return pref.getString("token");
   }
 }

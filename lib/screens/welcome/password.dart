@@ -63,7 +63,7 @@ class _StatePassword extends State<Password> {
       //   isLoading = true;
       // });
       await controller.login(_typedPassword);
-      if (controller.user.value.user != null) {
+      if (controller.userData.value.user != null) {
         await Navigator.pushReplacement<void, void>(
             context, MaterialPageRoute(builder: (context) => widget.redirecto));
         // setState(() {
