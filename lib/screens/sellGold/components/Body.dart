@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/models/prices.dart';
+import 'package:learnUI/controllers/dataTreesController.dart';
 import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
-class Body extends StatefulWidget {
-  @override
-  _PromoBuildState createState() => _PromoBuildState();
-}
+class Body extends StatelessWidget {
+  final List<int> multiplice = [1, 2, 5, 10, 50, 100];
 
-class _PromoBuildState extends State<Body> {
-  int selectedId = 0;
-  String selectePrice = prices[0].price;
-  String selectedLabel = prices[0].label;
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DataTreeController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 230,
@@ -53,84 +49,96 @@ class _PromoBuildState extends State<Body> {
                           crossAxisCount: 2,
                           childAspectRatio: (150 / 73),
                         ),
-                        itemCount: prices.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  selectedId = index;
-                                  selectePrice = prices[index].price;
-                                  selectedLabel = prices[index].label;
-                                });
-                              },
-                              child: Container(
-                                height: 10,
-                                width: 160,
-                                padding: EdgeInsets.all(5),
-                                margin: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(.08),
-                                      offset: Offset(
-                                        5.0,
-                                        5.0,
-                                      ),
-                                      blurRadius: 10.0,
-                                      spreadRadius: 2.0,
-                                    ),
-                                    BoxShadow(
-                                      color: Colors.white,
-                                      offset: Offset(0.0, 0.0),
-                                      blurRadius: 0.0,
-                                      spreadRadius: 0.0,
-                                    ),
-                                  ],
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(selectedId == index
-                                            ? upperGradient
-                                            : 0XFFFFF),
-                                        Color(selectedId == index
-                                            ? middleGradient
-                                            : 0XFFFFF),
-                                        Color(selectedId == index
-                                            ? lowerGradient
-                                            : 0XFFFFF),
-                                      ]),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                        itemCount: multiplice.length,
+                        itemBuilder: (context, index) => Obx(
+                              () => GestureDetector(
+                                onTap: () {
+                                  controller.setSelectedPrice(
+                                      index,
+                                      (controller.buyPrice[0].price *
+                                          multiplice[
+                                              controller.selectedIndex.value]));
+                                },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            prices[index].label,
-                                            textScaleFactor: 1.0,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: Color(priceLabel),
-                                                fontSize: normal),
-                                          )
-                                        ],
+                                  height: 10,
+                                  width: 160,
+                                  padding: EdgeInsets.all(5),
+                                  margin: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(.08),
+                                        offset: Offset(
+                                          5.0,
+                                          5.0,
+                                        ),
+                                        blurRadius: 10.0,
+                                        spreadRadius: 2.0,
                                       ),
-                                      SizedBox(height: 5),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            prices[index].price,
-                                            textScaleFactor: 1.0,
-                                            style: TextStyle(
-                                                color: Color(price),
-                                                fontSize: xm),
-                                          )
-                                        ],
+                                      BoxShadow(
+                                        color: Colors.white,
+                                        offset: Offset(0.0, 0.0),
+                                        blurRadius: 0.0,
+                                        spreadRadius: 0.0,
                                       ),
                                     ],
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Color(
+                                              controller.selectedIndex == index
+                                                  ? upperGradient
+                                                  : 0XFFFFF),
+                                          Color(
+                                              controller.selectedIndex == index
+                                                  ? middleGradient
+                                                  : 0XFFFFF),
+                                          Color(
+                                              controller.selectedIndex == index
+                                                  ? lowerGradient
+                                                  : 0XFFFFF),
+                                        ]),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              multiplice[index].toString() +
+                                                  " gram",
+                                              textScaleFactor: 1.0,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(priceLabel),
+                                                  fontSize: normal),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Rp. " +
+                                                  (controller.sellPrice[0]
+                                                              .price *
+                                                          (multiplice[index]))
+                                                      .toString(),
+                                              textScaleFactor: 1.0,
+                                              style: TextStyle(
+                                                  color: Color(price),
+                                                  fontSize: xm),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -159,14 +167,18 @@ class _PromoBuildState extends State<Body> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      selectePrice,
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: normal,
-                          fontWeight: FontWeight.w600),
-                    )
+                    Obx(() => Text(
+                          "Rp. " +
+                              (controller.sellPrice[0].price *
+                                      (multiplice[
+                                          controller.selectedIndex.value]))
+                                  .toString(),
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: normal,
+                              fontWeight: FontWeight.w600),
+                        ))
                   ],
                 ),
                 ElevatedButton(
@@ -175,8 +187,11 @@ class _PromoBuildState extends State<Body> {
                         context,
                         MaterialPageRoute<TransationData>(
                             builder: (context) => PaymentScreen(
-                                  label: selectedLabel,
-                                  price: selectePrice,
+                                  label:
+                                      multiplice[controller.selectedIndex.value]
+                                          .toString(),
+                                  price:
+                                      controller.selectedPrice.value.toString(),
                                   typeId: 1,
                                 )));
                   },

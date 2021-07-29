@@ -1,5 +1,6 @@
 String base_url = 'https://cc-gold.letoop.xyz';
 String apiVersion = '/api/v1/';
+String public = '/public/';
 
 class AuthURL {
   String get checkToken => base_url + apiVersion + 'checkToken';
@@ -12,7 +13,9 @@ class AuthURL {
   String get logout => base_url + apiVersion + 'logout';
 }
 
-class PromoURL {
-  String get getCreatePromo => base_url + apiVersion + 'promos';
-  String get phptoUpload => base_url + apiVersion + 'promos/upload';
+class DataUrl {
+  String get getPromo => base_url + apiVersion + 'promos';
+  // String get phptoUpload => base_url + apiVersion + 'promos/upload';
+  String get getBuyPrice => base_url + apiVersion + 'buyPrices';
+  String get getSellPrice => base_url + apiVersion + 'sellPrices';
 }

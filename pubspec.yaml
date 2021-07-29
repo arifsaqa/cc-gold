@@ -36,8 +36,12 @@ dependencies:
   get: ^4.2.5
   fluttertoast: ^8.0.7
   image_picker: ^0.8.2
+  shimmer: ^2.0.0
+  json_serializable: ^4.1.4
+  intl: ^0.17.0
 
 dev_dependencies:
+  build_runner: ^2.0.6
   flutter_test:
     sdk: flutter
 

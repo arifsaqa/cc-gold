@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/dataTreesController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 
 class Head extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DataTreeController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 150,
@@ -33,14 +36,15 @@ class Head extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         GradientText(
-                            child: Text(
-                          "Rp. 893.252",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: input,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )),
+                            child: Obx(() => Text(
+                                  "Rp. " +
+                                      controller.sellPrice[0].price.toString(),
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                    fontSize: input,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ))),
                         Text(
                           "/gram",
                           textScaleFactor: 1.0,

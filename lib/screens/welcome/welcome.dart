@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
@@ -17,39 +20,55 @@ class Welcome extends StatefulWidget {
 
 class _StateWelcome extends State<Welcome> {
   LocalUser cek = LocalUser();
-  UserController controller = Get.put(UserController());
+  UserController controller = Get.find<UserController>();
   DeviceDataController deviceController = Get.put(DeviceDataController());
+  bool _loadingHere = false;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      // await cek.setLocalUser(false, 0, '');
-
-      print('coooooooook' + deviceController.deviceId.value);
       int cok = await cek.getUserId();
       redirect(cok);
     });
   }
 
   void redirect(int isSignin) async {
+    setState(() {
+      _loadingHere = true;
+    });
     SharedPreferences pref = await SharedPreferences.getInstance();
     if (isSignin != 0) {
       var token = await pref.getString("token");
       await controller.istokenValid(token!);
       if (controller.tokenStatus.value.status != 0) {
         await controller.getUserById(isSignin);
-        Navigator.pushReplacementNamed(context, "/logged");
+        Timer(Duration(milliseconds: 90), () {
+          Get.off<void>(LoggedIn());
+          setState(() {
+            _loadingHere = false;
+          });
+        });
       } else {
         await controller.getUserById(isSignin);
-        Navigator.push<void>(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    Password(redirecto: LoggedIn(), isLoggingin: true)));
+        Timer(Duration(milliseconds: 90), () {
+          Navigator.push<void>(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      Password(redirecto: LoggedIn(), isLoggingin: true)));
+          setState(() {
+            _loadingHere = false;
+          });
+        });
       }
     } else {
       print("go to login screen  " + isSignin.toString());
-      Navigator.pushReplacementNamed(context, "/login");
+      Timer(Duration(milliseconds: 180), () {
+        Navigator.pushReplacementNamed(context, "/login");
+        setState(() {
+          _loadingHere = false;
+        });
+      });
     }
   }
 
@@ -91,12 +110,6 @@ class _StateWelcome extends State<Welcome> {
                         ),
                       ),
                     ),
-                    GetBuilder<DeviceDataController>(
-                      init: deviceController, // INIT IT ONLY THE FIRST TIME
-                      builder: (_) => Text(
-                        '${_.deviceId}',
-                      ),
-                    ),
                     Text(
                       "CC Gold hadir dalam platform digital untuk jual beli emas dengan aman. Anda dapat membeli emas kapan saja dan di mana saja",
                       textScaleFactor: 1.0,
@@ -106,6 +119,12 @@ class _StateWelcome extends State<Welcome> {
                   ],
                 ),
               )),
+          _loadingHere
+              ? SpinKitCircle(
+                  color: Colors.white,
+                  size: 50.0,
+                )
+              : Container()
         ],
       ),
     ));

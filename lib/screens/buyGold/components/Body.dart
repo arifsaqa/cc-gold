@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/models/prices.dart';
+import 'package:learnUI/controllers/dataTreesController.dart';
 import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
-class Body extends StatefulWidget {
-  @override
-  _PromoBuildState createState() => _PromoBuildState();
-}
-
-class _PromoBuildState extends State<Body> {
-  int selectedId = 0;
-  String selectePrice = prices[0].price;
-  String selectedLabel = prices[0].label;
+class Body extends StatelessWidget {
+  final List<int> multiplice = [1, 2, 5, 10, 50, 100];
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DataTreeController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 230,
@@ -53,14 +48,15 @@ class _PromoBuildState extends State<Body> {
                           crossAxisCount: 2,
                           childAspectRatio: (150 / 73),
                         ),
-                        itemCount: prices.length,
-                        itemBuilder: (context, index) => GestureDetector(
+                        itemCount: multiplice.length,
+                        itemBuilder: (context, index) => Obx(() =>
+                            GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  selectedId = index;
-                                  selectePrice = prices[index].price;
-                                  selectedLabel = prices[index].label;
-                                });
+                                controller.setSelectedPrice(
+                                    index,
+                                    (controller.buyPrice[0].price *
+                                        multiplice[
+                                            controller.selectedIndex.value]));
                               },
                               child: Container(
                                 height: 10,
@@ -89,13 +85,13 @@ class _PromoBuildState extends State<Body> {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                       colors: [
-                                        Color(selectedId == index
+                                        Color(controller.selectedIndex == index
                                             ? upperGradient
                                             : 0XFFFFF),
-                                        Color(selectedId == index
+                                        Color(controller.selectedIndex == index
                                             ? middleGradient
                                             : 0XFFFFF),
-                                        Color(selectedId == index
+                                        Color(controller.selectedIndex == index
                                             ? lowerGradient
                                             : 0XFFFFF),
                                       ]),
@@ -109,7 +105,8 @@ class _PromoBuildState extends State<Body> {
                                       Row(
                                         children: [
                                           Text(
-                                            prices[index].label,
+                                            multiplice[index].toString() +
+                                                " gram",
                                             textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -121,7 +118,9 @@ class _PromoBuildState extends State<Body> {
                                       Row(
                                         children: [
                                           Text(
-                                            prices[index].price,
+                                            "Rp. " +
+                                                controller.buyPrice[0].price
+                                                    .toString(),
                                             textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 color: Color(price),
@@ -133,7 +132,7 @@ class _PromoBuildState extends State<Body> {
                                   ),
                                 ),
                               ),
-                            ))),
+                            )))),
               ),
             ],
           ),
@@ -158,14 +157,14 @@ class _PromoBuildState extends State<Body> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      selectePrice,
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: normal,
-                          fontWeight: FontWeight.w600),
-                    )
+                    Obx(() => Text(
+                          "Rp. " + controller.selectedPrice.toString(),
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: normal,
+                              fontWeight: FontWeight.w600),
+                        ))
                   ],
                 ),
                 ElevatedButton(
@@ -174,8 +173,15 @@ class _PromoBuildState extends State<Body> {
                         context,
                         MaterialPageRoute<TransationData>(
                             builder: (context) => PaymentScreen(
-                                  label: selectedLabel,
-                                  price: selectePrice,
+                                  label:
+                                      multiplice[controller.selectedIndex.value]
+                                              .toString() +
+                                          " gram",
+                                  price: (controller.buyPrice[0].price *
+                                              multiplice[controller
+                                                  .selectedIndex.value])
+                                          .toString() +
+                                      " gram",
                                   typeId: 0,
                                 )));
                   },

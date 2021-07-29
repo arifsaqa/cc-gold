@@ -4,8 +4,12 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
+import 'package:learnUI/bindings/data_trees_binding.dart';
+import 'package:learnUI/bindings/user_binding.dart';
 import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/controllers/dataTreesController.dart';
 import 'package:learnUI/controllers/deviceDataController.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
 import 'package:learnUI/screens/notifications/notificationScreen.dart';
@@ -14,6 +18,7 @@ import 'package:learnUI/screens/wallet/WalletScreen.dart';
 import 'package:learnUI/screens/welcome/auth.dart';
 import 'package:learnUI/screens/welcome/welcome.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,6 +72,8 @@ class _AppState extends State<MyApp> {
   Future<Map<String, dynamic>> _readAndroidBuildData(
       AndroidDeviceInfo build) async {
     print(build.model);
+    var pref = await SharedPreferences.getInstance();
+    pref.setString("deviceId", build.model + build.isPhysicalDevice.toString());
     await controller
         .setDeviceId(build.model + build.isPhysicalDevice.toString());
     return <String, dynamic>{
@@ -102,7 +109,9 @@ class _AppState extends State<MyApp> {
 
   Future<Map<String, dynamic>> _readIosDeviceInfo(IosDeviceInfo data) async {
     await controller.setDeviceId(data.model + data.isPhysicalDevice.toString());
-    print(data.model);
+    var pref = await SharedPreferences.getInstance();
+    pref.setString("deviceId", data.model + data.isPhysicalDevice.toString());
+    // print(data.model);
     return <String, dynamic>{
       'name': data.name,
       'systemName': data.systemName,
@@ -121,7 +130,7 @@ class _AppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(_deviceData);
+    // print(_deviceData);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -144,24 +153,31 @@ class _AppState extends State<MyApp> {
               fontFamily: "MetroReg"),
           visualDensity: VisualDensity.adaptivePlatformDensity),
       // title: _title,
+      getPages: [
+        GetPage<dynamic>(
+            name: '/',
+            page: () => Welcome(),
+            bindings: [UserBinding(), DataTreeBinding()]),
+        GetPage<dynamic>(
+            name: '/login',
+            page: () => Auth(
+                  title: "Masuk",
+                  description: "Silahkan masukkan nomor HP-mu yang aktif",
+                  onClick: "login",
+                )),
+        GetPage<dynamic>(
+            name: '/verifikasi',
+            page: () => Auth(
+                  title: "Verifikasi",
+                  description:
+                      "Silahkan masukkan kode verifikasi yang dikirim melalui SMS",
+                  onClick: "verif",
+                )),
+        GetPage<dynamic>(name: '/logged', page: () => LoggedIn()),
+        GetPage<dynamic>(
+            name: '/notifications', page: () => NotificationScreen()),
+      ],
       initialRoute: '/',
-      routes: {
-        '/': (context) => Welcome(),
-        '/login': (context) => Auth(
-              title: "Masuk",
-              description: "Silahkan masukkan nomor HP-mu yang aktif",
-              onClick: "login",
-            ),
-        '/verifikasi': (context) => Auth(
-              title: "Verifikasi",
-              description:
-                  "Silahkan masukkan kode verifikasi yang dikirim melalui SMS",
-              onClick: "verif",
-            ),
-        // '/password': (context) => Password(),
-        '/logged': (context) => LoggedIn(),
-        'notifications': (context) => NotificationScreen(),
-      },
     );
   }
 }
@@ -175,6 +191,7 @@ class LoggedIn extends StatefulWidget {
 
 class _LoggedInState extends State<LoggedIn> {
   int _bottomNavIndex = 0;
+
   List<Widget> pages = [
     HomeScreen(),
     GoldGraphScreen(),
@@ -198,6 +215,8 @@ class _LoggedInState extends State<LoggedIn> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(UserController());
+    Get.put(DataTreeController());
     return Scaffold(
       body: pageCaller(_bottomNavIndex),
       bottomNavigationBar: Container(

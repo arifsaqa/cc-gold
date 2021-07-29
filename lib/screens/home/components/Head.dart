@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/dataTreesController.dart';
 import 'package:learnUI/controllers/userController.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 
-class Head extends StatefulWidget {
-  @override
-  _HeadState createState() => _HeadState();
-}
-
-class _HeadState extends State<Head> {
+class Head extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final dataTreesController = Get.find<DataTreeController>();
+    final controller = Get.find<UserController>();
+    print(controller.userData.value.user!.name);
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.only(bottom: 60),
@@ -37,24 +37,24 @@ class _HeadState extends State<Head> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GradientText(
-                            child: Text(
-                          "Selamat Pagi,",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(fontSize: sm),
-                        )),
+                            child: Obx(() => Text(
+                                  controller.greeting(),
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(fontSize: sm),
+                                ))),
                         Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: GetX<UserController>(
-                              init: UserController(),
-                              builder: (_) => Text(
-                                    _.userData.value.user!.name.toString(),
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: normal,
-                                        fontWeight: FontWeight.w600),
-                                  )),
-                        ),
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Obx(() => Text(
+                                  controller.userData.value.user != null
+                                      ? controller.userData.value.user!.name
+                                          .toString()
+                                      : "fetching ..",
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: normal,
+                                      fontWeight: FontWeight.w600),
+                                ))),
                       ],
                     ),
                     Column(
@@ -70,11 +70,14 @@ class _HeadState extends State<Head> {
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: GradientText(
-                              child: Text(
-                            "10 Juni 2021",
-                            textScaleFactor: 1.0,
-                            style: TextStyle(fontSize: sm),
-                          )),
+                              child: Obx(() => Text(
+                                    controller.today,
+                                    textScaleFactor: 1.0,
+                                    style: TextStyle(
+                                        // color: Color(),
+                                        fontSize: sm,
+                                        fontWeight: FontWeight.normal),
+                                  ))),
                         )
                       ],
                     )
@@ -126,14 +129,17 @@ class _HeadState extends State<Head> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            "Rp.891.452/gr",
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                                fontSize: sm,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                          )
+                          Obx(() => Text(
+                                "Rp." +
+                                    dataTreesController.sellPrice[0].price
+                                        .toString() +
+                                    "/gr",
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                    fontSize: sm,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600),
+                              ))
                         ],
                       ),
                     ),
@@ -178,14 +184,17 @@ class _HeadState extends State<Head> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            "Rp.891.452/gr",
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                                fontSize: sm,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                          )
+                          Obx(() => Text(
+                                "Rp." +
+                                    dataTreesController.buyPrice[0].price
+                                        .toString() +
+                                    "/gr",
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                    fontSize: sm,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600),
+                              )),
                         ],
                       ),
                     ),

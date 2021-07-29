@@ -1,9 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+// import 'package:get/route_manager.dart';
 import 'package:learnUI/screens/home/components/Body.dart';
 import 'package:learnUI/screens/home/components/Head.dart';
-import 'package:learnUI/screens/notifications/notificationScreen.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -16,10 +16,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                      builder: (context) => NotificationScreen()),
-                );
+                Get.toNamed<dynamic>('/notifications');
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(

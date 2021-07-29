@@ -24,7 +24,7 @@ class AuthFunctions {
   }
 
   static Future<IsTokenValid?> checkToken(String token) async {
-    print(token);
+    // print(token);
     var apiResult = await http.get(
       Uri.parse(AuthURL().checkToken),
       headers: {
@@ -33,7 +33,7 @@ class AuthFunctions {
         'Authorization': 'Bearer $token',
       },
     );
-    print(apiResult.statusCode);
+    // print(apiResult.statusCode);
     if (apiResult.statusCode == 200) {
       dynamic jsonObject = json.decode(apiResult.body);
       return IsTokenValid.fromJson(jsonObject as Map<String, dynamic>);

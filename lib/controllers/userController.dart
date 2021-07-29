@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
+import 'package:intl/intl.dart';
 import 'package:learnUI/api/auth.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/models/User.dart';
@@ -11,6 +13,19 @@ class UserController extends GetxController {
   var userData = UserData().obs;
   var tokenStatus = IsTokenValid().obs;
   var loading = false.obs;
+  var now = DateTime.now().obs;
+
+  String get today => DateFormat('dd MMMM yyyy').format(now.value);
+  String greeting() {
+    var hour = now.value.hour;
+    if (hour < 12) {
+      return 'Selamat Pagi,';
+    }
+    if (hour < 17) {
+      return 'Selamat Sore,';
+    }
+    return 'Selamat Malam,';
+  }
 
   Future<void> toTrue() async {
     loading.value = true;
@@ -43,7 +58,6 @@ class UserController extends GetxController {
             snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
       }
     } catch (e) {
-      print(e);
       toFalse();
       userData.value.user = null;
       Get.snackbar<void>("Login Error",
@@ -75,7 +89,6 @@ class UserController extends GetxController {
         return 0;
       }
     } catch (e) {
-      print(e);
       return 0;
     }
   }
@@ -87,21 +100,26 @@ class UserController extends GetxController {
         userData.value.user = user;
         // Get.snackbar<void>("Your session status", "You are good, logging in!",
         //     snackPosition: SnackPosition.TOP, colorText: Colors.green[600]);
-        print(user);
         return 1;
       } else {
         // Get.snackbar<void>("Your session is expired", "Get you to relogin page",
         //     snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
-        print(user);
         return 0;
       }
     } catch (e) {
-      print(e);
       Get.snackbar<void>(
           "App's Error", "Somthing wrong!, Get to our IT support",
           snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
 
       return 0;
     }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    Timer.periodic(Duration(hours: 4), (timer) {
+      now.value = DateTime.now();
+    });
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/models/prices.dart';
+import 'package:learnUI/controllers/dataTreesController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 import 'package:learnUI/screens/transferGold/SetMessageScreen.dart';
 import 'package:learnUI/screens/payments/PaymentScreen.dart';
@@ -35,6 +36,8 @@ class NominalScreen extends StatelessWidget {
 class Head extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DataTreeController>();
+
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 150,
@@ -59,15 +62,16 @@ class Head extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         GradientText(
-                            child: Text(
-                          "Rp. 893.252",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: input,
-                            // color: Color(upperGradient),
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )),
+                            child: Obx(() => Text(
+                                  "Rp. " +
+                                      controller.sellPrice[0].price.toString(),
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                    fontSize: input,
+                                    // color: Color(upperGradient),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ))),
                         Text("/gram")
                       ],
                     ))
@@ -99,61 +103,18 @@ class Head extends StatelessWidget {
   }
 }
 
-// class Saldo extends StatelessWidget {
+// class Body extends StatefulWidget {
 //   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text("Saldo Emas Kamu"),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(vertical: 5.0),
-//               child: Text(
-//                 "2,000 gram",
-//                 textScaleFactor: 1.0,
-//                 style: TextStyle(
-//                     fontSize: input,
-//                     color: Color(upperGradient),
-//                     fontWeight: FontWeight.w600),
-//               ),
-//             ),
-//             Row(children: [
-//               Text(
-//                 "Senilai Rp. ",
-//                 textScaleFactor: 1.0,
-//                 style: TextStyle(fontSize: normal),
-//               ),
-//               Text(
-//                 "1.080.000",
-//                 textScaleFactor: 1.0,
-//                 style: TextStyle(fontSize: normal),
-//               )
-//             ])
-//           ],
-//         ),
-//         Icon(
-//           Icons.visibility,
-//           color: Colors.white,
-//         )
-//       ],
-//     );
-//   }
+//   _PromoBuildState createState() => _PromoBuildState();
 // }
 
-class Body extends StatefulWidget {
-  @override
-  _PromoBuildState createState() => _PromoBuildState();
-}
+class Body extends StatelessWidget {
+  final List<int> multiplice = [1, 2, 5, 10, 50, 100];
 
-class _PromoBuildState extends State<Body> {
-  int selectedId = 0;
-  String selectePrice = prices[0].price;
-  String selectedLabel = prices[0].label;
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DataTreeController>();
+
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 230,
@@ -191,14 +152,15 @@ class _PromoBuildState extends State<Body> {
                           crossAxisCount: 2,
                           childAspectRatio: (150 / 73),
                         ),
-                        itemCount: prices.length,
-                        itemBuilder: (context, index) => GestureDetector(
+                        itemCount: multiplice.length,
+                        itemBuilder: (context, index) => Obx(() =>
+                            GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  selectedId = index;
-                                  selectePrice = prices[index].price;
-                                  selectedLabel = prices[index].label;
-                                });
+                                controller.setSelectedPrice(
+                                    index,
+                                    (controller.buyPrice[0].price *
+                                        multiplice[
+                                            controller.selectedIndex.value]));
                               },
                               child: Container(
                                 height: 10,
@@ -227,10 +189,10 @@ class _PromoBuildState extends State<Body> {
                                       begin: Alignment(0, -1),
                                       end: Alignment(0, 0),
                                       colors: [
-                                        Color(selectedId == index
+                                        Color(controller.selectedIndex == index
                                             ? upperGradient
                                             : 0XFFFFF),
-                                        Color(selectedId == index
+                                        Color(controller.selectedIndex == index
                                             ? lowerGradient
                                             : 0XFFFFF)
                                       ]),
@@ -244,7 +206,8 @@ class _PromoBuildState extends State<Body> {
                                       Row(
                                         children: [
                                           Text(
-                                            prices[index].label,
+                                            multiplice[index].toString() +
+                                                " gram",
                                             textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -257,7 +220,10 @@ class _PromoBuildState extends State<Body> {
                                       Row(
                                         children: [
                                           Text(
-                                            prices[index].price,
+                                            "Rp. " +
+                                                (controller.sellPrice[0].price *
+                                                        (multiplice[index]))
+                                                    .toString(),
                                             textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 color: Color(price),
@@ -269,7 +235,7 @@ class _PromoBuildState extends State<Body> {
                                   ),
                                 ),
                               ),
-                            ))),
+                            )))),
               ),
             ],
           ),
@@ -294,22 +260,21 @@ class _PromoBuildState extends State<Body> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      selectePrice,
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: normal,
-                          fontWeight: FontWeight.w600),
-                    )
+                    Obx(() => Text(
+                          (multiplice[controller.selectedIndex.value])
+                                  .toString() +
+                              " gram",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: normal,
+                              fontWeight: FontWeight.w600),
+                        ))
                   ],
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push<TransationData>(
-                        context,
-                        MaterialPageRoute<TransationData>(
-                            builder: (context) => SetMessage()));
+                    Get.to<void>(SetMessage());
                   },
                   child: Text(
                     "Konfirmasi",
