@@ -25,7 +25,7 @@ class PromoController extends GetxController {
 
   Future<void> getPromoFunction() async {
     await toTrue();
-    var res = await DataFetching.getPromo();
+    var res = await DataFetching().getPromo();
     if (res != null) {
       promos.value = await (res);
       promo = await res.promos.obs;

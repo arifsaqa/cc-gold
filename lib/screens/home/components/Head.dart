@@ -63,7 +63,7 @@ class Head extends StatelessWidget {
                       children: [
                         GradientText(
                             child: Text(
-                          "Kamis",
+                          controller.day,
                           textScaleFactor: 1.0,
                           style: TextStyle(fontSize: sm),
                         )),
@@ -131,7 +131,8 @@ class Head extends StatelessWidget {
                           ),
                           Obx(() => Text(
                                 "Rp." +
-                                    dataTreesController.sellPrice[0].price
+                                    dataTreesController
+                                        .currentSellPrice.value.price.price
                                         .toString() +
                                     "/gr",
                                 textScaleFactor: 1.0,
@@ -186,7 +187,8 @@ class Head extends StatelessWidget {
                           ),
                           Obx(() => Text(
                                 "Rp." +
-                                    dataTreesController.buyPrice[0].price
+                                    dataTreesController
+                                        .currentBuyPrice.value.price.price
                                         .toString() +
                                     "/gr",
                                 textScaleFactor: 1.0,

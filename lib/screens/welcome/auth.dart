@@ -8,16 +8,16 @@ import 'package:learnUI/screens/welcome/textField.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HandlingField extends StatefulWidget {
-  final String onClick;
+  final String onClick, currentInput;
 
-  const HandlingField({Key? key, required this.onClick}) : super(key: key);
+  const HandlingField(
+      {Key? key, required this.onClick, required this.currentInput})
+      : super(key: key);
   @override
   _StateHandlingField createState() => _StateHandlingField();
 }
 
 class _StateHandlingField extends State<HandlingField> {
-  String _currentInput = "";
-
   Text titleAlert(String cek) {
     if (cek == "verif") {
       return Text(
@@ -41,88 +41,89 @@ class _StateHandlingField extends State<HandlingField> {
 
   @override
   Widget build(BuildContext context) {
-    return (Expanded(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-            padding: EdgeInsets.only(top: 20),
-            margin: EdgeInsets.only(right: 20),
-            child: MyCustomForm1(
-              onChange: (context) => setState(() {
-                _currentInput = context;
-                print(context);
-              }),
-            )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            widget.onClick == 'login'
-                ? Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.push<void>(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen())),
-                        child: Text(
-                          "Belum Punya Akun?",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontSize: sm,
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              widget.onClick == 'login'
+                  ? Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.push<void>(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterScreen())),
+                          child: Text(
+                            "Belum Punya Akun?",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              fontSize: sm,
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  )
-                : Container(),
-            FloatingActionButton(
-              onPressed: () async {
-                print(_currentInput);
-                if (widget.onClick == 'login') {
-                  await saveInput(_currentInput);
-                  Navigator.push<void>(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Password(
-                              redirecto: LoggedIn(), isLoggingin: true)));
-                }
-              },
-              child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(upperGradient1),
-                            Color(middleGradient1),
-                            Color(lowerGragdient1),
-                          ])),
-                  child: Icon(Icons.arrow_forward)),
-              foregroundColor: Color(background),
-            )
-          ],
-        ),
-      ],
-    )));
+                        )
+                      ],
+                    )
+                  : Container(),
+              FloatingActionButton(
+                onPressed: () async {
+                  print(widget.currentInput);
+                  if (widget.onClick == 'login') {
+                    await saveInput(widget.currentInput);
+                    Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Password(
+                                redirecto: LoggedIn(), isLoggingin: true)));
+                  }
+                },
+                child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(upperGradient1),
+                              Color(middleGradient1),
+                              Color(lowerGragdient1),
+                            ])),
+                    child: Icon(Icons.arrow_forward)),
+                foregroundColor: Color(background),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
-class Auth extends StatelessWidget {
-  final String title, description, onClick;
+class Auth extends StatefulWidget {
+  String title, description, onClick;
+
   Auth({required this.title, required this.description, required this.onClick});
 
+  @override
+  _StateAuth createState() => _StateAuth();
+}
+
+class _StateAuth extends State<Auth> {
+  String _currentInput = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
             child: Container(
+      height: MediaQuery.of(context).size.height,
       color: Color(background),
       padding: const EdgeInsets.all(24),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             child:
@@ -133,7 +134,7 @@ class Auth extends StatelessWidget {
                       child: Container(
                     margin: EdgeInsets.only(bottom: 10, top: 100),
                     child: Text(
-                      title,
+                      widget.title,
                       textScaleFactor: 1.0,
                       style: TextStyle(
                         fontFamily: "MetroBold",
@@ -147,17 +148,27 @@ class Auth extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      description,
+                      widget.description,
                       textScaleFactor: 1.0,
                       style: TextStyle(fontSize: sm, height: 1.5),
                     ),
                   )
                 ],
               ),
+              Container(
+                  padding: EdgeInsets.only(top: 20),
+                  margin: EdgeInsets.only(right: 20),
+                  child: MyCustomForm1(
+                    onChange: (context) => setState(() {
+                      _currentInput = context;
+                      print(context);
+                    }),
+                  )),
             ]),
           ),
           HandlingField(
-            onClick: onClick,
+            onClick: widget.onClick,
+            currentInput: _currentInput,
           ),
         ],
       ),

@@ -14,12 +14,24 @@ class UserController extends GetxController {
   var tokenStatus = IsTokenValid().obs;
   var loading = false.obs;
   var now = DateTime.now().obs;
-
+  List<String> hari = [
+    "Minggu",
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jum'at",
+    "Sabtu"
+  ];
   String get today => DateFormat('dd MMMM yyyy').format(now.value);
+  String get day => (hari[now.value.weekday]);
   String greeting() {
-    var hour = now.value.hour;
+    var hour = now.value.hour.obs;
     if (hour < 12) {
       return 'Selamat Pagi,';
+    }
+    if (hour < 15) {
+      return 'Selamat Siang';
     }
     if (hour < 17) {
       return 'Selamat Sore,';
@@ -118,7 +130,7 @@ class UserController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Timer.periodic(Duration(hours: 4), (timer) {
+    Timer.periodic(Duration(hours: 3), (timer) {
       now.value = DateTime.now();
     });
   }

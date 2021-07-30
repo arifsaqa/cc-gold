@@ -18,4 +18,6 @@ class DataUrl {
   // String get phptoUpload => base_url + apiVersion + 'promos/upload';
   String get getBuyPrice => base_url + apiVersion + 'buyPrices';
   String get getSellPrice => base_url + apiVersion + 'sellPrices';
+  String get currentSellPrice => base_url + apiVersion + 'currentSellPrice';
+  String get currentBuyPrice => base_url + apiVersion + 'currentBuyPrice';
 }
