@@ -18,7 +18,7 @@ class Password extends StatefulWidget {
 }
 
 class _StatePassword extends State<Password> {
-  final UserController controller = Get.find<UserController>();
+  final UserController controller = Get.put(UserController());
   final key = new GlobalKey<ScaffoldState>();
   String _typedPassword = '';
   // bool isLoading = false;

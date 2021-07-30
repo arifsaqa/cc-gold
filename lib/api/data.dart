@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:learnUI/models/current_gold_price/current_price.dart';
+import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/models/gold_prices/prices.dart';
+import 'package:learnUI/models/payment_methods/payment_method_response.dart';
 import 'package:learnUI/models/promo/promos.dart';
 
 class DataFetching {
@@ -34,7 +36,7 @@ class DataFetching {
     }
   }
 
-   Future<Prices?> getBuyPrice() async {
+  Future<Prices?> getBuyPrice() async {
     try {
       var apiResult = await http.get(
         Uri.parse(url.getBuyPrice),
@@ -58,7 +60,7 @@ class DataFetching {
     }
   }
 
-   Future<Prices?> getSellPrice() async {
+  Future<Prices?> getSellPrice() async {
     try {
       var apiResult = await http.get(
         Uri.parse(url.getSellPrice),
@@ -82,7 +84,7 @@ class DataFetching {
     }
   }
 
-   Future<CurrentPrice?> getCurrentSellPrice() async {
+  Future<CurrentPrice?> getCurrentSellPrice() async {
     try {
       var apiResult = await http.get(
         Uri.parse(url.currentSellPrice),
@@ -107,7 +109,7 @@ class DataFetching {
     }
   }
 
-   Future<CurrentPrice?> getCurrentBuyPrice() async {
+  Future<CurrentPrice?> getCurrentBuyPrice() async {
     try {
       var apiResult = await http.get(
         Uri.parse(url.currentSellPrice),
@@ -123,6 +125,57 @@ class DataFetching {
         print(apiResult);
         var parsedPrice =
             CurrentPrice.fromJson(jsonObject as Map<String, dynamic>);
+        return parsedPrice;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("Errrrrrrrrror cooook $e");
+    }
+  }
+
+  Future<NewsRespon?> getGoldNews(String fromDate, String toDate) async {
+    try {
+      var apiResult = await http.get(
+        Uri.parse(
+            'https://newsapi.org/v2/everything?q=gold%20investments&from=${fromDate}9&to=${toDate}&sortBy=popularity&pageSize=5&apiKey=f0e15b7082ce461899934bfbe94c4e4a'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+      );
+      print(apiResult.statusCode);
+      print(apiResult.body);
+      if (apiResult.statusCode == 200) {
+        dynamic jsonObject = await json.decode(apiResult.body);
+        print(apiResult);
+        var parsedPrice =
+            NewsRespon.fromJson(jsonObject as Map<String, dynamic>);
+        return parsedPrice;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("Errrrrrrrrror cooook $e");
+    }
+  }
+
+  Future<PaymentMethodResponse?> getPaymentMethods() async {
+    try {
+      var apiResult = await http.get(
+        Uri.parse(url.paymentMethods),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+      );
+      print(apiResult.statusCode);
+      print(apiResult.body);
+      if (apiResult.statusCode == 200) {
+        dynamic jsonObject = await json.decode(apiResult.body);
+        print(apiResult);
+        var parsedPrice =
+            PaymentMethodResponse.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
       } else {
         return null;

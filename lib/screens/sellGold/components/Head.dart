@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/controllers/dataTreesController.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 
 class Head extends StatelessWidget {

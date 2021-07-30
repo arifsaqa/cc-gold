@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/main.dart';
@@ -52,10 +53,7 @@ class _StateHandlingField extends State<HandlingField> {
                   ? Row(
                       children: [
                         GestureDetector(
-                          onTap: () => Navigator.push<void>(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegisterScreen())),
+                          onTap: () => Get.to<void>(RegisterScreen()),
                           child: Text(
                             "Belum Punya Akun?",
                             textScaleFactor: 1.0,
@@ -72,11 +70,8 @@ class _StateHandlingField extends State<HandlingField> {
                   print(widget.currentInput);
                   if (widget.onClick == 'login') {
                     await saveInput(widget.currentInput);
-                    Navigator.push<void>(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Password(
-                                redirecto: LoggedIn(), isLoggingin: true)));
+                    Get.to<void>(
+                        Password(redirecto: LoggedIn(), isLoggingin: true));
                   }
                 },
                 child: Container(

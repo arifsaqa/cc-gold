@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/models/paymentMethods.dart';
+import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/screens/chooseBank/chooseBankScreen.dart';
 import 'package:learnUI/screens/successPayment/successPaymentScreen.dart';
 import 'package:learnUI/screens/welcome/password.dart';
@@ -24,6 +25,7 @@ class _BodyState extends State<Body> {
   int bankIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final paymentMethodController = Get.find<PaymentMethodController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 80,
@@ -239,20 +241,28 @@ class _BodyState extends State<Body> {
                                   style: TextStyle(
                                       fontSize: normal, color: Colors.black)),
                               Row(children: [
-                                Container(
-                                    width: 33,
-                                    height: 10,
-                                    child: Image.asset(
-                                        paymentMethods[bankIndex].image)),
+                                Obx(
+                                  () => Container(
+                                      width: 33,
+                                      height: 10,
+                                      child: FadeInImage.assetNetwork(
+                                          placeholder:
+                                              'images/circular-progress.gif',
+                                          image: paymentMethodController
+                                              .paymentMethod[bankIndex].logo)),
+                                ),
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text(
-                                  paymentMethods[bankIndex].label,
-                                  textScaleFactor: 1.0,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'MetroMedium'),
+                                Obx(
+                                  () => Text(
+                                    paymentMethodController
+                                        .paymentMethod[bankIndex].name,
+                                    textScaleFactor: 1.0,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'MetroMedium'),
+                                  ),
                                 )
                               ]),
                             ],

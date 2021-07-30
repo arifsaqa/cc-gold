@@ -7,7 +7,8 @@ import 'package:get/route_manager.dart';
 import 'package:learnUI/bindings/data_trees_binding.dart';
 import 'package:learnUI/bindings/user_binding.dart';
 import 'package:learnUI/constants/colors.dart';
-import 'package:learnUI/controllers/dataTreesController.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/deviceDataController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
@@ -164,7 +165,8 @@ class _AppState extends State<MyApp> {
                   title: "Masuk",
                   description: "Silahkan masukkan nomor HP-mu yang aktif",
                   onClick: "login",
-                )),
+                ),
+            bindings: [UserBinding()]),
         GetPage<dynamic>(
             name: '/verifikasi',
             page: () => Auth(
@@ -173,7 +175,8 @@ class _AppState extends State<MyApp> {
                       "Silahkan masukkan kode verifikasi yang dikirim melalui SMS",
                   onClick: "verif",
                 )),
-        GetPage<dynamic>(name: '/logged', page: () => LoggedIn()),
+        GetPage<dynamic>(
+            name: '/logged', page: () => LoggedIn(), bindings: [UserBinding()]),
         GetPage<dynamic>(
             name: '/notifications', page: () => NotificationScreen()),
       ],
@@ -217,6 +220,7 @@ class _LoggedInState extends State<LoggedIn> {
   Widget build(BuildContext context) {
     Get.put(UserController());
     Get.put(DataTreeController());
+    Get.put(PaymentMethodController());
     return Scaffold(
       body: pageCaller(_bottomNavIndex),
       bottomNavigationBar: Container(

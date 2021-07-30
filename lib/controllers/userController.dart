@@ -4,8 +4,11 @@ import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:learnUI/api/auth.dart';
 import 'package:get/get.dart';
+import 'package:learnUI/api/data.dart';
 import 'package:learnUI/models/User.dart';
 import 'package:learnUI/models/cekToken.dart';
+import 'package:learnUI/models/gold_news/article.dart';
+import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +17,7 @@ class UserController extends GetxController {
   var tokenStatus = IsTokenValid().obs;
   var loading = false.obs;
   var now = DateTime.now().obs;
+
   List<String> hari = [
     "Minggu",
     "Senin",
@@ -24,6 +28,9 @@ class UserController extends GetxController {
     "Sabtu"
   ];
   String get today => DateFormat('dd MMMM yyyy').format(now.value);
+  String get todayForApi => DateFormat('dd-mm-yyyy').format(now.value);
+  String get yesterdayForApi =>
+      DateFormat('dd-mm-yyyy').format(now.value.subtract(Duration(days: 1)));
   String get day => (hari[now.value.weekday]);
   String greeting() {
     var hour = now.value.hour.obs;
@@ -127,9 +134,31 @@ class UserController extends GetxController {
     }
   }
 
+  var newsResponse =
+      NewsRespon(articles: [], status: "Not fetching yet", totalResults: 0).obs;
+  var goldNews = <Article>[].obs;
+
+  Future<void> getGoldNews() async {
+    await toTrue();
+    var res = await DataFetching().getGoldNews(yesterdayForApi, todayForApi);
+    if (res != null) {
+      newsResponse.value = await (res);
+      goldNews.value = await res.articles;
+      print("data hereeeeeeeeeeeeeee");
+      print(res);
+      await toFalse();
+    } else {
+      print("page load before the data render");
+      await toFalse();
+      return null;
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
+    now.value = DateTime.now();
+    getGoldNews();
     Timer.periodic(Duration(hours: 3), (timer) {
       now.value = DateTime.now();
     });
