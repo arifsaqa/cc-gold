@@ -57,9 +57,7 @@ flutter:
   assets:
     - icons/home.svg
     - images/
-    - images/news/
     - images/navs/
-    - images/banks/
     - images/notif/
   fonts:
     - family: MetroReg

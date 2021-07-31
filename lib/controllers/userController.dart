@@ -9,6 +9,7 @@ import 'package:learnUI/models/User.dart';
 import 'package:learnUI/models/cekToken.dart';
 import 'package:learnUI/models/gold_news/article.dart';
 import 'package:learnUI/models/gold_news/gold_news.dart';
+import 'package:learnUI/models/saldo/saldo_response.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -134,6 +135,23 @@ class UserController extends GetxController {
     }
   }
 
+  var saldo = SaldoResponse(status: 0, saldo: null).obs;
+  var isSaldoVisible = true.obs;
+
+  void toogleHideSaldo() {
+    isSaldoVisible.value = !isSaldoVisible.value;
+  }
+
+  Future<void> getUserSaldo() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var userId = await pref.getInt("userId");
+    print('User AAAAAidiiiiiiiiii' + userId.toString());
+    await toTrue();
+    var res = await AuthFunctions.getUserSaldo(userId!);
+    saldo.value = await (res);
+    await toFalse();
+  }
+
   var newsResponse =
       NewsRespon(articles: [], status: "Not fetching yet", totalResults: 0).obs;
   var goldNews = <Article>[].obs;
@@ -144,8 +162,6 @@ class UserController extends GetxController {
     if (res != null) {
       newsResponse.value = await (res);
       goldNews.value = await res.articles;
-      print("data hereeeeeeeeeeeeeee");
-      print(res);
       await toFalse();
     } else {
       print("page load before the data render");

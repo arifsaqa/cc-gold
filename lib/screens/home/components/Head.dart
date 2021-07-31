@@ -12,7 +12,6 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     final dataTreesController = Get.find<DataTreeController>();
     final controller = Get.find<UserController>();
-    print(controller.userData.value.user!.name);
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.only(bottom: 60),

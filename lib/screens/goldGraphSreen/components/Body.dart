@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/constants/urls.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:shimmer/shimmer.dart';
 

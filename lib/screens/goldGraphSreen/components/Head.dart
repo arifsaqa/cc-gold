@@ -32,7 +32,6 @@ class _StateHead extends State<Head> {
                       onTap: () {
                         setState(() {
                           isSale = true;
-                          print(isSale);
                         });
                       },
                       child: Container(
@@ -55,7 +54,6 @@ class _StateHead extends State<Head> {
                       onTap: () {
                         setState(() {
                           isSale = false;
-                          print(isSale);
                         });
                       },
                       child: Container(

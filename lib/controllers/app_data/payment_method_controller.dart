@@ -24,8 +24,6 @@ class PaymentMethodController extends GetxController {
     if (res != null) {
       paymentMethodResponse.value = await (res);
       paymentMethod.value = await res.paymentMethods;
-      print("data hereeeeeeeeeeeeeee");
-      print(res);
       await toFalse();
     } else {
       print("page load before the data render");

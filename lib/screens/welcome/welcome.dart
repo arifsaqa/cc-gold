@@ -41,6 +41,7 @@ class _StateWelcome extends State<Welcome> {
       var token = await pref.getString("token");
       await controller.istokenValid(token!);
       if (controller.tokenStatus.value.status != 0) {
+        await controller.getUserSaldo();
         await controller.getUserById(isSignin);
         Timer(Duration(milliseconds: 90), () {
           Get.off<void>(LoggedIn());

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/wallet/components/Body.dart';
 import 'package:learnUI/screens/wallet/components/Head.dart';
 
 class WalletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Get.put(UserController());
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

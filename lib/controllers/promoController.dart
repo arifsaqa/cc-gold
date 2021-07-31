@@ -29,8 +29,6 @@ class PromoController extends GetxController {
     if (res != null) {
       promos.value = await (res);
       promo = await res.promos.obs;
-      print("data hereeeeeeeeeeeeeee");
-      print(res);
       await toFalse();
     } else {
       print("page load before the data render");

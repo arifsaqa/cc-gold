@@ -21,11 +21,8 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 201) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult);
         var parsedPromos = Promos.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPromos;
       } else {
@@ -45,11 +42,8 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult);
         var parsedPrice = Prices.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
       } else {
@@ -69,11 +63,8 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult);
         var parsedPrice = Prices.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
       } else {
@@ -93,11 +84,8 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult);
         var parsedPrice =
             CurrentPrice.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
@@ -118,11 +106,8 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult);
         var parsedPrice =
             CurrentPrice.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
@@ -138,17 +123,14 @@ class DataFetching {
     try {
       var apiResult = await http.get(
         Uri.parse(
-            'https://newsapi.org/v2/everything?q=gold%20investments&from=${fromDate}9&to=${toDate}&sortBy=popularity&pageSize=5&apiKey=f0e15b7082ce461899934bfbe94c4e4a'),
+            'https://newsapi.org/v2/everything?q=gold%20news&from=${fromDate}9&to=${toDate}&sortBy=popularity&pageSize=5&apiKey=f0e15b7082ce461899934bfbe94c4e4a'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult);
         var parsedPrice =
             NewsRespon.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
@@ -169,11 +151,8 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult);
         var parsedPrice =
             PaymentMethodResponse.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;

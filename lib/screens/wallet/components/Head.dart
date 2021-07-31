@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
+import 'package:get/get.dart';
 
 class Head extends StatelessWidget {
   @override
@@ -19,18 +23,6 @@ class Head extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // Row(
-            //   children: [
-            //     Text(
-            //       "Dompet Emas",
-            //       textScaleFactor: 1.0,
-            //       style: TextStyle(
-            //           color: Colors.white,
-            //           fontSize: header,
-            //           fontWeight: FontWeight.w600),
-            //     )
-            //   ],
-            // ),
             Saldo(),
           ],
         ),
@@ -39,15 +31,11 @@ class Head extends StatelessWidget {
   }
 }
 
-class Saldo extends StatefulWidget {
-  @override
-  _SaldoState createState() => _SaldoState();
-}
-
-class _SaldoState extends State<Saldo> {
-  bool display = true;
+class Saldo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<UserController>();
+    var dataController = Get.put(DataTreeController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -58,10 +46,18 @@ class _SaldoState extends State<Saldo> {
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
                 child: GradientText(
-                    child: Text(
-                  display ? "2,000 gram" : "**********",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(fontSize: input, fontFamily: "MetroMedium"),
+                    child: Obx(
+                  () => Text(
+                    controller.isSaldoVisible.value
+                        ? controller.saldo.value.saldo != null
+                            ? controller.saldo.value.saldo!.gram.toString() +
+                                " gram"
+                            : "0 gram"
+                        : "**********",
+                    textScaleFactor: 1.0,
+                    style:
+                        TextStyle(fontSize: input, fontFamily: "MetroMedium"),
+                  ),
                 ))),
             Row(children: [
               Text(
@@ -69,22 +65,30 @@ class _SaldoState extends State<Saldo> {
                 textScaleFactor: 1.0,
                 style: TextStyle(fontSize: normal),
               ),
-              Text(
-                display ? "1.080.000" : "*********",
-                textScaleFactor: 1.0,
-                style: TextStyle(fontSize: normal),
+              Obx(
+                () => Text(
+                  controller.isSaldoVisible.value
+                      ? (dataController.currentSellPrice.value.price.price *
+                              (controller.saldo.value.saldo != null
+                                  ? controller.saldo.value.saldo!.gram
+                                  : 0))
+                          .toString()
+                      : "*********",
+                  textScaleFactor: 1.0,
+                  style: TextStyle(fontSize: normal),
+                ),
               )
             ])
           ],
         ),
         IconButton(
             onPressed: () {
-              setState(() {
-                display = !display;
-              });
+              controller.toogleHideSaldo();
             },
             icon: Icon(
-              display ? Icons.visibility : Icons.visibility_off,
+              controller.isSaldoVisible.value
+                  ? Icons.visibility
+                  : Icons.visibility_off,
               color: Colors.white,
             ))
       ],

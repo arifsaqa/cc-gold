@@ -26,7 +26,6 @@ class _ChartState extends State<Chart> {
       onTap: () {
         setState(() {
           _active = index;
-          print(_active);
         });
       },
       child: Container(

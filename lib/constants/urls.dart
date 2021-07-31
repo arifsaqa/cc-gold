@@ -13,6 +13,10 @@ class AuthURL {
   String get logout => base_url + apiVersion + 'logout';
 }
 
+class UsersData {
+  String get userSaldo => base_url + apiVersion + 'saldo/';
+}
+
 class DataUrl {
   String get getPromo => base_url + apiVersion + 'promos';
   String get getBuyPrice => base_url + apiVersion + 'buyPrices';
