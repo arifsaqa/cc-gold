@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:learnUI/bindings/data_trees_binding.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/bindings/user_binding.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
@@ -221,6 +222,7 @@ class _LoggedInState extends State<LoggedIn> {
     Get.put(UserController());
     Get.put(DataTreeController());
     Get.put(PaymentMethodController());
+    Get.put(Formatter());
     return Scaffold(
       body: pageCaller(_bottomNavIndex),
       bottomNavigationBar: Container(

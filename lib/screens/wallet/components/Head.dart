@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
@@ -36,6 +37,7 @@ class Saldo extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<UserController>();
     var dataController = Get.put(DataTreeController());
+    final formatter = Get.find<Formatter>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -68,11 +70,11 @@ class Saldo extends StatelessWidget {
               Obx(
                 () => Text(
                   controller.isSaldoVisible.value
-                      ? (dataController.currentSellPrice.value.price.price *
+                      ? formatter.addDot(
+                          dataController.currentSellPrice.value.price.price *
                               (controller.saldo.value.saldo != null
                                   ? controller.saldo.value.saldo!.gram
                                   : 0))
-                          .toString()
                       : "*********",
                   textScaleFactor: 1.0,
                   style: TextStyle(fontSize: normal),

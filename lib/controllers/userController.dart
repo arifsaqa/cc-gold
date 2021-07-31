@@ -20,18 +20,19 @@ class UserController extends GetxController {
   var now = DateTime.now().obs;
 
   List<String> hari = [
-    "Minggu",
+    "",
     "Senin",
     "Selasa",
     "Rabu",
     "Kamis",
     "Jum'at",
-    "Sabtu"
+    "Sabtu",
+    "Minggu",
   ];
   String get today => DateFormat('dd MMMM yyyy').format(now.value);
   String get todayForApi => DateFormat('dd-mm-yyyy').format(now.value);
   String get yesterdayForApi =>
-      DateFormat('dd-mm-yyyy').format(now.value.subtract(Duration(days: 1)));
+      DateFormat('dd-mm-yyyy').format(now.value.subtract(Duration(days: 4)));
   String get day => (hari[now.value.weekday]);
   String greeting() {
     var hour = now.value.hour.obs;

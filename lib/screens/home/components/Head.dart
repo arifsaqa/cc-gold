@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
@@ -12,6 +13,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     final dataTreesController = Get.find<DataTreeController>();
     final controller = Get.find<UserController>();
+    final formatter = Get.find<Formatter>();
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.only(bottom: 60),
@@ -129,10 +131,9 @@ class Head extends StatelessWidget {
                                 fontWeight: FontWeight.w600),
                           ),
                           Obx(() => Text(
-                                "Rp." +
-                                    dataTreesController
-                                        .currentSellPrice.value.price.price
-                                        .toString() +
+                                "Rp. " +
+                                    formatter.addDot(dataTreesController
+                                        .currentSellPrice.value.price.price) +
                                     "/gr",
                                 textScaleFactor: 1.0,
                                 style: TextStyle(
@@ -185,10 +186,9 @@ class Head extends StatelessWidget {
                                 fontWeight: FontWeight.w600),
                           ),
                           Obx(() => Text(
-                                "Rp." +
-                                    dataTreesController
-                                        .currentBuyPrice.value.price.price
-                                        .toString() +
+                                "Rp. " +
+                                    formatter.addDot(dataTreesController
+                                        .currentBuyPrice.value.price.price) +
                                     "/gr",
                                 textScaleFactor: 1.0,
                                 style: TextStyle(

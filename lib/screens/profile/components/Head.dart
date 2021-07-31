@@ -37,6 +37,7 @@ class _SaldoState extends State<Saldo> {
   bool display = true;
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -73,12 +74,16 @@ class _SaldoState extends State<Saldo> {
                         Color(lowerGradient),
                       ]),
                   borderRadius: BorderRadius.circular(4)),
-              child: Text(
-                "Akun Terverifikasi",
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                  fontFamily: "MetroMedium",
-                  color: Color(background),
+              child: Obx(
+                () => Text(
+                  controller.userData.value.user!.isVerified == true
+                      ? "Akun Terverifikasi"
+                      : "Akun Belum Terverifikas",
+                  textScaleFactor: 1.0,
+                  style: TextStyle(
+                    fontFamily: "MetroMedium",
+                    color: Color(background),
+                  ),
                 ),
               ),
             ),
