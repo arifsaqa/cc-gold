@@ -37,7 +37,7 @@ class Head extends StatelessWidget {
                       children: [
                         GradientText(
                             child: Text(
-                          "Rp. " + controller.buyPrice[0].price.toString(),
+                          "Rp. " + controller.buyPriceL.value.price.toString(),
                           textScaleFactor: 1.0,
                           style: TextStyle(
                             fontSize: input,

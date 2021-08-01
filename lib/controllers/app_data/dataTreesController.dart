@@ -27,12 +27,10 @@ class DataTreeController extends GetxController {
               CurrentPriceData(createdAt: '', id: 0, price: 0, updatedAt: ''))
       .obs;
 
-  var selectedIndex = 0.obs;
-  var selectedPrice = 0.obs;
-  void setSelectedPrice(int index, int price) {
-    selectedIndex.value = index;
-    selectedPrice.value = price;
-  }
+  var buyPriceL =
+      CurrentPriceData(createdAt: '', id: 0, price: 0, updatedAt: '').obs;
+  var sellPriceL =
+      CurrentPriceData(createdAt: '', id: 0, price: 0, updatedAt: '').obs;
 
   Future<void> toTrue() async {
     loading.value = true;
@@ -74,7 +72,9 @@ class DataTreeController extends GetxController {
     await toTrue();
     var res = await DataFetching().getCurrentSellPrice();
     if (res != null) {
+      print("sSellPRICEEEEEEEEEEEEEE" + res.price.price.toString());
       currentSellPrice.value = await res;
+      sellPriceL.value.price = await res.price.price;
       await toFalse();
     } else {
       print("page load before the data render");
@@ -87,7 +87,9 @@ class DataTreeController extends GetxController {
     await toTrue();
     var res = await DataFetching().getCurrentBuyPrice();
     if (res != null) {
+      print("BUYPRICEEEEEEEEEEEEEE" + res.price.price.toString());
       currentBuyPrice.value = await (res);
+      buyPriceL.value.price = await res.price.price;
       await toFalse();
     } else {
       print("page load before the data render");
@@ -97,11 +99,11 @@ class DataTreeController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     getBuyPrice();
     getSellPrice();
-    getCurrentSellPrice();
+    await getCurrentSellPrice();
     getCurrentBuyPrice();
   }
 }

@@ -65,7 +65,7 @@ class _StateWelcome extends State<Welcome> {
     } else {
       print("go to login screen  " + isSignin.toString());
       Timer(Duration(milliseconds: 180), () {
-        Navigator.pushReplacementNamed(context, "/login");
+       Get.offAndToNamed<void>("/login");
         setState(() {
           _loadingHere = false;
         });

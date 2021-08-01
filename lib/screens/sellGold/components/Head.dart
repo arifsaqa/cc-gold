@@ -38,7 +38,8 @@ class Head extends StatelessWidget {
                         GradientText(
                             child: Obx(() => Text(
                                   "Rp. " +
-                                      controller.sellPrice[0].price.toString(),
+                                      controller.sellPriceL.value.price
+                                          .toString(),
                                   textScaleFactor: 1.0,
                                   style: TextStyle(
                                     fontSize: input,

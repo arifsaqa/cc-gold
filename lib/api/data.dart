@@ -100,7 +100,7 @@ class DataFetching {
   Future<CurrentPrice?> getCurrentBuyPrice() async {
     try {
       var apiResult = await http.get(
-        Uri.parse(url.currentSellPrice),
+        Uri.parse(url.currentBuyPrice),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

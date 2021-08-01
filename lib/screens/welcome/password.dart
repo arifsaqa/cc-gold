@@ -57,20 +57,13 @@ class _StatePassword extends State<Password> {
 
   void cekPassword() async {
     SharedPreferences ref = await SharedPreferences.getInstance();
-    String? phone = await ref.getString("phone");
-    if (mounted) {
-      // setState(() {
-      //   isLoading = true;
-      // });
-      await controller.login(_typedPassword);
-      if (controller.userData.value.user != null) {
-        await controller.getUserSaldo();
-        await Navigator.pushReplacement<void, void>(
-            context, MaterialPageRoute(builder: (context) => widget.redirecto));
-        // setState(() {
-        //   isLoading = false;
-        // });
-      }
+    await controller.login(_typedPassword);
+    if (controller.userData.value.user != null) {
+      await controller.getUserSaldo();
+      int? userId = await ref.getInt("userId");
+      await controller.getUserById(userId!);
+      await Navigator.pushReplacement<void, void>(
+          context, MaterialPageRoute(builder: (context) => widget.redirecto));
     }
   }
 

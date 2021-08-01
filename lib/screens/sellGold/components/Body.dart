@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
 class Body extends StatelessWidget {
@@ -11,7 +12,8 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<DataTreeController>();
+    final controller = Get.find<TransactionController>();
+    final priceGetter = Get.find<DataTreeController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 230,
@@ -50,99 +52,89 @@ class Body extends StatelessWidget {
                           childAspectRatio: (150 / 73),
                         ),
                         itemCount: multiplice.length,
-                        itemBuilder: (context, index) => Obx(
-                              () => GestureDetector(
-                                onTap: () {
-                                  controller.setSelectedPrice(
-                                      index,
-                                      (controller.buyPrice[0].price *
-                                          multiplice[
-                                              controller.selectedIndex.value]));
-                                },
-                                child: Container(
-                                  height: 10,
-                                  width: 160,
-                                  padding: EdgeInsets.all(5),
-                                  margin: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(.08),
-                                        offset: Offset(
-                                          5.0,
-                                          5.0,
-                                        ),
-                                        blurRadius: 10.0,
-                                        spreadRadius: 2.0,
+                        itemBuilder: (context, index) => Obx(() =>
+                            GestureDetector(
+                              onTap: () {
+                                controller.setSelectedPrice(
+                                    index, priceGetter.sellPriceL.value.price);
+                              },
+                              child: Container(
+                                height: 10,
+                                width: 160,
+                                padding: EdgeInsets.all(5),
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(.08),
+                                      offset: Offset(
+                                        5.0,
+                                        5.0,
                                       ),
-                                      BoxShadow(
-                                        color: Colors.white,
-                                        offset: Offset(0.0, 0.0),
-                                        blurRadius: 0.0,
-                                        spreadRadius: 0.0,
+                                      blurRadius: 10.0,
+                                      spreadRadius: 2.0,
+                                    ),
+                                    BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(0.0, 0.0),
+                                      blurRadius: 0.0,
+                                      spreadRadius: 0.0,
+                                    ),
+                                  ],
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(controller.selectedIndex == index
+                                            ? upperGradient
+                                            : 0XFFFFF),
+                                        Color(controller.selectedIndex == index
+                                            ? middleGradient
+                                            : 0XFFFFF),
+                                        Color(controller.selectedIndex == index
+                                            ? lowerGradient
+                                            : 0XFFFFF),
+                                      ]),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            multiplice[index].toString() +
+                                                " gram",
+                                            textScaleFactor: 1.0,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(priceLabel),
+                                                fontSize: normal),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Rp. " +
+                                                (multiplice[index] *
+                                                        priceGetter.sellPriceL
+                                                            .value.price)
+                                                    .toString(),
+                                            textScaleFactor: 1.0,
+                                            style: TextStyle(
+                                                color: Color(price),
+                                                fontSize: xm),
+                                          )
+                                        ],
                                       ),
                                     ],
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Color(
-                                              controller.selectedIndex == index
-                                                  ? upperGradient
-                                                  : 0XFFFFF),
-                                          Color(
-                                              controller.selectedIndex == index
-                                                  ? middleGradient
-                                                  : 0XFFFFF),
-                                          Color(
-                                              controller.selectedIndex == index
-                                                  ? lowerGradient
-                                                  : 0XFFFFF),
-                                        ]),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              multiplice[index].toString() +
-                                                  " gram",
-                                              textScaleFactor: 1.0,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(priceLabel),
-                                                  fontSize: normal),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: 5),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Rp. " +
-                                                  (controller.sellPrice[0]
-                                                              .price *
-                                                          (multiplice[index]))
-                                                      .toString(),
-                                              textScaleFactor: 1.0,
-                                              style: TextStyle(
-                                                  color: Color(price),
-                                                  fontSize: xm),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ),
                               ),
-                            ))),
+                            )))),
               ),
             ],
           ),
@@ -168,11 +160,7 @@ class Body extends StatelessWidget {
                       height: 5,
                     ),
                     Obx(() => Text(
-                          "Rp. " +
-                              (controller.sellPrice[0].price *
-                                      (multiplice[
-                                          controller.selectedIndex.value]))
-                                  .toString(),
+                          "Rp. " + controller.getTotal.value.toString(),
                           textScaleFactor: 1.0,
                           style: TextStyle(
                               color: Colors.black,
@@ -189,10 +177,11 @@ class Body extends StatelessWidget {
                             builder: (context) => PaymentScreen(
                                   label:
                                       multiplice[controller.selectedIndex.value]
-                                          .toString(),
-                                  price:
-                                      controller.selectedPrice.value.toString(),
-                                  typeId: 1,
+                                              .toString() +
+                                          " gram",
+                                  price: controller.getTotal.value.toString() +
+                                      " gram",
+                                  typeId: 0,
                                 )));
                   },
                   child: Text(

@@ -4,13 +4,16 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
 class Body extends StatelessWidget {
-  final List<int> multiplice = [1, 2, 5, 10, 50, 100];
+  final multiplice = [1, 2, 5, 10, 50, 100];
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<DataTreeController>();
+    final controller = Get.find<TransactionController>();
+    final priceGetter = Get.find<DataTreeController>();
+
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 230,
@@ -53,10 +56,7 @@ class Body extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 controller.setSelectedPrice(
-                                    index,
-                                    (controller.buyPrice[0].price *
-                                        multiplice[
-                                            controller.selectedIndex.value]));
+                                    index, priceGetter.buyPriceL.value.price);
                               },
                               child: Container(
                                 height: 10,
@@ -119,7 +119,9 @@ class Body extends StatelessWidget {
                                         children: [
                                           Text(
                                             "Rp. " +
-                                                controller.buyPrice[0].price
+                                                (multiplice[index] *
+                                                        priceGetter.buyPriceL
+                                                            .value.price)
                                                     .toString(),
                                             textScaleFactor: 1.0,
                                             style: TextStyle(
@@ -158,7 +160,7 @@ class Body extends StatelessWidget {
                       height: 5,
                     ),
                     Obx(() => Text(
-                          "Rp. " + controller.selectedPrice.toString(),
+                          "Rp. " + controller.getTotal.value.toString(),
                           textScaleFactor: 1.0,
                           style: TextStyle(
                               color: Colors.black,
@@ -177,10 +179,7 @@ class Body extends StatelessWidget {
                                       multiplice[controller.selectedIndex.value]
                                               .toString() +
                                           " gram",
-                                  price: (controller.buyPrice[0].price *
-                                              multiplice[controller
-                                                  .selectedIndex.value])
-                                          .toString() +
+                                  price: controller.getTotal.value.toString() +
                                       " gram",
                                   typeId: 0,
                                 )));

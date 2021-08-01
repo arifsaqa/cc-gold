@@ -11,6 +11,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/deviceDataController.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
@@ -222,6 +223,7 @@ class _LoggedInState extends State<LoggedIn> {
     Get.put(UserController());
     Get.put(DataTreeController());
     Get.put(PaymentMethodController());
+    Get.put(TransactionController());
     Get.put(Formatter());
     return Scaffold(
       body: pageCaller(_bottomNavIndex),
