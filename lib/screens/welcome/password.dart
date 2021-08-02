@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/userController.dart';
+import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum StateStatus { done, not }
@@ -56,14 +57,13 @@ class _StatePassword extends State<Password> {
   }
 
   void cekPassword() async {
-    SharedPreferences ref = await SharedPreferences.getInstance();
-    await controller.login(_typedPassword);
-    if (controller.userData.value.user != null) {
+    LocalUser cek = LocalUser();
+    var cekLogin = await controller.login(_typedPassword);
+    if (cekLogin == "oke") {
       await controller.getUserSaldo();
-      int? userId = await ref.getInt("userId");
-      await controller.getUserById(userId!);
-      await Navigator.pushReplacement<void, void>(
-          context, MaterialPageRoute(builder: (context) => widget.redirecto));
+      int userId = await cek.getUserId();
+      await controller.getUserById(userId);
+      await Get.offNamed<void>('/logged');
     }
   }
 
@@ -75,10 +75,10 @@ class _StatePassword extends State<Password> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

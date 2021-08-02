@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
@@ -9,6 +10,7 @@ class Head extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<DataTreeController>();
+    final formatter = Get.find<Formatter>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 150,
@@ -38,8 +40,8 @@ class Head extends StatelessWidget {
                         GradientText(
                             child: Obx(() => Text(
                                   "Rp. " +
-                                      controller.sellPriceL.value.price
-                                          .toString(),
+                                      formatter.addDot(
+                                          controller.sellPriceL.value.price),
                                   textScaleFactor: 1.0,
                                   style: TextStyle(
                                     fontSize: input,

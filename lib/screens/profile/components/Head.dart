@@ -37,64 +37,58 @@ class _SaldoState extends State<Saldo> {
   bool display = true;
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserController());
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GetX<UserController>(
-                init: UserController(),
-                builder: (_) => Text(
-                      _.userData.value.user!.name.toString(),
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        fontSize: name,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )),
-            // Text(
-            //   "Mr. Subaidi",
-            //   textScaleFactor: 1.0,
-            //   style: TextStyle(
-            //     fontSize: name,
-            //     fontWeight: FontWeight.w600,
-            //   ),
-            Container(
-              margin: EdgeInsets.only(top: 5),
-              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(upperGradient),
-                        Color(middleGradient),
-                        Color(lowerGradient),
-                      ]),
-                  borderRadius: BorderRadius.circular(4)),
-              child: Obx(
-                () => Text(
-                  controller.userData.value.user!.isVerified == true
-                      ? "Akun Terverifikasi"
-                      : "Akun Belum Terverifikas",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                    fontFamily: "MetroMedium",
-                    color: Color(background),
+    final controller = Get.find<UserController>();
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(() => Text(
+                    controller.user.value.name,
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      fontSize: name,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )),
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                padding:
+                    EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(upperGradient),
+                          Color(middleGradient),
+                          Color(lowerGradient),
+                        ]),
+                    borderRadius: BorderRadius.circular(4)),
+                child: Obx(
+                  () => Text(
+                    controller.user.value.isVerified == true
+                        ? "Akun Terverifikasi"
+                        : "Akun Belum Terverifikasi",
+                    textScaleFactor: 1.0,
+                    style: TextStyle(
+                      fontFamily: "MetroMedium",
+                      color: Color(background),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        CircleAvatar(
-          backgroundImage: AssetImage('images/profile.png'),
-          minRadius: 20,
-          maxRadius: 33,
-        )
-      ],
+            ],
+          ),
+          CircleAvatar(
+            backgroundImage: AssetImage('images/profile.png'),
+            minRadius: 20,
+            maxRadius: 33,
+          )
+        ],
+      ),
     );
   }
 }

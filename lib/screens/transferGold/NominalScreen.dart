@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
@@ -38,7 +39,7 @@ class Head extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<DataTreeController>();
-
+    final formatter = Get.find<Formatter>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 150,
@@ -65,7 +66,8 @@ class Head extends StatelessWidget {
                         GradientText(
                             child: Obx(() => Text(
                                   "Rp. " +
-                                      controller.sellPrice[0].price.toString(),
+                                      formatter.addDot(controller
+                                          .currentSellPrice.value.price.price),
                                   textScaleFactor: 1.0,
                                   style: TextStyle(
                                     fontSize: input,
@@ -116,6 +118,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<TransactionController>();
     final priceGetter = Get.find<DataTreeController>();
+    final formatter = Get.find<Formatter>();
 
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -158,11 +161,8 @@ class Body extends StatelessWidget {
                         itemBuilder: (context, index) => Obx(() =>
                             GestureDetector(
                               onTap: () {
-                                // controller.setSelectedPrice(
-                                //     index,
-                                //     (controller.buyPrice[0].price *
-                                //         multiplice[
-                                //             controller.selectedIndex.value]));
+                                controller.setSelectedPrice(
+                                    index, priceGetter.sellPriceL.value.price);
                               },
                               child: Container(
                                 height: 10,
@@ -222,12 +222,11 @@ class Body extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(
-                                            "Rp. "
-                                            // +
-                                            // (controller.priceGetter.price *
-                                            //         (multiplice[index]))
-                                            // .toString(),
-                                            ,
+                                            "Rp. " +
+                                                formatter.addDot(
+                                                    multiplice[index] *
+                                                        priceGetter.sellPriceL
+                                                            .value.price),
                                             textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 color: Color(price),
@@ -265,9 +264,9 @@ class Body extends StatelessWidget {
                       height: 5,
                     ),
                     Obx(() => Text(
-                          // (multiplice[controller.selectedIndex.value])
-                          //         .toString() +
-                          " gram",
+                          (multiplice[controller.selectedIndex.value])
+                                  .toString() +
+                              " gram",
                           textScaleFactor: 1.0,
                           style: TextStyle(
                               color: Colors.black,

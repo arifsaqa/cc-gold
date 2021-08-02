@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
@@ -13,6 +14,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<TransactionController>();
     final priceGetter = Get.find<DataTreeController>();
+    final formatter = Get.find<Formatter>();
 
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -119,10 +121,10 @@ class Body extends StatelessWidget {
                                         children: [
                                           Text(
                                             "Rp. " +
-                                                (multiplice[index] *
+                                                formatter.addDot(
+                                                    multiplice[index] *
                                                         priceGetter.buyPriceL
-                                                            .value.price)
-                                                    .toString(),
+                                                            .value.price),
                                             textScaleFactor: 1.0,
                                             style: TextStyle(
                                                 color: Color(price),
@@ -160,7 +162,7 @@ class Body extends StatelessWidget {
                       height: 5,
                     ),
                     Obx(() => Text(
-                          "Rp. " + controller.getTotal.value.toString(),
+                          "Rp. " + formatter.addDot(controller.getTotal.value),
                           textScaleFactor: 1.0,
                           style: TextStyle(
                               color: Colors.black,

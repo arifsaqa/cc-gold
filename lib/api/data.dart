@@ -123,7 +123,7 @@ class DataFetching {
     try {
       var apiResult = await http.get(
         Uri.parse(
-            'https://newsapi.org/v2/everything?qInTitle=gold%26investments&from=${fromDate}9&to=${toDate}&sortBy=popularity&pageSize=5&apiKey=f0e15b7082ce461899934bfbe94c4e4a'),
+            'https://newsapi.org/v2/everything?q=gold%26futures&sortBy=popularity&pageSize=5&apiKey=f0e15b7082ce461899934bfbe94c4e4a'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

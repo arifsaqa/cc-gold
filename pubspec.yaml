@@ -39,6 +39,9 @@ dependencies:
   shimmer: ^2.0.0
   json_serializable: ^4.1.4
   intl: ^0.17.0
+  barcode_widget: ^2.0.1
+  modal_bottom_sheet: ^2.0.0
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   build_runner: ^2.0.6

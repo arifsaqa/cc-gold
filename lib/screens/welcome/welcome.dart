@@ -44,7 +44,7 @@ class _StateWelcome extends State<Welcome> {
         await controller.getUserSaldo();
         await controller.getUserById(isSignin);
         Timer(Duration(milliseconds: 90), () {
-          Get.off<void>(LoggedIn());
+          Get.offNamed<void>('/logged');
           setState(() {
             _loadingHere = false;
           });
@@ -52,11 +52,7 @@ class _StateWelcome extends State<Welcome> {
       } else {
         await controller.getUserById(isSignin);
         Timer(Duration(milliseconds: 90), () {
-          Navigator.push<void>(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      Password(redirecto: LoggedIn(), isLoggingin: true)));
+          Get.off<void>(Password(redirecto: LoggedIn(), isLoggingin: true));
           setState(() {
             _loadingHere = false;
           });
@@ -64,8 +60,8 @@ class _StateWelcome extends State<Welcome> {
       }
     } else {
       print("go to login screen  " + isSignin.toString());
-      Timer(Duration(milliseconds: 180), () {
-       Get.offAndToNamed<void>("/login");
+      Timer(Duration(seconds: 3), () {
+        Get.offAndToNamed<void>("/login");
         setState(() {
           _loadingHere = false;
         });

@@ -99,11 +99,11 @@ class DataTreeController extends GetxController {
   }
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
     getBuyPrice();
     getSellPrice();
-    await getCurrentSellPrice();
+    getCurrentSellPrice();
     getCurrentBuyPrice();
   }
 }

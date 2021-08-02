@@ -6,12 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:learnUI/bindings/data_trees_binding.dart';
 import 'package:learnUI/bindings/formater.dart';
+import 'package:learnUI/bindings/payment_method_binding.dart';
+import 'package:learnUI/bindings/transaction_bindings.dart';
 import 'package:learnUI/bindings/user_binding.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
-import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/deviceDataController.dart';
-import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
@@ -134,6 +134,8 @@ class _AppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     // print(_deviceData);
+    Get.put(DataTreeController());
+    Get.put(UserController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -177,8 +179,13 @@ class _AppState extends State<MyApp> {
                       "Silahkan masukkan kode verifikasi yang dikirim melalui SMS",
                   onClick: "verif",
                 )),
-        GetPage<dynamic>(
-            name: '/logged', page: () => LoggedIn(), bindings: [UserBinding()]),
+        GetPage<dynamic>(name: '/logged', page: () => LoggedIn(), bindings: [
+          UserBinding(),
+          TransactionBinding(),
+          PaymentMethodBinding(),
+          DotFormatter(),
+          DataTreeBinding()
+        ]),
         GetPage<dynamic>(
             name: '/notifications', page: () => NotificationScreen()),
       ],
@@ -220,11 +227,6 @@ class _LoggedInState extends State<LoggedIn> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(UserController());
-    Get.put(DataTreeController());
-    Get.put(PaymentMethodController());
-    Get.put(TransactionController());
-    Get.put(Formatter());
     return Scaffold(
       body: pageCaller(_bottomNavIndex),
       bottomNavigationBar: Container(

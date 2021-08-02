@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:learnUI/constants/urls.dart';
-import 'package:learnUI/models/User.dart';
 import 'package:learnUI/models/cekToken.dart';
 import 'package:learnUI/models/saldo/saldo_response.dart';
+import 'package:learnUI/models/user/user.dart';
+import 'package:learnUI/models/user/user_response.dart';
 
 class AuthFunctions {
-  static Future<UserData?> login(String phone, String password) async {
+  static Future<UserResponse?> login(String phone, String password) async {
     var apiResult = await http.post(Uri.parse(AuthURL().login),
         headers: {
           'Content-Type': 'application/json',
@@ -16,7 +17,7 @@ class AuthFunctions {
 
     if (apiResult.statusCode == 200) {
       dynamic jsonObject = json.decode(apiResult.body);
-      return UserData.fromJson(jsonObject as Map<String, dynamic>);
+      return UserResponse.fromJson(jsonObject as Map<String, dynamic>);
       //d
     } else {
       //show shit

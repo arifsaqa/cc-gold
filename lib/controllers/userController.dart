@@ -5,16 +5,31 @@ import 'package:intl/intl.dart';
 import 'package:learnUI/api/auth.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/api/data.dart';
-import 'package:learnUI/models/User.dart';
 import 'package:learnUI/models/cekToken.dart';
 import 'package:learnUI/models/gold_news/article.dart';
 import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/models/saldo/saldo_response.dart';
+import 'package:learnUI/models/user/user.dart';
+import 'package:learnUI/models/user/user_response.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
-  var userData = UserData().obs;
+  var userResponse =
+      UserResponse(status: 0, user: null, token: '', isDeviceMatch: false).obs;
+  var user = User(
+          name: '',
+          isVerified: 0,
+          phone: '',
+          email: '',
+          id: 0,
+          image: '',
+          role: 0,
+          deviceId: '',
+          createdAt: '',
+          updatedAt: '')
+      .obs;
+
   var tokenStatus = IsTokenValid().obs;
   var loading = false.obs;
   var now = DateTime.now().obs;
@@ -32,7 +47,7 @@ class UserController extends GetxController {
   String get today => DateFormat('dd MMMM yyyy').format(now.value);
   String get todayForApi => DateFormat('dd-mm-yyyy').format(now.value);
   String get yesterdayForApi =>
-      DateFormat('dd-mm-yyyy').format(now.value.subtract(Duration(days: 4)));
+      DateFormat('dd-mm-yyyy').format(now.value.subtract(Duration(days: 20)));
   String get day => (hari[now.value.weekday]);
   String greeting() {
     var hour = now.value.hour.obs;
@@ -57,33 +72,34 @@ class UserController extends GetxController {
   }
 
   LocalUser localUser = LocalUser();
-  Future<String?> login(String password) async {
+  Future<String> login(String password) async {
     toTrue();
     SharedPreferences pref = await SharedPreferences.getInstance();
     var ok = await pref.getString("phone");
     try {
       var asu = await AuthFunctions.login(ok!, password);
       if (asu != null) {
-        userData.value = await asu;
+        userResponse.value = await asu;
+        user.value = (await asu.user)!;
         await localUser.setLocalUser(
             phoneNumber: ok,
-            userId: userData.value.user!.id as int,
-            token: userData.value.token as String);
-        // pref.setString("token", userData.value.token as String);
+            userId: userResponse.value.user!.id,
+            token: userResponse.value.token);
         await toFalse();
         return "oke";
       } else {
         toFalse();
-        userData.value.user = null;
         Get.snackbar<void>("Login Error", "Invalid phone number or password",
             snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+        return "hmm";
       }
     } catch (e) {
+      print('while getting data  ' + e.toString());
       toFalse();
-      userData.value.user = null;
       Get.snackbar<void>("Login Error",
           "Somthing wrong with our app, try again or contact our IT Support",
           snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+      return "cok";
     }
   }
 
@@ -116,22 +132,15 @@ class UserController extends GetxController {
 
   Future<int> getUserById(int id) async {
     try {
-      var user = await AuthFunctions.getUserById(id);
-      if (user != null) {
-        userData.value.user = user;
-        // Get.snackbar<void>("Your session status", "You are good, logging in!",
-        //     snackPosition: SnackPosition.TOP, colorText: Colors.green[600]);
-        return 1;
-      } else {
-        // Get.snackbar<void>("Your session is expired", "Get you to relogin page",
-        //     snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
-        return 0;
-      }
+      var cok = await AuthFunctions.getUserById(id);
+      // userResponse.value.user = await cok;
+      user.value = await cok;
+      return 1;
     } catch (e) {
+      print('while getting user data  ' + e.toString());
       Get.snackbar<void>(
           "App's Error", "Somthing wrong!, Get to our IT support",
           snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
-
       return 0;
     }
   }

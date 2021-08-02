@@ -36,7 +36,7 @@ class Saldo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<UserController>();
-    var dataController = Get.put(DataTreeController());
+    var dataController = Get.find<DataTreeController>();
     final formatter = Get.find<Formatter>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

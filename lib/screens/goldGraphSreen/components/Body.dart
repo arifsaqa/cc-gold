@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/constants/urls.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -53,63 +53,73 @@ class _PromoBuildState extends State<Body> {
                       scrollDirection: Axis.vertical,
                       itemCount: newscontroller.goldNews.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                            width: 1.0,
-                            color: Colors.grey.withOpacity(.05),
-                          ))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                // margin: EdgeInsets.only(right: 10),
-                                constraints: BoxConstraints(maxWidth: 80),
-                                height: 60,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: FadeInImage.assetNetwork(
-                                    image: newscontroller
-                                        .goldNews[index].urlToImage
-                                        .toString(),
-                                    placeholder: 'images/circular-progress.gif',
-                                    fit: BoxFit.cover,
+                        return InkWell(
+                          onTap: () async {
+                            await canLaunch(newscontroller.goldNews[index].url)
+                                ? await launch(
+                                    newscontroller.goldNews[index].url)
+                                : throw 'Could not launch $newscontroller.goldNews[index].url';
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                              width: 1.0,
+                              color: Colors.grey.withOpacity(.05),
+                            ))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  // margin: EdgeInsets.only(right: 10),
+                                  constraints: BoxConstraints(maxWidth: 80),
+                                  height: 60,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: FadeInImage.assetNetwork(
+                                      image: newscontroller
+                                          .goldNews[index].urlToImage
+                                          .toString(),
+                                      placeholder:
+                                          'images/circular-progress.gif',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    width: size.width * .6,
-                                    child: Text(
-                                      newscontroller.goldNews[index].title,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      textScaleFactor: 1.0,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      width: size.width * .6,
+                                      child: Text(
+                                        newscontroller.goldNews[index].title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        textScaleFactor: 1.0,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    width: size.width * .6,
-                                    child: Text(
-                                      newscontroller
-                                          .goldNews[index].description,
-                                      textScaleFactor: 1.0,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Colors.black45, fontSize: 12),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
+                                    Container(
+                                      width: size.width * .6,
+                                      child: Text(
+                                        newscontroller
+                                            .goldNews[index].description,
+                                        textScaleFactor: 1.0,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Colors.black45,
+                                            fontSize: 12),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },

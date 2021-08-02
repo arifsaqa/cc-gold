@@ -46,10 +46,7 @@ class Head extends StatelessWidget {
                         Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: Obx(() => Text(
-                                  controller.userData.value.user != null
-                                      ? controller.userData.value.user!.name
-                                          .toString()
-                                      : "fetching ..",
+                                  controller.user.value.name,
                                   textScaleFactor: 1.0,
                                   style: TextStyle(
                                       color: Colors.white,

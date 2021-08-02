@@ -8,7 +8,6 @@ import 'package:learnUI/screens/wallet/components/Head.dart';
 class WalletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Get.put(UserController());
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

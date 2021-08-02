@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/screens/profile/components/Body.dart';
 import 'package:learnUI/screens/profile/components/Head.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
