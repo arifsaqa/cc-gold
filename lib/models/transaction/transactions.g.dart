@@ -10,7 +10,7 @@ Transactions _$TransactionsFromJson(Map<String, dynamic> json) {
   return Transactions(
     status: json['status'] as int,
     data: (json['data'] as List<dynamic>)
-        .map((dynamic e) => Transaction.fromJson(e as Map<String, dynamic>))
+        .map((e) => Transaction.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }

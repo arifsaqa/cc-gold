@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/deviceDataController.dart';
+import 'package:learnUI/controllers/userController.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -15,15 +21,27 @@ class _StateResgisterScreen extends State<RegisterScreen> {
     FocusNode(),
     FocusNode(),
     FocusNode(),
+    FocusNode(),
   ];
 
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  var name = '';
+  var email;
+  var bankAccount;
+  var phone;
+  var image;
+  var deviceId;
+  var password = '';
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
+    final deviceController = Get.put(DeviceDataController());
+
     InputDecoration buildInputDecoration({
       required IconData icons,
       required String hinttext,
       required int myIndex,
+      int? counter,
     }) {
       return InputDecoration(
         hintText: hinttext,
@@ -31,6 +49,7 @@ class _StateResgisterScreen extends State<RegisterScreen> {
           icons,
           color: index == myIndex ? Colors.white : Color(lowerGradient),
         ),
+        counter: SizedBox.shrink(),
         focusedErrorBorder: InputBorder.none,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0),
@@ -56,26 +75,9 @@ class _StateResgisterScreen extends State<RegisterScreen> {
     }
 
     Size size = MediaQuery.of(context).size;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.white,
-              displayColor: Colors.white,
-              fontFamily: "MetroReg"),
-          cupertinoOverrideTheme:
-              NoDefaultCupertinoThemeData(primaryColor: Colors.white),
-          primaryColor: Colors.white,
-          accentColor: Colors.white,
-          focusColor: Colors.white,
-          accentIconTheme: IconThemeData(color: Colors.white),
-          primaryIconTheme: IconThemeData(color: Colors.white),
-          textSelectionTheme: TextSelectionThemeData(
-            cursorColor: Colors.white,
-          )),
-      home: Scaffold(
-          // resizeToAvoidBottomInset: false,
-          body: SingleChildScrollView(
+    return Scaffold(
+      // resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
         child: Container(
             height: size.height,
             width: size.width,
@@ -105,7 +107,6 @@ class _StateResgisterScreen extends State<RegisterScreen> {
                   ],
                 ),
                 Form(
-                  key: _formkey,
                   child: Column(
                     children: [
                       TextField(
@@ -115,6 +116,12 @@ class _StateResgisterScreen extends State<RegisterScreen> {
                           });
                         },
                         autofocus: true,
+                        onChanged: (val) {
+                          setState(() {
+                            name = val;
+                          });
+                          print(name);
+                        },
                         focusNode: _focusNodes[0],
                         decoration: buildInputDecoration(
                           hinttext: "Name",
@@ -137,6 +144,11 @@ class _StateResgisterScreen extends State<RegisterScreen> {
                             index = 1;
                           });
                         },
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
                         decoration: buildInputDecoration(
                             myIndex: 1, hinttext: "Email", icons: Icons.email),
                         keyboardType: TextInputType.emailAddress,
@@ -157,10 +169,15 @@ class _StateResgisterScreen extends State<RegisterScreen> {
                         },
                         focusNode: _focusNodes[2],
                         decoration: buildInputDecoration(
-                          hinttext: "No Hp",
+                          icons: Icons.credit_card,
+                          hinttext: "No Rekening",
                           myIndex: 2,
-                          icons: Icons.phone,
                         ),
+                        onChanged: (val) {
+                          setState(() {
+                            bankAccount = val;
+                          });
+                        },
                         keyboardType: TextInputType.number,
                         style: TextStyle(
                           fontSize: normal,
@@ -181,6 +198,38 @@ class _StateResgisterScreen extends State<RegisterScreen> {
                             icons: Icons.lock, hinttext: "PIN", myIndex: 3),
                         keyboardType: TextInputType.number,
                         obscureText: true,
+                        maxLength: 6,
+                        onChanged: (val) {
+                          print(val.length);
+                          if (val.length <= 6) {
+                            setState(() {
+                              password = val;
+                            });
+                          }
+                        },
+                        style: TextStyle(
+                          fontSize: normal,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textInputAction: TextInputAction.done,
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        onTap: () {
+                          setState(() {
+                            index = 4;
+                          });
+                        },
+                        focusNode: _focusNodes[4],
+                        decoration: buildInputDecoration(
+                            hinttext: "No Hp", icons: Icons.phone, myIndex: 4),
+                        keyboardType: TextInputType.number,
+                        onChanged: (val) {
+                          setState(() {
+                            phone = val;
+                          });
+                        },
                         style: TextStyle(
                           fontSize: normal,
                           color: Colors.white,
@@ -189,30 +238,47 @@ class _StateResgisterScreen extends State<RegisterScreen> {
                         textInputAction: TextInputAction.done,
                       ),
                       SizedBox(height: 40),
-                      FloatingActionButton(
-                        onPressed: null,
-                        child: Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Color(upperGradient1),
-                                      Color(middleGradient1),
-                                      Color(lowerGragdient1),
-                                    ])),
-                            child: Icon(Icons.arrow_forward)),
-                        foregroundColor: Color(background),
-                      )
+                      Obx(() => controller.loading.value
+                          ? SpinKitCircle(
+                              color: Colors.white,
+                              size: 50.0,
+                            )
+                          : FloatingActionButton(
+                              onPressed: () async {
+                                var oke = await controller.register(
+                                    name,
+                                    email,
+                                    bankAccount,
+                                    phone,
+                                    image,
+                                    deviceController.deviceId.value,
+                                    password);
+                                if (oke == 'oke') {
+                                  Get.offNamed('/logged');
+                                }
+                              },
+                              child: Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Color(upperGradient1),
+                                            Color(middleGradient1),
+                                            Color(lowerGragdient1),
+                                          ])),
+                                  child: Icon(Icons.arrow_forward)),
+                              foregroundColor: Color(background),
+                            ))
                     ],
                   ),
                 )
               ],
             )),
-      )),
+      ),
     );
   }
 }

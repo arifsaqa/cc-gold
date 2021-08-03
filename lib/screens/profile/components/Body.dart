@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/controllers/userController.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Setting {
   final String image, title;
@@ -37,6 +41,8 @@ List<Setting> settings = [
 ];
 
 class Body extends StatelessWidget {
+  final controller = Get.find<UserController>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -68,8 +74,9 @@ class Body extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: GestureDetector(
                       onTap: index == settings.length - 1
-                          ? () {
-                              Navigator.pushNamed(context, '/login');
+                          ? () async {
+                              await controller.logout();
+                              Get.toNamed<void>('/login');
                             }
                           : null,
                       child: Container(

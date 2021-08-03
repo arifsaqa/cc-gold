@@ -30,6 +30,9 @@ class Transaction {
   @JsonKey(name: 'gram')
   int gram;
 
+  @JsonKey(name: 'payment')
+  int payment;
+
   @JsonKey(name: 'priceId')
   int priceId;
 
@@ -66,6 +69,7 @@ class Transaction {
       required this.barcode,
       required this.discount,
       required this.gram,
+      required this.payment,
       this.destinationNumber,
       this.message,
       required this.nominal,

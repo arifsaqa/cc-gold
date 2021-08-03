@@ -19,7 +19,9 @@ class _PromoBuildState extends State<PromosBuild> {
   @override
   void initState() {
     super.initState();
-    _getPromo();
+    Future.delayed(Duration.zero, () {
+      _getPromo();
+    });
   }
 
   @override

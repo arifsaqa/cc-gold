@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
+import 'package:get/instance_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/models/recentNumbers.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final transactionController = Get.find<TransactionController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 90),
@@ -24,12 +28,14 @@ class Body extends StatelessWidget {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          SizedBox(
+          Obx(() => (SizedBox(
               height: 300,
               width: size.width,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: numbers.length,
+                itemCount: transactionController.transactions.value.data
+                    .map((e) => e.destinationNumber!.length > 0)
+                    .length,
                 itemBuilder: (context, index) {
                   return Container(
                     height: 60,
@@ -48,7 +54,9 @@ class Body extends StatelessWidget {
                             Container(
                               width: size.width * .6,
                               child: Text(
-                                numbers[index].number,
+                                transactionController.transactions.value
+                                    .data[index].destinationNumber
+                                    .toString(),
                                 textScaleFactor: 1.0,
                                 style: TextStyle(
                                     color: Colors.black, fontSize: sm),
@@ -65,7 +73,7 @@ class Body extends StatelessWidget {
                     ),
                   );
                 },
-              ))
+              ))))
         ],
       ),
     );

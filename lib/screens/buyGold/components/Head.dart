@@ -4,6 +4,7 @@ import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 
 class Head extends StatelessWidget {
@@ -11,6 +12,7 @@ class Head extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final controller = Get.find<DataTreeController>();
+    final userController = Get.find<UserController>();
     final formatter = Get.find<Formatter>();
     return Container(
       height: 150,
@@ -39,10 +41,12 @@ class Head extends StatelessWidget {
                       children: [
                         GradientText(
                             child: Text(
-                          "Rp. " + formatter.addDot(controller.buyPriceL.value.price),
+                          "Rp. " +
+                              formatter
+                                  .addDot(controller.buyPriceL.value.price),
                           textScaleFactor: 1.0,
                           style: TextStyle(
-                            fontSize: input,
+                            fontSize: header,
                             fontWeight: FontWeight.w600,
                           ),
                         )),
@@ -58,71 +62,24 @@ class Head extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  "Kamis",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(color: Colors.white, fontSize: sm),
-                ),
+                Obx(() => Text(
+                      userController.day,
+                      textScaleFactor: 1.0,
+                      style: TextStyle(color: Colors.white, fontSize: sm),
+                    )),
                 Padding(
                   padding: const EdgeInsets.only(top: 14),
-                  child: Text(
-                    "10 Juni 2021",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(color: Colors.white, fontSize: sm),
-                  ),
+                  child: Obx(() => Text(
+                        userController.today,
+                        textScaleFactor: 1.0,
+                        style: TextStyle(color: Colors.white, fontSize: sm),
+                      )),
                 )
               ],
             )
           ],
         ),
       ]),
-    );
-  }
-}
-
-class Saldo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Saldo Emas Kamu",
-              textScaleFactor: 1.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(
-                "2,000 gram",
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                    fontSize: input,
-                    color: Color(upperGradient),
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-            Row(children: [
-              Text(
-                "Senilai Rp. ",
-                textScaleFactor: 1.0,
-                style: TextStyle(fontSize: normal),
-              ),
-              Text(
-                "1.080.000",
-                textScaleFactor: 1.0,
-                style: TextStyle(fontSize: normal),
-              )
-            ])
-          ],
-        ),
-        Icon(
-          Icons.visibility,
-          color: Colors.white,
-        )
-      ],
     );
   }
 }

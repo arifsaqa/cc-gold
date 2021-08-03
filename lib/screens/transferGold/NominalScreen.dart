@@ -8,7 +8,6 @@ import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 import 'package:learnUI/screens/transferGold/SetMessageScreen.dart';
-import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
 class NominalScreen extends StatelessWidget {
   @override

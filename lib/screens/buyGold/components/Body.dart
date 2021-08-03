@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/transactionController.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/payments/PaymentScreen.dart';
 
 class Body extends StatelessWidget {
@@ -15,6 +17,7 @@ class Body extends StatelessWidget {
     final controller = Get.find<TransactionController>();
     final priceGetter = Get.find<DataTreeController>();
     final formatter = Get.find<Formatter>();
+    final usercontroller = Get.find<UserController>();
 
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -87,13 +90,16 @@ class Body extends StatelessWidget {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                       colors: [
-                                        Color(controller.selectedIndex == index
+                                        Color(controller.selectedIndex.value ==
+                                                index
                                             ? upperGradient
                                             : 0XFFFFF),
-                                        Color(controller.selectedIndex == index
+                                        Color(controller.selectedIndex.value ==
+                                                index
                                             ? middleGradient
                                             : 0XFFFFF),
-                                        Color(controller.selectedIndex == index
+                                        Color(controller.selectedIndex.value ==
+                                                index
                                             ? lowerGradient
                                             : 0XFFFFF),
                                       ]),
@@ -173,18 +179,17 @@ class Body extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    controller.transactionType.value = 1;
+                    controller.destinationNumber.value = '';
+                    controller.message.value = '';
+
+                    controller.setBarcode(
+                        DateFormat("ymdhs").format(usercontroller.now.value) +
+                            (1 + priceGetter.buyPriceL.value.id).toString());
                     Navigator.push<TransationData>(
                         context,
                         MaterialPageRoute<TransationData>(
-                            builder: (context) => PaymentScreen(
-                                  label:
-                                      multiplice[controller.selectedIndex.value]
-                                              .toString() +
-                                          " gram",
-                                  price: controller.getTotal.value.toString() +
-                                      " gram",
-                                  typeId: 0,
-                                )));
+                            builder: (context) => PaymentScreen()));
                   },
                   child: Text(
                     "Konfirmasi",

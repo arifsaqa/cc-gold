@@ -8,9 +8,12 @@ import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/models/gold_prices/prices.dart';
 import 'package:learnUI/models/payment_methods/payment_method_response.dart';
 import 'package:learnUI/models/promo/promos.dart';
+import 'package:learnUI/models/transaction/transactions.dart';
+import 'package:learnUI/models/transaction/transaction.dart';
 
 class DataFetching {
   final url = Get.put(DataUrl());
+  final url1 = Get.put(UsersData());
 
   Future<Promos?> getPromo() async {
     try {
@@ -151,14 +154,76 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      if (apiResult.statusCode == 200) {
-        dynamic jsonObject = await json.decode(apiResult.body);
-        var parsedPrice =
-            PaymentMethodResponse.fromJson(jsonObject as Map<String, dynamic>);
-        return parsedPrice;
-      } else {
-        return null;
-      }
+      print(apiResult.statusCode);
+      print(apiResult.body);
+      dynamic jsonObject = await json.decode(apiResult.body);
+      var parsedPrice =
+          PaymentMethodResponse.fromJson(jsonObject as Map<String, dynamic>);
+      return parsedPrice;
+    } catch (e) {
+      print("Errrrrrrrrror cooook $e");
+    }
+  }
+
+  Future<Transactions?> getTransaction(int id) async {
+    try {
+      var apiResult = await http.get(
+        Uri.parse(url1.getOrCreateTransaction + id.toString()),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+      );
+      print(apiResult.statusCode);
+      print(apiResult.body);
+      dynamic jsonObject = await json.decode(apiResult.body);
+      var parsedPrice =
+          Transactions.fromJson(jsonObject as Map<String, dynamic>);
+      return parsedPrice;
+    } catch (e) {
+      print("Errrrrrrrrror cooook $e");
+    }
+  }
+
+  Future<Transaction?> createTransaction(
+    int id, {
+    required int type,
+    required int payment,
+    required int gram,
+    required int priceId,
+    required int adminFee,
+    required int nominal,
+    required int discount,
+    required String barcode,
+    String? destinationNumber,
+    String? message,
+  }) async {
+    try {
+      var apiResult = await http.post(
+          Uri.parse(url1.getOrCreateTransaction + id.toString()),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: jsonEncode({
+            "userId": id,
+            "type": type,
+            "payment": payment,
+            "gram": gram,
+            "priceId": priceId,
+            "adminFee": adminFee,
+            "nominal": nominal,
+            "discount": discount,
+            "barcode": barcode,
+            "destinationNumber": destinationNumber,
+            "message": message,
+          }));
+      print(apiResult.statusCode);
+      print(apiResult.body);
+      dynamic jsonObject = await json.decode(apiResult.body);
+      var parsedPrice =
+          Transaction.fromJson(jsonObject as Map<String, dynamic>);
+      return parsedPrice;
     } catch (e) {
       print("Errrrrrrrrror cooook $e");
     }

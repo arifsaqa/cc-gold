@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/state_manager.dart';
+import 'package:intl/intl.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/transactionController.dart';
+import 'package:learnUI/controllers/userController.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:learnUI/screens/successPayment/successPaymentScreen.dart';
+import 'package:learnUI/screens/welcome/password.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
-class Confirmation extends StatelessWidget {
+class Confirmation extends GetWidget {
+  const Confirmation({Key? key}) : super(key: key);
   @override
-  final String message;
-
-  const Confirmation({Key? key, required this.message}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +31,7 @@ class Confirmation extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [Container(child: Body(message: message))],
+          children: [Container(child: Body())],
         ),
       ),
     );
@@ -30,9 +39,9 @@ class Confirmation extends StatelessWidget {
 }
 
 class Body extends StatefulWidget {
-  final String message;
-
-  const Body({Key? key, required this.message}) : super(key: key);
+  const Body({
+    Key? key,
+  }) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -41,6 +50,11 @@ class _BodyState extends State<Body> {
   int bankIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final transactionController = Get.find<TransactionController>();
+    final priceGetter = Get.find<DataTreeController>();
+    final formatter = Get.find<Formatter>();
+    final usercontroller = Get.find<UserController>();
+
     Size size = MediaQuery.of(context).size;
     return Container(
         height: size.height - 80,
@@ -90,7 +104,7 @@ class _BodyState extends State<Body> {
                                   fontSize: normal),
                               children: [
                                 TextSpan(
-                                  text: 'Emas',
+                                  text: 'Emas ',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: Color(priceLabel),
@@ -98,7 +112,8 @@ class _BodyState extends State<Body> {
                                       fontSize: normal),
                                 ),
                                 TextSpan(
-                                  text: ' 1 gram',
+                                  text: transactionController.gram.toString() +
+                                      ' gram',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontFamily: "MetroReg",
@@ -117,7 +132,9 @@ class _BodyState extends State<Body> {
                                   fontSize: sm),
                               children: [
                                 TextSpan(
-                                  text: "Rp. 893.252",
+                                  text: "Rp. " +
+                                      formatter.addDot(
+                                          priceGetter.sellPriceL.value.price),
                                   style: TextStyle(
                                       fontFamily: "MetroReg",
                                       color: Color(priceLabel),
@@ -174,19 +191,19 @@ class _BodyState extends State<Body> {
                               fontSize: normal),
                         ),
                         Text(
-                          "0812 3456 7890",
+                          transactionController.destinationNumber.value,
                           textScaleFactor: 1.0,
                           style: TextStyle(
                               height: 1,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                               color: Color(priceLabel),
                               fontSize: normal),
                         ),
-                        Text("a/n Albert Einstein",
+                        Text("a/n " + usercontroller.user.value.name,
                             textScaleFactor: 1.0,
                             style:
                                 TextStyle(height: 1, color: Color(priceLabel))),
-                        Text("Pesan : " + widget.message,
+                        Text("Pesan : " + transactionController.message.value,
                             textScaleFactor: 1.0,
                             style:
                                 TextStyle(height: 1, color: Color(priceLabel))),
@@ -195,71 +212,91 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
-              Container(
-                height: 96,
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Total :",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Rp. 893.252",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: normal,
-                              fontWeight: FontWeight.w600),
-                        )
-                      ],
+              Obx(() => (LoaderOverlay(
+                    useDefaultLoading: false,
+                    overlayWidget: Center(
+                      child: SpinKitCubeGrid(
+                        color: Color(background),
+                        size: 40,
+                      ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                                builder: (context) => SuccessPaymentScreen(
-                                      label: "1 gram",
-                                      price: "Rp. 893.252",
-                                      typeId: 2,
-                                    )));
-                      },
-                      child: Text(
-                        "Konfirmasi",
-                        textScaleFactor: 1.0,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: sm,
-                            fontWeight: FontWeight.w600),
+                    child: Container(
+                      height: 96,
+                      margin: EdgeInsets.symmetric(horizontal: 24),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Total :",
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "Rp. " +
+                                    formatter.addDot(
+                                        transactionController.getTotal.value),
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: normal,
+                                    fontWeight: FontWeight.w600),
+                              )
+                            ],
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              transactionController.loading.value = true;
+                              context.loaderOverlay.show();
+                              await transactionController.createTransation();
+                              if (transactionController.loading.value) {
+                                context.loaderOverlay.hide();
+                              }
+                              Get.to(
+                                  transactionController.transactionType.value !=
+                                          1
+                                      ? Password(
+                                          isLoggingin: false,
+                                          redirecto: SuccessPaymentScreen())
+                                      : SuccessPaymentScreen());
+                            },
+                            child: Text(
+                              "Konfirmasi",
+                              textScaleFactor: 1.0,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: sm,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                  EdgeInsets.only(
+                                      left: 20,
+                                      right: 20,
+                                      top: 15,
+                                      bottom: 15)),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              )),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Color(background)),
+                            ),
+                          )
+                        ],
                       ),
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.only(
-                            left: 20, right: 20, top: 15, bottom: 15)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        )),
-                        backgroundColor:
-                            MaterialStateProperty.all(Color(background)),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                    ),
+                  ))),
             ]));
   }
 }

@@ -61,9 +61,9 @@ class _StatePassword extends State<Password> {
     var cekLogin = await controller.login(_typedPassword);
     if (cekLogin == "oke") {
       await controller.getUserSaldo();
-      int userId = await cek.getUserId();
-      await controller.getUserById(userId);
-      await Get.offNamed<void>('/logged');
+      // int userId = await cek.getUserId();
+      // await controller.getUserById(userId);
+      await Get.off<void>(widget.redirecto);
     }
   }
 

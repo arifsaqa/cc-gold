@@ -15,6 +15,8 @@ class AuthURL {
 
 class UsersData {
   String get userSaldo => base_url + apiVersion + 'saldo/';
+  String get bankAccounts => base_url + apiVersion + 'bankAccounts/';
+  String get getOrCreateTransaction => base_url + apiVersion + 'transactions/';
 }
 
 class DataUrl {

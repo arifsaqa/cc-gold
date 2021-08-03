@@ -12,10 +12,10 @@ class LocalUser {
     pref.setString("token", token);
   }
 
-  Future<String> getDeviceId() async {
+  Future<String> phoneNumber() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    return pref.getString("isSignin") ?? "";
+    return pref.getString("phoneNumber") ?? "";
   }
 
   Future<int> getUserId() async {

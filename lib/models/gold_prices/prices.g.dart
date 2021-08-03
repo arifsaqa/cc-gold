@@ -11,7 +11,7 @@ Prices _$PricesFromJson(Map<String, dynamic> json) {
     status: json['status'] as int,
     message: json['message'] as String,
     price: (json['data'] as List<dynamic>)
-        .map((dynamic e) => Price.fromJson(e as Map<String, dynamic>))
+        .map((e) => Price.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }

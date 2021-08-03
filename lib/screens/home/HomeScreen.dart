@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             GestureDetector(
               onTap: () {
-                Get.toNamed<dynamic>('/notifications');
+                // Get.toNamed<dynamic>('/notifications');
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(

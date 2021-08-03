@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/constants/urls.dart';
 import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Body extends StatelessWidget {
@@ -10,6 +12,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final paymentMethodController = Get.find<PaymentMethodController>();
+    final transactionController = Get.find<TransactionController>();
     return Container(
         margin: EdgeInsets.only(left: 20, right: 20, top: 40),
         decoration: BoxDecoration(
@@ -34,8 +37,8 @@ class Body extends StatelessWidget {
           ],
         ),
         child: Obx(
-          () => SizedBox(
-              height: 370,
+          () => Container(
+              // height: 370,
               child: paymentMethodController.loading.value
                   ? ListView.builder(
                       scrollDirection: Axis.vertical,
@@ -65,10 +68,14 @@ class Body extends StatelessWidget {
                       })
                   : ListView.builder(
                       scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: paymentMethodController.paymentMethod.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
+                            transactionController.payment.value =
+                                paymentMethodController.paymentMethod[index].id;
                             Navigator.pop(context, index);
                           },
                           child: Container(
@@ -97,10 +104,15 @@ class Body extends StatelessWidget {
                                           padding: EdgeInsets.all(13),
                                           height: 58,
                                           width: 58,
-                                          child: Image.asset(
-                                              paymentMethodController
-                                                  .paymentMethod[index].logo,
-                                              scale: 0.8),
+                                          child: FadeInImage.assetNetwork(
+                                            image: base_url +
+                                                '/' +
+                                                paymentMethodController
+                                                    .paymentMethod[index].logo,
+                                            placeholder:
+                                                'images/circular-progress.gif',
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: 10,

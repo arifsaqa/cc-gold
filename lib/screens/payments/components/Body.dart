@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/constants/urls.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/screens/chooseBank/chooseBankScreen.dart';
 import 'package:learnUI/screens/successPayment/successPaymentScreen.dart';
 import 'package:learnUI/screens/welcome/password.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class Body extends StatefulWidget {
-  final String label, price;
-  final int typeId;
-
-  const Body(
-      {Key? key,
-      required this.label,
-      required this.price,
-      required this.typeId})
-      : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   int bankIndex = 0;
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     final paymentMethodController = Get.find<PaymentMethodController>();
+    final transactionController = Get.find<TransactionController>();
+    final controller = Get.find<DataTreeController>();
+    final formatter = Get.find<Formatter>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 80,
@@ -68,7 +70,9 @@ class _BodyState extends State<Body> {
                     RichText(
                       textScaleFactor: 1.0,
                       text: TextSpan(
-                          text: widget.typeId == 0 ? 'Beli' : 'Jual',
+                          text: transactionController.transactionType.value == 1
+                              ? 'Beli'
+                              : 'Jual',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Color(priceLabel),
@@ -84,7 +88,8 @@ class _BodyState extends State<Body> {
                                   fontFamily: 'MetroReg'),
                             ),
                             TextSpan(
-                              text: widget.label,
+                              text: transactionController.gram.toString() +
+                                  " gram",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(priceLabel),
@@ -103,7 +108,15 @@ class _BodyState extends State<Body> {
                               fontFamily: "MetroReg"),
                           children: [
                             TextSpan(
-                              text: widget.price,
+                              text: transactionController
+                                          .transactionType.value ==
+                                      0
+                                  ? "Rp. " +
+                                      formatter.addDot(
+                                          controller.buyPriceL.value.price)
+                                  : "Rp. " +
+                                      formatter.addDot(
+                                          controller.buyPriceL.value.price),
                               style: TextStyle(
                                   color: Color(priceLabel),
                                   fontSize: sm,
@@ -160,7 +173,9 @@ class _BodyState extends State<Body> {
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         ),
                         Text(
-                          widget.price,
+                          "Rp. " +
+                              formatter
+                                  .addDot(transactionController.getTotal.value),
                           textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         )
@@ -190,7 +205,9 @@ class _BodyState extends State<Body> {
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         ),
                         Text(
-                          widget.price,
+                          "Rp. " +
+                              formatter
+                                  .addDot(transactionController.getTotal.value),
                           textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         )
@@ -244,12 +261,15 @@ class _BodyState extends State<Body> {
                                 Obx(
                                   () => Container(
                                       width: 33,
-                                      height: 10,
+                                      height: 20,
                                       child: FadeInImage.assetNetwork(
                                           placeholder:
                                               'images/circular-progress.gif',
-                                          image: paymentMethodController
-                                              .paymentMethod[bankIndex].logo)),
+                                          image: base_url +
+                                              '/' +
+                                              paymentMethodController
+                                                  .paymentMethod[bankIndex]
+                                                  .logo)),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -274,77 +294,86 @@ class _BodyState extends State<Body> {
               )
             ],
           ),
-          Container(
-            height: 96,
-            margin: EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Total :",
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      widget.price,
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: normal,
-                          fontWeight: FontWeight.w600),
-                    )
-                  ],
+          Obx(() => (LoaderOverlay(
+                useDefaultLoading: false,
+                overlayWidget: Center(
+                  child: SpinKitCubeGrid(
+                    color: Color(background),
+                    size: 40,
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                            builder: (context) => widget.typeId != 0
-                                ? Password(
-                                    redirecto: SuccessPaymentScreen(
-                                        label: widget.label,
-                                        price: widget.price,
-                                        typeId: widget.typeId),
-                                    isLoggingin: false)
-                                : SuccessPaymentScreen(
-                                    label: widget.label,
-                                    price: widget.price,
-                                    typeId: widget.typeId,
-                                  )));
-                  },
-                  child: Text(
-                    "Konfirmasi",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: sm,
-                        fontWeight: FontWeight.w600),
+                child: Container(
+                  height: 96,
+                  margin: EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Total :",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Rp. " +
+                                formatter.addDot(
+                                    transactionController.getTotal.value),
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: normal,
+                                fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          transactionController.loading.value = true;
+                          context.loaderOverlay.show();
+                          await transactionController.createTransation();
+                          if (transactionController.loading.value) {
+                            context.loaderOverlay.hide();
+                          }
+                          Get.to(
+                              transactionController.transactionType.value != 1
+                                  ? Password(
+                                      isLoggingin: false,
+                                      redirecto: SuccessPaymentScreen())
+                                  : SuccessPaymentScreen());
+                        },
+                        child: Text(
+                          "Konfirmasi",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: sm,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(EdgeInsets.only(
+                              left: 20, right: 20, top: 15, bottom: 15)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          )),
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(background)),
+                        ),
+                      )
+                    ],
                   ),
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.only(
-                        left: 20, right: 20, top: 15, bottom: 15)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    )),
-                    backgroundColor:
-                        MaterialStateProperty.all(Color(background)),
-                  ),
-                )
-              ],
-            ),
-          ),
+                ),
+              ))),
         ],
       ),
     );

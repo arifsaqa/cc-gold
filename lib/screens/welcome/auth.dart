@@ -156,7 +156,6 @@ class _StateAuth extends State<Auth> {
                   child: MyCustomForm1(
                     onChange: (context) => setState(() {
                       _currentInput = context;
-                      print(context);
                     }),
                   )),
             ]),

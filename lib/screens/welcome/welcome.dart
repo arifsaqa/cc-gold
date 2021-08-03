@@ -11,7 +11,6 @@ import 'package:learnUI/main.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -36,9 +35,9 @@ class _StateWelcome extends State<Welcome> {
     setState(() {
       _loadingHere = true;
     });
-    SharedPreferences pref = await SharedPreferences.getInstance();
     if (isSignin != 0) {
-      var token = await pref.getString("token");
+      print(isSignin);
+      var token = await cek.getToken();
       await controller.istokenValid(token!);
       if (controller.tokenStatus.value.status != 0) {
         await controller.getUserSaldo();
@@ -50,7 +49,6 @@ class _StateWelcome extends State<Welcome> {
           });
         });
       } else {
-        await controller.getUserById(isSignin);
         Timer(Duration(milliseconds: 90), () {
           Get.off<void>(Password(redirecto: LoggedIn(), isLoggingin: true));
           setState(() {

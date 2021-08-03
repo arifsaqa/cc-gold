@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/transactionController.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:learnUI/screens/transferGold/NominalScreen.dart';
 // import 'package:learnUI/screens/transferGold/components/CustomForm.dart';
 
@@ -13,6 +16,7 @@ class _StateHead extends State<Head> {
   // _currentInput ="";
   @override
   Widget build(BuildContext context) {
+    final transactionController = Get.find<TransactionController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 150,
@@ -100,28 +104,27 @@ class _StateHead extends State<Head> {
                                         child: MyCustomForm(
                                           onChange: (context) => setState(() {
                                             // _currentInput = context;
+                                            // print(context);
+                                          }),
+                                          onSubmit: (context) => setState(() {
+                                            // _currentInput = context;
                                             print(context);
+                                            transactionController
+                                                .destinationNumber
+                                                .value = context;
+                                            Get.to<void>(NominalScreen());
                                           }),
                                         )),
                                   ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute<void>(
-                                            builder: (context) =>
-                                                NominalScreen()));
-                                  },
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              left: BorderSide(
-                                                  color: Color.fromRGBO(
-                                                      151, 151, 151, 1)))),
-                                      padding: EdgeInsets.all(15),
-                                      child: Image.asset("images/contact.png")),
-                                )
+                                Container(
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            left: BorderSide(
+                                                color: Color.fromRGBO(
+                                                    151, 151, 151, 1)))),
+                                    padding: EdgeInsets.all(15),
+                                    child: Image.asset("images/contact.png"))
                               ],
                             ),
                           )
@@ -137,7 +140,8 @@ class _StateHead extends State<Head> {
 
 class MyCustomForm extends StatefulWidget {
   final Function(String) onChange;
-  MyCustomForm({required this.onChange});
+  final Function(String)? onSubmit;
+  MyCustomForm({required this.onChange, this.onSubmit});
   @override
   MyCustomFormState createState() {
     return MyCustomFormState();
@@ -166,6 +170,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     return TextField(
       controller: myController,
       onChanged: widget.onChange,
+      onSubmitted: widget.onSubmit,
       decoration: InputDecoration(
         suffixIcon: Container(
           padding: EdgeInsets.symmetric(vertical: 10),

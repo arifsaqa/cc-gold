@@ -18,13 +18,13 @@ class UserController extends GetxController {
   var userResponse =
       UserResponse(status: 0, user: null, token: '', isDeviceMatch: false).obs;
   var user = User(
-          name: '',
-          isVerified: 0,
-          phone: '',
-          email: '',
           id: 0,
+          name: '',
+          email: '',
+          phone: '',
           image: '',
           role: 0,
+          isVerified: 0,
           deviceId: '',
           createdAt: '',
           updatedAt: '')
@@ -75,16 +75,14 @@ class UserController extends GetxController {
   Future<String> login(String password) async {
     toTrue();
     SharedPreferences pref = await SharedPreferences.getInstance();
-    var ok = await pref.getString("phone");
+    var ok = pref.getString("phone");
     try {
       var asu = await AuthFunctions.login(ok!, password);
       if (asu != null) {
-        userResponse.value = await asu;
-        user.value = (await asu.user)!;
+        userResponse.value = asu;
+        user.value = (asu.user)!;
         await localUser.setLocalUser(
-            phoneNumber: ok,
-            userId: userResponse.value.user!.id,
-            token: userResponse.value.token);
+            phoneNumber: ok, userId: asu.user!.id, token: asu.token);
         await toFalse();
         return "oke";
       } else {
@@ -103,8 +101,66 @@ class UserController extends GetxController {
     }
   }
 
+  Future<void> logout() async {
+    toTrue();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString('token');
+    try {
+      await AuthFunctions.logout(token!);
+      pref.clear();
+      toFalse();
+    } catch (e) {
+      print('while getting data  ' + e.toString());
+      toFalse();
+      Get.snackbar<void>("Logout Error",
+          "Somthing wrong with our app, try again or contact our IT Support",
+          snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+    }
+  }
+
+  Future<String> register(String name, String email, String bankAccount,
+      String phone, String? image, String deviceId, String password) async {
+    await toTrue();
+    try {
+      var asu = await AuthFunctions.register(
+          name: name,
+          email: email,
+          phone: phone,
+          bankAccount: bankAccount,
+          deviceId: deviceId,
+          image: image,
+          password: password);
+      if (asu != null) {
+        // print('controllerrr     ' + asu.status.toString());
+        userResponse.value = asu;
+        user.value = asu.user!;
+        userResponse.refresh();
+        user.refresh();
+        await localUser.setLocalUser(
+            phoneNumber: phone, userId: asu.user!.id, token: asu.token);
+        await toFalse();
+        Get.snackbar<void>("Register Success", "Welcome to CC Gold!",
+            snackPosition: SnackPosition.TOP, colorText: Colors.green[600]);
+        print(await localUser.getUserId());
+        return "oke";
+      } else {
+        await toFalse();
+        Get.snackbar<void>("Register Error",
+            "Make sure your email and phone number is not registered",
+            snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
+        return "hmm";
+      }
+    } catch (e) {
+      print('while getting data  ' + e.toString());
+      toFalse();
+      Get.snackbar<void>("Login Error",
+          "Somthing wrong with our app, try again or contact our IT Support",
+          snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+      return "cok";
+    }
+  }
+
   Future<bool> snack(IsTokenValid? i) async {
-    await i;
     return i?.status == 1;
   }
 
@@ -113,13 +169,13 @@ class UserController extends GetxController {
       await toTrue();
       var oke = await AuthFunctions.checkToken(token);
       if (oke!.status != 0) {
-        tokenStatus.value = await oke;
+        tokenStatus.value = oke;
         Get.snackbar<void>("Your session status", "You are good, logging in!",
             snackPosition: SnackPosition.TOP, colorText: Colors.green[600]);
         await toFalse();
         return 1;
       } else {
-        tokenStatus.value = await oke;
+        tokenStatus.value = oke;
         await toFalse();
         Get.snackbar<void>("Your session is expired", "Get you to relogin page",
             snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
@@ -133,11 +189,15 @@ class UserController extends GetxController {
   Future<int> getUserById(int id) async {
     try {
       var cok = await AuthFunctions.getUserById(id);
+      if (cok != null) {
+        userResponse.value.user = cok;
+        user.value = cok;
+        return 1;
+      }
+      return 0;
       // userResponse.value.user = await cok;
-      user.value = await cok;
-      return 1;
     } catch (e) {
-      print('while getting user data  ' + e.toString());
+      print(e);
       Get.snackbar<void>(
           "App's Error", "Somthing wrong!, Get to our IT support",
           snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
@@ -154,11 +214,11 @@ class UserController extends GetxController {
 
   Future<void> getUserSaldo() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    var userId = await pref.getInt("userId");
+    var userId = pref.getInt("userId");
     print('User AAAAAidiiiiiiiiii' + userId.toString());
     await toTrue();
     var res = await AuthFunctions.getUserSaldo(userId!);
-    saldo.value = await (res);
+    saldo.value = (res);
     await toFalse();
   }
 
@@ -170,8 +230,8 @@ class UserController extends GetxController {
     await toTrue();
     var res = await DataFetching().getGoldNews(yesterdayForApi, todayForApi);
     if (res != null) {
-      newsResponse.value = await (res);
-      goldNews.value = await res.articles;
+      newsResponse.value = (res);
+      goldNews.value = res.articles;
       await toFalse();
     } else {
       print("page load before the data render");

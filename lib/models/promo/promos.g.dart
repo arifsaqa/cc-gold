@@ -11,7 +11,7 @@ Promos _$PromosFromJson(Map<String, dynamic> json) {
     status: json['status'] as int,
     message: json['message'] as String,
     promos: (json['data'] as List<dynamic>)
-        .map((dynamic e) => Promo.fromJson(e as Map<String, dynamic>))
+        .map((e) => Promo.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }

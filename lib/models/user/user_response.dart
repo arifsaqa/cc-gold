@@ -15,13 +15,13 @@ class UserResponse {
   String token;
 
   @JsonKey(name: 'isDeviceMatch')
-  bool isDeviceMatch;
+  dynamic isDeviceMatch;
 
   UserResponse(
       {required this.status,
       this.user,
       required this.token,
-      required this.isDeviceMatch});
+      this.isDeviceMatch});
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);

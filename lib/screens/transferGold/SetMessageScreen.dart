@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/transactionController.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:learnUI/screens/transferGold/Confirmation.dart';
+// import 'package:learnUI/screens/transferGold/Confirmation.dart';
 
 class SetMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final transactionController = Get.find<TransactionController>();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -24,6 +29,9 @@ class SetMessage extends StatelessWidget {
               onChange: (context) => (() {
                 print(context);
               }),
+              onSubmit: (context) => (() {
+                transactionController.message.value = context;
+              }),
             )
           ],
         ),
@@ -34,7 +42,8 @@ class SetMessage extends StatelessWidget {
 
 class MyCustomForm extends StatefulWidget {
   final Function(String) onChange;
-  MyCustomForm({required this.onChange});
+  final Function(String)? onSubmit;
+  MyCustomForm({required this.onChange, this.onSubmit});
 
   @override
   _MyCustomFormState createState() => _MyCustomFormState();
@@ -52,6 +61,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   @override
   Widget build(BuildContext context) {
     print(myController.text);
+    final transactionController = Get.find<TransactionController>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 120,
@@ -81,6 +91,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             child: TextField(
               maxLines: null,
               controller: myController,
+              // onSubmitted: (context),
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(
@@ -99,12 +110,9 @@ class _MyCustomFormState extends State<MyCustomForm> {
           child: Align(
             alignment: Alignment.topRight,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.push<void>(
-                    context,
-                    MaterialPageRoute<void>(
-                        builder: (context) =>
-                            Confirmation(message: myController.text)));
+              onPressed: () async {
+                transactionController.message.value = myController.text;
+                Get.to<void>(Confirmation());
               },
               child: Text(
                 "Konfirmasi",

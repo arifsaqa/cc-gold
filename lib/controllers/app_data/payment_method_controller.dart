@@ -6,8 +6,9 @@ import 'package:learnUI/models/payment_methods/payment_method_response.dart';
 class PaymentMethodController extends GetxController {
   var loading = false.obs;
   var paymentMethodResponse = PaymentMethodResponse(
-          status: 0, paymentMethods: [], createdAt: '', updatedAt: '')
-      .obs;
+    status: 0,
+    paymentMethods: [],
+  ).obs;
   var paymentMethod = <PaymentMethod>[].obs;
 
   Future<void> toTrue() async {
@@ -24,11 +25,18 @@ class PaymentMethodController extends GetxController {
     if (res != null) {
       paymentMethodResponse.value = await (res);
       paymentMethod.value = await res.paymentMethods;
+      print(res);
       await toFalse();
     } else {
-      print("page load before the data render");
+      print("payment methoooood page load before the data render");
       await toFalse();
       return null;
     }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getPaymentMethods();
   }
 }

@@ -69,7 +69,8 @@ class _SaldoState extends State<Saldo> {
                     borderRadius: BorderRadius.circular(4)),
                 child: Obx(
                   () => Text(
-                    controller.user.value.isVerified == true
+                    controller.user.value.isVerified == true ||
+                            controller.user.value.isVerified != 0
                         ? "Akun Terverifikasi"
                         : "Akun Belum Terverifikasi",
                     textScaleFactor: 1.0,

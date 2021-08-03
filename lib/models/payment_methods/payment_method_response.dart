@@ -20,19 +20,9 @@ class PaymentMethodResponse {
   @JsonKey(name: "data")
   List<PaymentMethod> paymentMethods;
 
-  @JsonKey(name: "created_at")
-  String createdAt;
-  @JsonKey(name: "updated_at")
-  String updatedAt;
-
-  DateTime? get getCreateAt => DateTime.tryParse(createdAt);
-  DateTime? get getUpdateAt => DateTime.tryParse(updatedAt);
-
   PaymentMethodResponse({
     required this.status,
     required this.paymentMethods,
-    required this.createdAt,
-    required this.updatedAt,
   });
   factory PaymentMethodResponse.fromJson(Map<String, dynamic> json) =>
       _$PaymentMethodResponseFromJson(json);

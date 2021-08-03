@@ -13,7 +13,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
     token: json['token'] as String,
-    isDeviceMatch: json['isDeviceMatch'] as bool,
+    isDeviceMatch: json['isDeviceMatch'],
   );
 }
 

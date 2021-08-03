@@ -25,6 +25,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(MyApp());
 }
 
@@ -79,6 +82,8 @@ class _AppState extends State<MyApp> {
     pref.setString("deviceId", build.model + build.isPhysicalDevice.toString());
     await controller
         .setDeviceId(build.model + build.isPhysicalDevice.toString());
+    var su = pref.getInt('userId');
+    print("user iddddddddddddddddddddddd  " + su.toString());
     return <String, dynamic>{
       'version.securityPatch': build.version.securityPatch,
       'version.sdkInt': build.version.sdkInt,
@@ -113,6 +118,8 @@ class _AppState extends State<MyApp> {
   Future<Map<String, dynamic>> _readIosDeviceInfo(IosDeviceInfo data) async {
     await controller.setDeviceId(data.model + data.isPhysicalDevice.toString());
     var pref = await SharedPreferences.getInstance();
+    var su = pref.getInt('userId');
+    print(su);
     pref.setString("deviceId", data.model + data.isPhysicalDevice.toString());
     // print(data.model);
     return <String, dynamic>{
@@ -136,6 +143,8 @@ class _AppState extends State<MyApp> {
     // print(_deviceData);
     Get.put(DataTreeController());
     Get.put(UserController());
+    Get.put(Formatter());
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
