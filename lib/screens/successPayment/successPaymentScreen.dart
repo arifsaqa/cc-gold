@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/screens/successPayment/components/Head.dart';
 import 'package:learnUI/screens/successPayment/components/Body.dart';
 
-class SuccessPaymentScreen extends StatelessWidget {
-  SuccessPaymentScreen({
-    Key? key,
-  }) : super(key: key);
+class SuccessPaymentScreen extends StatefulWidget {
+  @override
+  _SuccessPaymentScreenState createState() => _SuccessPaymentScreenState();
+}
+
+class _SuccessPaymentScreenState extends State<SuccessPaymentScreen> {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) => {
+          Get.snackbar("Transaksi diterima!",
+              "Notifikasi akan dikirim setelah kami memvalidasi transaksi anda",
+              colorText: Colors.greenAccent,
+              backgroundColor: Color(background),
+              duration: Duration(seconds: 3))
+        });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

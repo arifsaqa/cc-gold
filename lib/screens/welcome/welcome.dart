@@ -105,6 +105,7 @@ class _StateWelcome extends State<Welcome> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
                     Text(
                       "CC Gold hadir dalam platform digital untuk jual beli emas dengan aman. Anda dapat membeli emas kapan saja dan di mana saja",
                       textScaleFactor: 1.0,
@@ -114,12 +115,10 @@ class _StateWelcome extends State<Welcome> {
                   ],
                 ),
               )),
-          _loadingHere
-              ? SpinKitCircle(
-                  color: Colors.white,
-                  size: 50.0,
-                )
-              : Container()
+          Container(
+              height: 8,
+              margin: EdgeInsets.only(top: 20),
+              child: Image.asset("images/carousel.png"))
         ],
       ),
     ));

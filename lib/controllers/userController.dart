@@ -92,7 +92,7 @@ class UserController extends GetxController {
         return "hmm";
       }
     } catch (e) {
-      print('while getting data  ' + e.toString());
+      print('while getting data login ' + e.toString());
       toFalse();
       Get.snackbar<void>("Login Error",
           "Somthing wrong with our app, try again or contact our IT Support",
@@ -195,7 +195,6 @@ class UserController extends GetxController {
         return 1;
       }
       return 0;
-      // userResponse.value.user = await cok;
     } catch (e) {
       print(e);
       Get.snackbar<void>(

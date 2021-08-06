@@ -22,7 +22,7 @@ class Transaction {
   int id;
 
   @JsonKey(name: 'userId')
-  int userId;
+  String userId;
 
   @JsonKey(name: 'type')
   int type;

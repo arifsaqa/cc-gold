@@ -67,18 +67,10 @@ class _StatePassword extends State<Password> {
     }
   }
 
-  StateStatus cekchit() {
-    if (_typedPassword == 6) {
-      return StateStatus.done;
-    } else {
-      return StateStatus.not;
-    }
+  @override
+  void dispose() {
+    super.dispose();
   }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +81,12 @@ class _StatePassword extends State<Password> {
 
     Size size = MediaQuery.of(context).size;
     if (mounted) {
-      _typedPassword.length == 6 ? cekPassword() : "";
+      // ignore: unnecessary_statements
+      _typedPassword.length == 6
+          ? Future.delayed(Duration.zero, () {
+              cekPassword();
+            })
+          : "";
       // _asu == true
       //     ? Get.snackbar<void>('User 123', 'Successfully created',
       //         snackPosition: SnackPosition.BOTTOM)

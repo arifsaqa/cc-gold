@@ -19,6 +19,7 @@ import 'package:learnUI/screens/notifications/notificationScreen.dart';
 import 'package:learnUI/screens/profile/ProfileScreen.dart';
 import 'package:learnUI/screens/wallet/WalletScreen.dart';
 import 'package:learnUI/screens/welcome/auth.dart';
+import 'package:learnUI/screens/welcome/splashScreen.dart';
 import 'package:learnUI/screens/welcome/welcome.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -170,7 +171,7 @@ class _AppState extends State<MyApp> {
       getPages: [
         GetPage<dynamic>(
             name: '/',
-            page: () => Welcome(),
+            page: () => SplashScreen(),
             bindings: [UserBinding(), DataTreeBinding()]),
         GetPage<dynamic>(
             name: '/login',
