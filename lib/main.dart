@@ -11,7 +11,9 @@ import 'package:learnUI/bindings/transaction_bindings.dart';
 import 'package:learnUI/bindings/user_binding.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/deviceDataController.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/goldGraphSreen/GoldGraphScreen.dart';
 import 'package:learnUI/screens/home/HomeScreen.dart';
@@ -145,6 +147,8 @@ class _AppState extends State<MyApp> {
     Get.put(DataTreeController());
     Get.put(UserController());
     Get.put(Formatter());
+    Get.put(TransactionController());
+    Get.put(PaymentMethodController());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

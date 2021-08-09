@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TransactionController extends GetxController {
 //   {
   var transactions = Transactions(status: 0, data: []).obs;
+  var transactionsTF = Transactions(status: 0, data: []).obs;
   var destinationNumber = ''.obs;
   var message = ''.obs;
   var loading = false.obs;
@@ -94,7 +95,10 @@ class TransactionController extends GetxController {
           destinationNumber: destinationNumber.value,
           message: message.value);
       if (asu != null) {
-        transactions.value.data.add(asu);
+        asu.destinationNumber != null
+            ? transactionsTF.value.data.add(asu)
+            : transactions.value.data.add(asu);
+
         loading.value = false;
         Get.snackbar<void>("Transation success!",
             "We're working asap to validate your transaction",

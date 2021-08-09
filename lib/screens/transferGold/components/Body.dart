@@ -33,9 +33,8 @@ class Body extends StatelessWidget {
               width: size.width,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: transactionController.transactions.value.data
-                    .map((e) => e.destinationNumber!.length > 0)
-                    .length,
+                itemCount:
+                    transactionController.transactionsTF.value.data.length,
                 itemBuilder: (context, index) {
                   return Container(
                     height: 60,
@@ -54,7 +53,7 @@ class Body extends StatelessWidget {
                             Container(
                               width: size.width * .6,
                               child: Text(
-                                transactionController.transactions.value
+                                transactionController.transactionsTF.value
                                     .data[index].destinationNumber
                                     .toString(),
                                 textScaleFactor: 1.0,

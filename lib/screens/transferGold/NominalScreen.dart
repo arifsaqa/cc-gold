@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/transactionController.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
 import 'package:learnUI/screens/transferGold/SetMessageScreen.dart';
 
@@ -117,6 +119,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<TransactionController>();
     final priceGetter = Get.find<DataTreeController>();
+    final usercontroller = Get.find<UserController>();
     final formatter = Get.find<Formatter>();
 
     Size size = MediaQuery.of(context).size;
@@ -190,10 +193,12 @@ class Body extends StatelessWidget {
                                       begin: Alignment(0, -1),
                                       end: Alignment(0, 0),
                                       colors: [
-                                        Color(controller.selectedIndex == index
+                                        Color(controller.selectedIndex.value ==
+                                                index
                                             ? upperGradient
                                             : 0XFFFFF),
-                                        Color(controller.selectedIndex == index
+                                        Color(controller.selectedIndex.value ==
+                                                index
                                             ? lowerGradient
                                             : 0XFFFFF)
                                       ]),
@@ -276,6 +281,10 @@ class Body extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    controller.transactionType.value = 3;
+                    controller.setBarcode(
+                        DateFormat("ymdhs").format(usercontroller.now.value) +
+                            (2 + priceGetter.sellPriceL.value.id).toString());
                     Get.to<void>(SetMessage());
                   },
                   child: Text(
