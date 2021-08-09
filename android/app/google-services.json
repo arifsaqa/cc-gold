@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "827491015741",
+    "project_id": "crucial-study-307701",
+    "storage_bucket": "crucial-study-307701.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827491015741:android:2e1c11ee870379488c5e54",
+        "android_client_info": {
+          "package_name": "com.example.oke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827491015741-pgiod7u858sdnu42vijdrkp7s3p47ej8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.oke",
+            "certificate_hash": "303ee39dffaa197324d3d21dfb0a69ebf1f1d963"
+          }
+        },
+        {
+          "client_id": "827491015741-i5qkvr12l27ihnf3dfh42b02ve0m7hef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA95VJPaOg2TYk8_M41CGUimO4VPFBqxag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827491015741-i5qkvr12l27ihnf3dfh42b02ve0m7hef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
