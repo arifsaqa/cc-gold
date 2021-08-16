@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/buyGold/BuyGoldScreen.dart';
 import 'package:learnUI/screens/transferGold/TransferGoldScreen.dart';
 import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';
@@ -26,10 +28,39 @@ class ShortCuts extends StatelessWidget {
   GestureDetector _buildButtonColumn(
       String image, BuildContext context, String label, Widget destination) {
     Size size = MediaQuery.of(context).size;
+    var userController = Get.find<UserController>();
+
     return GestureDetector(
       onTap: () {
-        Navigator.push<void>(
-            context, MaterialPageRoute(builder: (context) => destination));
+        userController.user.value.isVerified == 0
+            ? Get.defaultDialog(
+                title: "",
+                middleText: "Verifikasi akun anda untuk melakukan transaksi",
+                backgroundColor: Color(background),
+                titleStyle: TextStyle(color: Colors.white),
+                middleTextStyle: TextStyle(color: Colors.white),
+                confirm: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.green)),
+                    onPressed: () {
+                      print("confir,");
+                    },
+                    child: Text("Verif akun")),
+                cancel: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.yellow)),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text(
+                      "Nanti",
+                      style: TextStyle(color: Color(background)),
+                    )),
+              )
+            : Navigator.push<void>(
+                context, MaterialPageRoute(builder: (context) => destination));
       },
       child: Center(
         child: Container(

@@ -49,6 +49,7 @@ class _AppState extends State<MyApp> {
   @override
   void initState() {
     initPlatformState();
+    Get.put(DataTreeController());
     super.initState();
   }
 
@@ -141,7 +142,6 @@ class _AppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     // print(_deviceData);
-    Get.put(DataTreeController());
     Get.put(UserController());
     Get.put(Formatter());
     Get.put(TransactionController());

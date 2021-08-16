@@ -17,6 +17,7 @@ class AuthFunctions {
         body: jsonEncode({"phone": phone, "password": password}));
 
     if (apiResult.statusCode == 200) {
+      print(apiResult.body);
       dynamic jsonObject = json.decode(apiResult.body);
       return UserResponse.fromJson(jsonObject as Map<String, dynamic>);
       //d

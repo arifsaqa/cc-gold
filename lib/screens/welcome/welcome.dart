@@ -38,8 +38,8 @@ class _StateWelcome extends State<Welcome> {
     if (isSignin != 0) {
       print(isSignin);
       var token = await cek.getToken();
-      await controller.istokenValid(token!);
-      if (controller.tokenStatus.value.status != 0) {
+      var istokenValid = await controller.istokenValid(token!);
+      if (istokenValid != 0) {
         await controller.getUserSaldo();
         await controller.getUserById(isSignin);
         Timer(Duration(milliseconds: 90), () {

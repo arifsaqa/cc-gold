@@ -196,7 +196,8 @@ class UserController extends GetxController {
       }
       return 0;
     } catch (e) {
-      print(e);
+      print('error while get user data by id' + e.toString());
+
       Get.snackbar<void>(
           "App's Error", "Somthing wrong!, Get to our IT support",
           snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
