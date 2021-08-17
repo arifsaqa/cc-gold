@@ -22,7 +22,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
     priceId: json['priceId'] as int,
     status: json['status'] as int,
     updatedAt: json['updated_at'] as String,
-    userId: json['userId'] as String,
+    userId: json['userId'] as int,
   );
 }
 

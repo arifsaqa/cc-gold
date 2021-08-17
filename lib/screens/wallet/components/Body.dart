@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
-import 'package:learnUI/models/transactions.dart';
+import 'package:learnUI/controllers/transactionController.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -9,7 +12,22 @@ class Body extends StatefulWidget {
 
 class _PromoBuildState extends State<Body> {
   int selectedId = 0;
+  var controller = Get.find<TransactionController>();
+
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      if (controller.transactions.value.data.length < 1) {
+        _getTransactions();
+      }
+    });
+  }
+
+  void _getTransactions() async {
+    await controller.getTransaction();
+  }
+
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -40,64 +58,119 @@ class _PromoBuildState extends State<Body> {
                     offset: Offset(2, 10))
               ]),
           padding: EdgeInsets.only(top: 20),
-          child: SizedBox(
-              height: 310,
-              width: size.width,
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: transactions.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 100,
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        width: 1.0,
-                        color: Colors.grey.withOpacity(.05),
-                      ))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: Image.asset(
-                                transactions[index].type == "jual"
-                                    ? "images/sellGold.png"
-                                    : "images/buyGold.png"),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                width: size.width * .6,
-                                child: Text(
-                                  transactions[index].title,
-                                  textScaleFactor: 1.0,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
+          child: Obx(
+            () => controller.loading.value
+                ? Container(
+                    width: size.width,
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return Shimmer(
+                              gradient: LinearGradient(stops: [
+                                0.4,
+                                0.5,
+                                0.6
+                              ], colors: [
+                                Color(lowerGradient),
+                                Color(upperGradient),
+                                Color(lowerGradient)
+                              ]),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                width: 327,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                    color: Color(background),
+                                    borderRadius: BorderRadius.circular(8)),
+                              ));
+                        }))
+                : controller.transactions.value.data.length > 0
+                    ? SizedBox(
+                        height: 310,
+                        width: size.width,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: controller.transactions.value.data.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              height: 100,
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                  width: 1.0,
+                                  color: Colors.grey.withOpacity(.05),
+                                ))),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(right: 10),
+                                      child: Image.asset(controller.transactions
+                                                  .value.data[index].type ==
+                                              1
+                                          ? "images/sellGold.png"
+                                          : "images/buyGold.png"),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(bottom: 10),
+                                          width: size.width * .6,
+                                          child: Text(
+                                            controller.transactions.value
+                                                        .data[index].type ==
+                                                    1
+                                                ? "Jual Emas " +
+                                                    controller.transactions
+                                                        .value.data[index].gram
+                                                        .toString() +
+                                                    " gram"
+                                                : "Beli Emas " +
+                                                    controller.transactions
+                                                        .value.data[index].gram
+                                                        .toString() +
+                                                    " gram",
+                                            textScaleFactor: 1.0,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: size.width * .6,
+                                          child: Text(
+                                            controller.getDay(controller
+                                                .transactions
+                                                .value
+                                                .data[index]
+                                                .getCreateAt),
+                                            textScaleFactor: 1.0,
+                                            style: TextStyle(
+                                                color: Colors.black45,
+                                                fontSize: 12),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
                               ),
-                              Container(
-                                width: size.width * .6,
-                                child: Text(
-                                  transactions[index].date,
-                                  textScaleFactor: 1.0,
-                                  style: TextStyle(
-                                      color: Colors.black45, fontSize: 12),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                            );
+                          },
+                        ))
+                    : Text(
+                        "Belum ada transaksi",
+                        style: TextStyle(color: Colors.black),
                       ),
-                    ),
-                  );
-                },
-              )),
+          ),
         )
       ],
     ));

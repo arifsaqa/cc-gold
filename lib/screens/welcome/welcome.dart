@@ -35,13 +35,13 @@ class _StateWelcome extends State<Welcome> {
     setState(() {
       _loadingHere = true;
     });
-    if (isSignin != 0) {
+    int i = await controller.getUserById(isSignin);
+    if (i != 0) {
       print(isSignin);
       var token = await cek.getToken();
       var istokenValid = await controller.istokenValid(token!);
       if (istokenValid != 0) {
         await controller.getUserSaldo();
-        await controller.getUserById(isSignin);
         Timer(Duration(milliseconds: 90), () {
           Get.offNamed<void>('/logged');
           setState(() {

@@ -23,6 +23,7 @@ import 'package:learnUI/screens/wallet/WalletScreen.dart';
 import 'package:learnUI/screens/welcome/auth.dart';
 import 'package:learnUI/screens/welcome/splashScreen.dart';
 // import 'package:learnUI/screens/welcome/welcome.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,10 +46,28 @@ class _AppState extends State<MyApp> {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   Map<String, dynamic> _deviceData = <String, dynamic>{};
   DeviceDataController controller = Get.put(DeviceDataController());
+  bool _initialized = false;
+  bool _error = false;
+
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+      setState(() {
+        _initialized = true;
+      });
+    } catch (e) {
+      // Set `_error` state to true if Firebase initialization fails
+      setState(() {
+        _error = true;
+      });
+    }
+  }
 
   @override
   void initState() {
     initPlatformState();
+    initializeFlutterFire();
     Get.put(DataTreeController());
     super.initState();
   }
@@ -147,6 +166,30 @@ class _AppState extends State<MyApp> {
     Get.put(TransactionController());
     Get.put(PaymentMethodController());
 
+    if (_error) {
+      return MaterialApp(
+        home: Scaffold(
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Color(background),
+          ),
+        ),
+      );
+    }
+
+    // Show a loader until FlutterFire is initialized
+    if (!_initialized) {
+      return MaterialApp(
+        home: Scaffold(
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Color(background),
+          ),
+        ),
+      );
+    }
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

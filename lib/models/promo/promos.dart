@@ -21,13 +21,13 @@ class Promos {
   @JsonKey(name: "status")
   int status;
 
-  @JsonKey(name: "message")
-  String message;
+  // @JsonKey(name: "message")
+  // String message;
 
   @JsonKey(name: "data")
   List<Promo> promos;
 
-  Promos({required this.status, required this.message, required this.promos});
+  Promos({required this.status, required this.promos});
   factory Promos.fromJson(Map<String, dynamic> json) => _$PromosFromJson(json);
   Map<String, dynamic> toJson() => _$PromosToJson(this);
 }

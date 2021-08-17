@@ -4,25 +4,11 @@ part 'transaction.g.dart';
 
 @JsonSerializable()
 class Transaction {
-  // "id": 2,
-  //         "userId": 2,
-  //         "type": 0,
-  //         "gram": 5,
-  //         "priceId": 1,
-  //         "adminFee": 0,
-  //         "nominal": 100000,
-  //         "status": 0,
-  //         "discount": 0,
-  //         "barcode": "generatedstring",
-  //         "destinationNumber": null,
-  //         "message": null,
-  //         "created_at": "2021-08-01 11:43:42",
-  //         "updated_at": "2021-08-01 11:43:42"
   @JsonKey(name: 'id')
   int id;
 
   @JsonKey(name: 'userId')
-  String userId;
+  int userId;
 
   @JsonKey(name: 'type')
   int type;
@@ -62,6 +48,8 @@ class Transaction {
 
   @JsonKey(name: 'updated_at')
   String updatedAt;
+
+  DateTime? get getCreateAt => DateTime.tryParse(createdAt);
 
   Transaction(
       {required this.id,

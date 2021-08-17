@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/userController.dart';
+import 'package:learnUI/screens/Test/Verify.dart';
 import 'package:learnUI/screens/buyGold/BuyGoldScreen.dart';
 import 'package:learnUI/screens/transferGold/TransferGoldScreen.dart';
 import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';
@@ -44,7 +45,11 @@ class ShortCuts extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.resolveWith(
                             (states) => Colors.green)),
                     onPressed: () {
-                      print("confir,");
+                      Get.back();
+                      Get.to(VerifyPhone(
+                          title: "Verifikasi",
+                          description: "Verifikasi nomor hp anda",
+                          onClick: 'ha'));
                     },
                     child: Text("Verif akun")),
                 cancel: ElevatedButton(

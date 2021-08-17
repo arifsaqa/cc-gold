@@ -5,15 +5,9 @@ import 'package:learnUI/models/promo/promo.dart';
 import 'package:learnUI/models/promo/promos.dart';
 
 class PromoController extends GetxController {
-  var promos = Promos(status: 0, message: "not fetching yet", promos: []).obs;
+  var promos = Promos(status: 0, promos: []).obs;
   var loading = false.obs;
   RxList<Promo> promo = <Promo>[].obs;
-
-  // @override
-  // void onInit() {
-  //   getPromoFunction();
-  //   super.onInit();
-  // }
 
   Future<void> toTrue() async {
     loading.value = true;
@@ -25,15 +19,21 @@ class PromoController extends GetxController {
 
   Future<void> getPromoFunction() async {
     await toTrue();
-    var res = await DataFetching().getPromo();
-    if (res != null) {
-      promos.value = await (res);
-      promo = await res.promos.obs;
-      await toFalse();
-    } else {
-      print("page load before the data render");
-      await toFalse();
-      return null;
+    try {
+      var res = await DataFetching().getPromo();
+      print(res);
+      if (res != null) {
+        promos.value = (res);
+        promo = res.promos.obs;
+        await toFalse();
+      } else {
+        print("page load before the data render");
+        await toFalse();
+        return null;
+      }
+    } catch (e) {
+      // TODO
+      print(e);
     }
   }
 }

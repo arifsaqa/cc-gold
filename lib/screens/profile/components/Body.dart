@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +43,7 @@ List<Setting> settings = [
 
 class Body extends StatelessWidget {
   final controller = Get.find<UserController>();
-
+  final transactionController = Get.find<TransactionController>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -77,6 +78,7 @@ class Body extends StatelessWidget {
                           ? () async {
                               await controller.logout();
                               Get.toNamed<void>('/login');
+                              transactionController.resetTransactionStates();
                             }
                           : null,
                       child: Container(

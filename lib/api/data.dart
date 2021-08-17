@@ -24,7 +24,9 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      if (apiResult.statusCode == 201) {
+      print(apiResult.statusCode);
+      print(apiResult.body);
+      if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
         var parsedPromos = Promos.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPromos;
@@ -174,14 +176,13 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
+
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =
           Transactions.fromJson(jsonObject as Map<String, dynamic>);
       return parsedPrice;
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Error while get transaction data $e");
     }
   }
 

@@ -1,4 +1,4 @@
-String base_url = 'https://cc-gold.letoop.xyz';
+String base_url = 'https://ccgold.erahn.id';
 String apiVersion = '/api/v1/';
 String public = '/public/';
 
