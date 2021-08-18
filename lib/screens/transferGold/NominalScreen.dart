@@ -281,6 +281,7 @@ class Body extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    controller.priceId.value = priceGetter.sellPriceL.value.id;
                     controller.transactionType.value = 3;
                     controller.setBarcode(
                         DateFormat("ymdhs").format(usercontroller.now.value) +

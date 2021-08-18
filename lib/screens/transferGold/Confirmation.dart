@@ -261,13 +261,9 @@ class _BodyState extends State<Body> {
                               if (transactionController.loading.value) {
                                 context.loaderOverlay.hide();
                               }
-                              Get.to(
-                                  transactionController.transactionType.value !=
-                                          1
-                                      ? Password(
-                                          isLoggingin: false,
-                                          redirecto: SuccessPaymentScreen())
-                                      : SuccessPaymentScreen());
+                              Get.off(Password(
+                                  isLoggingin: false,
+                                  redirecto: SuccessPaymentScreen()));
                             },
                             child: Text(
                               "Konfirmasi",

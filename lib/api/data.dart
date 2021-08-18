@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:learnUI/models/current_gold_price/current_price.dart';
+import 'package:learnUI/models/current_gold_price/current_price_data.dart';
 import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/models/gold_prices/prices.dart';
 import 'package:learnUI/models/payment_methods/payment_method_response.dart';
@@ -102,6 +103,29 @@ class DataFetching {
     }
   }
 
+  Future<CurrentPriceData?> getSellPriceById(int id) async {
+    try {
+      var apiResult = await http.get(
+        Uri.parse(url.sellPriceById + id.toString()),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+      );
+      print(apiResult.statusCode);
+      if (apiResult.statusCode == 200) {
+        dynamic jsonObject = await json.decode(apiResult.body);
+        var parsedPrice =
+            CurrentPriceData.fromJson(jsonObject as Map<String, dynamic>);
+        return parsedPrice;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("Errrrrrrrrror cooook $e");
+    }
+  }
+
   Future<CurrentPrice?> getCurrentBuyPrice() async {
     try {
       var apiResult = await http.get(
@@ -115,6 +139,29 @@ class DataFetching {
         dynamic jsonObject = await json.decode(apiResult.body);
         var parsedPrice =
             CurrentPrice.fromJson(jsonObject as Map<String, dynamic>);
+        return parsedPrice;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("Errrrrrrrrror cooook $e");
+    }
+  }
+
+  Future<CurrentPriceData?> getBuyPriceById(int id) async {
+    try {
+      var apiResult = await http.get(
+        Uri.parse(url.buyPriceById + id.toString()),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+      );
+      if (apiResult.statusCode == 200) {
+        dynamic jsonObject = await json.decode(apiResult.body);
+        print(apiResult.body);
+        var parsedPrice =
+            CurrentPriceData.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
       } else {
         return null;
@@ -176,7 +223,7 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-
+      print(apiResult.body);
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =
           Transactions.fromJson(jsonObject as Map<String, dynamic>);

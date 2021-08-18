@@ -317,6 +317,7 @@ class Body extends StatelessWidget {
           right: 20,
           child: InkWell(
             onTap: () {
+              transactionController.resetVariables();
               Get.toNamed<void>('/logged');
             },
             child: Container(

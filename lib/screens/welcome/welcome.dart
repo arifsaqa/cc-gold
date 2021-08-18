@@ -59,7 +59,7 @@ class _StateWelcome extends State<Welcome> {
         });
       } else {
         Timer(Duration(milliseconds: 90), () {
-          Get.off<void>(Password(redirecto: LoggedIn(), isLoggingin: true));
+          Get.offAll<void>(Password(redirecto: LoggedIn(), isLoggingin: true));
           setState(() {
             _loadingHere = false;
           });
@@ -68,7 +68,7 @@ class _StateWelcome extends State<Welcome> {
     } else {
       print("go to login screen  " + isSignin.toString());
       Timer(Duration(seconds: 3), () {
-        Get.offAndToNamed<void>("/login");
+        Get.offNamed<void>("/login");
         setState(() {
           _loadingHere = false;
         });

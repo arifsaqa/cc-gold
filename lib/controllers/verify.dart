@@ -57,15 +57,17 @@ class Verify extends GetxController {
           !isResetPassword
               ? () async {
                   int res = await verifiedByOTP();
+                  print(res);
                   if (res == 1) {
-                    // Get.snackbar("Status", "Verifikasi berhasil",
-                    //     colorText: Colors.green);
-                    await Future.delayed(
-                        Duration(
-                          seconds: 3,
-                        ), () {
-                      Get.toNamed('/logged');
-                    });
+                    Get.snackbar("Status", "Verifikasi berhasil",
+                        colorText: Colors.green);
+                    // await Future.delayed(
+                    Get.toNamed('/logged');
+                    // Duration(
+                    //   seconds: 3,
+                    // ), () {
+                    // });
+                    return;
                   } else {
                     Get.snackbar("Status", "Verifikasi gagal",
                         colorText: Colors.red);
@@ -96,8 +98,11 @@ class Verify extends GetxController {
     String? token = await user.getToken();
     try {
       int? res = await AuthFunctions.verifiedByOTP(token!);
+      print(res);
       return res!;
     } catch (e) {
+      // print(res);
+      print(e);
       return 0;
     }
   }

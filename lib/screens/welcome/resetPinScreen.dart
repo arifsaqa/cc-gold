@@ -56,12 +56,14 @@ class _StatePassword extends State<ResetPinScreen> {
 
   void cekPassword() async {
     // LocalUser cek = LocalUser();
-    var cekLogin = await controller.resetSandi(_typedPassword);
-    if (cekLogin == "oke") {
+    var isResetDone = await controller.resetSandi(_typedPassword);
+    if (isResetDone == "oke") {
       setState(() {
         _typedPassword = '';
       });
-      await Get.offNamed(widget.redirecto);
+      Future.delayed(Duration(seconds: 3), () {
+        Get.offNamed(widget.redirecto);
+      });
     }
   }
 
@@ -79,7 +81,6 @@ class _StatePassword extends State<ResetPinScreen> {
 
     Size size = MediaQuery.of(context).size;
     if (mounted) {
-      // ignore: unnecessary_statements
       _typedPassword.length == 6
           ? Future.delayed(Duration.zero, () {
               cekPassword();

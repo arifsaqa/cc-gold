@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/Test/Verify.dart';
 import 'package:learnUI/screens/buyGold/BuyGoldScreen.dart';
@@ -30,7 +31,7 @@ class ShortCuts extends StatelessWidget {
       String image, BuildContext context, String label, Widget destination) {
     Size size = MediaQuery.of(context).size;
     var userController = Get.find<UserController>();
-
+    final transactionController = Get.find<TransactionController>();
     return GestureDetector(
       onTap: () {
         userController.user.value.isVerified == 0
@@ -65,8 +66,28 @@ class ShortCuts extends StatelessWidget {
                       style: TextStyle(color: Color(background)),
                     )),
               )
-            : Navigator.push<void>(
-                context, MaterialPageRoute(builder: (context) => destination));
+            : () {
+                /*
+              "Beli Emas", BuyGold()),
+          _buildButtonColumn(
+              "images/sell.png", context, "Jual Emas", SellGoldScreen()),
+          _buildButtonColumn(
+              "images/transfer1.png", context, "Transfer Emas"
+              */
+                switch (label) {
+                  case "Beli Emas":
+                    transactionController.transactionType.value = 1;
+                    break;
+                  case "Jual Emas":
+                    transactionController.transactionType.value = 2;
+                    break;
+                  default:
+                    transactionController.transactionType.value = 3;
+                }
+
+                Navigator.push<void>(context,
+                    MaterialPageRoute(builder: (context) => destination));
+              }();
       },
       child: Center(
         child: Container(

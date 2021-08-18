@@ -54,6 +54,19 @@ class DataTreeController extends GetxController {
     }
   }
 
+  Future<int> getSellPriceById(int id) async {
+    await toTrue();
+    var res = await DataFetching().getSellPriceById(id);
+    if (res != null) {
+      await toFalse();
+      return res.price;
+    } else {
+      print("page load before the data render");
+      await toFalse();
+      return 0;
+    }
+  }
+
   Future<void> getBuyPrice() async {
     await toTrue();
     var res = await DataFetching().getBuyPrice();
@@ -95,6 +108,19 @@ class DataTreeController extends GetxController {
       print("page load before the data render");
       await toFalse();
       return null;
+    }
+  }
+
+  Future<int> getBuyPriceById(int id) async {
+    await toTrue();
+    var res = await DataFetching().getBuyPriceById(id);
+    if (res != null) {
+      await toFalse();
+      return res.price;
+    } else {
+      print("page load before the data render");
+      await toFalse();
+      return 0;
     }
   }
 

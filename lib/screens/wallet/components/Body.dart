@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/transactionController.dart';
+import 'package:learnUI/screens/successPayment/components/Body.dart';
+import 'package:learnUI/screens/transactionDetail/TransactionDetail.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Body extends StatefulWidget {
@@ -18,9 +20,9 @@ class _PromoBuildState extends State<Body> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      if (controller.transactions.value.data.length < 1) {
-        _getTransactions();
-      }
+      // if (controller.transactions.value.data.length < 1) {
+      _getTransactions();
+      // }
     });
   }
 
@@ -96,71 +98,131 @@ class _PromoBuildState extends State<Body> {
                           scrollDirection: Axis.vertical,
                           itemCount: controller.transactions.value.data.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              height: 100,
-                              padding: EdgeInsets.symmetric(horizontal: 8),
+                            return InkWell(
+                              onTap: () {
+                                print(controller
+                                    .transactions.value.data[index].type);
+                                Get.to(TransactionDetailScreen(
+                                    data: controller
+                                        .transactions.value.data[index]));
+                              },
                               child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                  width: 1.0,
-                                  color: Colors.grey.withOpacity(.05),
-                                ))),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(right: 10),
-                                      child: Image.asset(controller.transactions
-                                                  .value.data[index].type ==
-                                              1
-                                          ? "images/sellGold.png"
-                                          : "images/buyGold.png"),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: 10),
-                                          width: size.width * .6,
-                                          child: Text(
-                                            controller.transactions.value
-                                                        .data[index].type ==
+                                height: 100,
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                    width: 1.0,
+                                    color: Colors.grey.withOpacity(.05),
+                                  ))),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(right: 10),
+                                            child: Image.asset(controller
+                                                        .transactions
+                                                        .value
+                                                        .data[index]
+                                                        .type ==
                                                     1
-                                                ? "Jual Emas " +
-                                                    controller.transactions
-                                                        .value.data[index].gram
-                                                        .toString() +
-                                                    " gram"
-                                                : "Beli Emas " +
-                                                    controller.transactions
-                                                        .value.data[index].gram
-                                                        .toString() +
-                                                    " gram",
-                                            textScaleFactor: 1.0,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w600),
+                                                ? "images/sellGold.png"
+                                                : "images/buyGold.png"),
                                           ),
-                                        ),
-                                        Container(
-                                          width: size.width * .6,
-                                          child: Text(
-                                            controller.getDay(controller
-                                                .transactions
-                                                .value
-                                                .data[index]
-                                                .getCreateAt),
-                                            textScaleFactor: 1.0,
-                                            style: TextStyle(
-                                                color: Colors.black45,
-                                                fontSize: 12),
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                margin:
+                                                    EdgeInsets.only(bottom: 10),
+                                                width: size.width * .6,
+                                                child: Text(
+                                                  controller
+                                                              .transactions
+                                                              .value
+                                                              .data[index]
+                                                              .type ==
+                                                          1
+                                                      ? "Jual Emas " +
+                                                          controller
+                                                              .transactions
+                                                              .value
+                                                              .data[index]
+                                                              .gram
+                                                              .toString() +
+                                                          " gram"
+                                                      : "Beli Emas " +
+                                                          controller
+                                                              .transactions
+                                                              .value
+                                                              .data[index]
+                                                              .gram
+                                                              .toString() +
+                                                          " gram",
+                                                  textScaleFactor: 1.0,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: size.width * .6,
+                                                child: Text(
+                                                  controller.getDay(controller
+                                                      .transactions
+                                                      .value
+                                                      .data[index]
+                                                      .getCreateAt),
+                                                  textScaleFactor: 1.0,
+                                                  style: TextStyle(
+                                                      color: Colors.black45,
+                                                      fontSize: 12),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      controller.transactions.value.data[index]
+                                                  .status !=
+                                              1
+                                          ? Container(
+                                              padding: EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.yellow[800],
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(50))),
+                                              child: Icon(
+                                                Icons.pending_actions,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          : Container(
+                                              padding: EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(50))),
+                                              child: Icon(
+                                                Icons.done_outline_rounded,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

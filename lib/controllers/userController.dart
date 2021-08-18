@@ -107,15 +107,15 @@ class UserController extends GetxController {
     var ok = pref.getString("phone");
     try {
       var asu = await AuthFunctions.resetPin(ok!, password);
-      if (asu != 1) {
+      if (asu == 1) {
         Get.snackbar<void>("Status", "Reset pin berhasil!",
             snackPosition: SnackPosition.TOP, colorText: Colors.green[600]);
         await toFalse();
         return "oke";
       } else {
-        toFalse();
         Get.snackbar<void>("Status", "Reset pin gagal!",
             snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+        await toFalse();
         return "hmm";
       }
     } catch (e) {

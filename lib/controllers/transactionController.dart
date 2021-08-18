@@ -97,9 +97,9 @@ class TransactionController extends GetxController {
           destinationNumber: destinationNumber.value,
           message: message.value);
       if (asu != null) {
-        asu.destinationNumber != null
-            ? transactionsTF.value.data.add(asu)
-            : transactions.value.data.add(asu);
+        // asu.destinationNumber != null
+        //     ? transactionsTF.value.data.add(asu)
+        //     : transactions.value.data.add(asu);
 
         loading.value = false;
         Get.snackbar<void>("Transation success!",
@@ -155,5 +155,18 @@ class TransactionController extends GetxController {
   void resetTransactionStates() {
     transactions.value = Transactions(status: 0, data: []);
     transactionsTF.value = Transactions(status: 0, data: []);
+  }
+
+  void resetVariables() {
+    getTotal.value = 0;
+    transactionType.value = 0;
+    adminfee.value = 0;
+    priceId.value = 0;
+    barcode.value = '';
+    discount.value = 0;
+    gram.value = 0;
+    payment.value = 0;
+    destinationNumber.value = '';
+    message.value = '';
   }
 }

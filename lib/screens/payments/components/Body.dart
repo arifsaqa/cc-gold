@@ -343,7 +343,7 @@ class _BodyState extends State<Body> {
                           if (transactionController.loading.value) {
                             context.loaderOverlay.hide();
                           }
-                          Get.to(
+                          Get.off(
                               transactionController.transactionType.value != 1
                                   ? Password(
                                       isLoggingin: false,

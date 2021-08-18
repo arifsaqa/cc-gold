@@ -152,7 +152,7 @@ class AuthFunctions {
           'Accept': 'application/json'
         },
         body: jsonEncode({"phone": phone, "password": password}));
-    print(apiResult);
+    print(apiResult.statusCode);
     if (apiResult.statusCode == 200) {
       return 1;
       //d

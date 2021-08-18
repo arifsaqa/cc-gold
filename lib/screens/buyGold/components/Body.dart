@@ -179,17 +179,15 @@ class Body extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    controller.priceId.value = priceGetter.buyPriceL.value.id;
                     controller.transactionType.value = 1;
                     controller.destinationNumber.value = '';
                     controller.message.value = '';
-
                     controller.setBarcode(
                         DateFormat("ymdhs").format(usercontroller.now.value) +
                             (1 + priceGetter.buyPriceL.value.id).toString());
-                    Navigator.push<TransationData>(
-                        context,
-                        MaterialPageRoute<TransationData>(
-                            builder: (context) => PaymentScreen()));
+                    print(controller.transactionType);
+                    Get.off(PaymentScreen());
                   },
                   child: Text(
                     "Konfirmasi",

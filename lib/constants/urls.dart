@@ -27,5 +27,7 @@ class DataUrl {
   String get getSellPrice => base_url + apiVersion + 'sellPrices';
   String get currentSellPrice => base_url + apiVersion + 'currentSellPrice';
   String get currentBuyPrice => base_url + apiVersion + 'currentBuyPrice';
+  String get sellPriceById => base_url + apiVersion + 'sellPrice/';
+  String get buyPriceById => base_url + apiVersion + 'buyprice/';
   String get paymentMethods => base_url + apiVersion + 'paymentMethods';
 }
