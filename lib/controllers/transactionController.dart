@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionController extends GetxController {
 //   {
+  var selectedNumber = ''.obs;
   var transactions = Transactions(status: 0, data: []).obs;
   var transactionsTF = Transactions(status: 0, data: []).obs;
   var destinationNumber = ''.obs;

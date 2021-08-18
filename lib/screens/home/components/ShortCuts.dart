@@ -47,6 +47,7 @@ class ShortCuts extends StatelessWidget {
                     onPressed: () {
                       Get.back();
                       Get.to(VerifyPhone(
+                          isResetPassword: false,
                           title: "Verifikasi",
                           description: "Verifikasi nomor hp anda",
                           onClick: 'ha'));

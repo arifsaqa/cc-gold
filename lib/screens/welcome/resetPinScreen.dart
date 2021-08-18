@@ -5,23 +5,18 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/Test/Verify.dart';
-import 'package:learnUI/screens/welcome/auth.dart';
-import 'package:learnUI/screens/welcome/resetPinScreen.dart';
-import 'package:learnUI/sharedPreferrences/userLocal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:learnUI/sharedPreferrences/userLocal.dart';
 
 enum StateStatus { done, not }
 
-class Password extends StatefulWidget {
-  final Widget redirecto;
-  final bool isLoggingin;
+class ResetPinScreen extends StatefulWidget {
+  final String redirecto;
 
-  const Password({Key? key, required this.redirecto, required this.isLoggingin})
-      : super(key: key);
+  const ResetPinScreen({Key? key, required this.redirecto}) : super(key: key);
   _StatePassword createState() => _StatePassword();
 }
 
-class _StatePassword extends State<Password> {
+class _StatePassword extends State<ResetPinScreen> {
   final UserController controller = Get.put(UserController());
   final key = new GlobalKey<ScaffoldState>();
   String _typedPassword = '';
@@ -60,16 +55,13 @@ class _StatePassword extends State<Password> {
   }
 
   void cekPassword() async {
-    LocalUser cek = LocalUser();
-    var cekLogin = await controller.login(_typedPassword);
+    // LocalUser cek = LocalUser();
+    var cekLogin = await controller.resetSandi(_typedPassword);
     if (cekLogin == "oke") {
-      await controller.getUserSaldo();
-      // int userId = await cek.getUserId();
-      // await controller.getUserById(userId);
       setState(() {
         _typedPassword = '';
       });
-      await Get.off<void>(widget.redirecto);
+      await Get.offNamed(widget.redirecto);
     }
   }
 
@@ -93,10 +85,6 @@ class _StatePassword extends State<Password> {
               cekPassword();
             })
           : "";
-      // _asu == true
-      //     ? Get.snackbar<void>('User 123', 'Successfully created',
-      //         snackPosition: SnackPosition.BOTTOM)
-      //     : "";
     }
 
     return SafeArea(
@@ -173,30 +161,6 @@ class _StatePassword extends State<Password> {
                     ],
                   ),
                 ),
-                TextButton(
-                    style: ButtonStyle(
-                        padding: MaterialStateProperty.resolveWith(
-                            (states) => EdgeInsets.symmetric(horizontal: 10)),
-                        backgroundColor: MaterialStateProperty.resolveWith(
-                            (state) => Colors.white10),
-                        foregroundColor: MaterialStateProperty.resolveWith(
-                            (state) => Colors.white)),
-                    onPressed: () {
-                      Get.to(VerifyPhone(
-                          isResetPassword: true,
-                          title: "Verifikasi",
-                          description:
-                              "Verifikasi nomor hp anda untuk mereset pin",
-                          onClick: 'ha'));
-                    },
-                    child: Text(
-                      'Lupa Pin?',
-                      style: TextStyle(fontSize: sm),
-                      textScaleFactor: 1.0,
-                    )),
-                // SizedBox(
-                //   height: 20,
-                // ),
                 GetX<UserController>(
                     init: UserController(),
                     builder: (_) => Container(
@@ -218,30 +182,6 @@ class _StatePassword extends State<Password> {
                                 ], context, onTap, onPress, inputController),
                         )),
                 SizedBox(height: 20),
-                Container(
-                  child: widget.isLoggingin
-                      ? TextButton(
-                          onPressed: () {
-                            Get.toNamed('/login');
-                            controller.loading.value = false;
-                          },
-                          child: Text("Ganti Akun Lain",
-                              textScaleFactor: 1.0,
-                              style: TextStyle(
-                                color: Colors.white,
-                              )))
-                      : SizedBox(height: 0),
-                ),
-                // TextButton(
-                //     onPressed: null,
-                //     child: Text("Ganti Akun Lain",
-                //         textScaleFactor: 1.0,
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //         ))),
-                // SizedBox(
-                //   height: 20,
-                // ),
               ],
             ),
           ))),

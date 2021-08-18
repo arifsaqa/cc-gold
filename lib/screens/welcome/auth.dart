@@ -5,7 +5,7 @@ import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/main.dart';
 import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/screens/welcome/registerScreen.dart';
-import 'package:learnUI/screens/welcome/textField.dart';
+// import 'package:learnUI/screens/welcome/textField.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HandlingField extends StatefulWidget {
@@ -38,6 +38,11 @@ class _StateHandlingField extends State<HandlingField> {
   Future<void> saveInput(String phone) async {
     SharedPreferences ref = await SharedPreferences.getInstance();
     ref.setString("phone", phone);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -167,5 +172,40 @@ class _StateAuth extends State<Auth> {
         ],
       ),
     )));
+  }
+}
+
+class MyCustomForm1 extends StatefulWidget {
+  final Function(String) onChange;
+  MyCustomForm1({required this.onChange});
+
+  @override
+  _MyCustomFormState createState() => _MyCustomFormState();
+}
+
+class _MyCustomFormState extends State<MyCustomForm1> {
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        border:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      ),
+      keyboardType: TextInputType.number,
+      onChanged: widget.onChange,
+      style: TextStyle(
+        fontSize: input,
+        color: Color(upperGradient),
+        fontWeight: FontWeight.w600,
+      ),
+    );
   }
 }

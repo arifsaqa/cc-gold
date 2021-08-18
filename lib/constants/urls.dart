@@ -11,12 +11,14 @@ class AuthURL {
   String get getAllUsers => base_url + apiVersion + 'getAllUsers';
   String get getUserById => base_url + apiVersion + 'getUserById/';
   String get logout => base_url + apiVersion + 'logout';
+  String get resetPin => base_url + apiVersion + 'resetPasswordOTP';
 }
 
 class UsersData {
   String get userSaldo => base_url + apiVersion + 'saldo/';
   String get bankAccounts => base_url + apiVersion + 'bankAccounts/';
   String get getOrCreateTransaction => base_url + apiVersion + 'transactions/';
+  String get verifiedByOTP => base_url + apiVersion + 'verifiedByOTP';
 }
 
 class DataUrl {

@@ -13,60 +13,15 @@ import 'package:sms_autofill/sms_autofill.dart';
 
 enum StatusPage { SEND_NUMBER, WAIT_OTP }
 
-// class HandlingField extends StatefulWidget {
-//   final String onClick = 'ha', currentInput;
-
-//   const HandlingField({Key? key, required this.currentInput}) : super(key: key);
-//   @override
-//   _StateHandlingField createState() => _StateHandlingField();
-// }
-
-// class _StateHandlingField extends State<HandlingField> {
-//   var condition = StatusPage.SEND_NUMBER;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   @override
-//   void dispose() {
-//     SmsAutoFill().unregisterListener();
-//     super.dispose();
-//   }
-
-//   Text titleAlert(String cek) {
-//     if (cek == "verif") {
-//       return Text(
-//         "Verifikasi",
-//         textScaleFactor: 1.0,
-//         style: TextStyle(color: Colors.black),
-//       );
-//     } else {
-//       return Text(
-//         "Login",
-//         textScaleFactor: 1.0,
-//         style: TextStyle(color: Colors.black),
-//       );
-//     }
-//   }
-
-//   Future<void> saveInput(String phone) async {
-//     SharedPreferences ref = await SharedPreferences.getInstance();
-//     ref.setString("phone", phone);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var controller = Get.put(Verify());
-//     return
-//   }
-// }
-
 class VerifyPhone extends StatefulWidget {
   final String title, description, onClick;
+  final bool isResetPassword;
   VerifyPhone(
-      {required this.title, required this.description, required this.onClick});
+      {required this.title,
+      required,
+      required this.description,
+      required this.onClick,
+      required this.isResetPassword});
 
   @override
   _StateAuth createState() => _StateAuth();
@@ -74,25 +29,15 @@ class VerifyPhone extends StatefulWidget {
 
 class _StateAuth extends State<VerifyPhone> {
   String _currentInput = "";
-  String _code = "";
-  String signature = "{{ app signature }}";
   var condition = StatusPage.SEND_NUMBER;
 
   @override
   void initState() {
     super.initState();
-    if (condition == StatusPage.WAIT_OTP) {
-      smsAutoFill();
-    }
-  }
-
-  void smsAutoFill() async {
-    await SmsAutoFill().listenForCode;
   }
 
   @override
   void dispose() {
-    SmsAutoFill().unregisterListener();
     super.dispose();
   }
 
@@ -162,26 +107,11 @@ class _StateAuth extends State<VerifyPhone> {
               Container(
                   padding: EdgeInsets.only(top: 20),
                   margin: EdgeInsets.only(right: 20),
-                  child: condition == StatusPage.SEND_NUMBER
-                      ? MyCustomForm1(
-                          onChange: (context) => setState(() {
-                            _currentInput = context;
-                          }),
-                        )
-                      : PinFieldAutoFill(
-                          decoration: UnderlineDecoration(
-                            textStyle:
-                                TextStyle(fontSize: 20, color: Colors.black),
-                            colorBuilder: FixedColorBuilder(Colors.white),
-                          ),
-                          currentCode: _code,
-                          onCodeSubmitted: (code) {},
-                          onCodeChanged: (code) {
-                            if (code!.length == 6) {
-                              FocusScope.of(context).requestFocus(FocusNode());
-                            }
-                          },
-                        )),
+                  child: MyCustomForm1(
+                    onChange: (context) => setState(() {
+                      _currentInput = context;
+                    }),
+                  )),
             ]),
           ),
           Container(
@@ -209,16 +139,17 @@ class _StateAuth extends State<VerifyPhone> {
                         : Container(),
                     FloatingActionButton(
                       onPressed: () async {
-                        print(_currentInput);
-                        if (widget.onClick != 'login') {
-                          setState(() {
-                            condition = StatusPage.WAIT_OTP;
-                          });
-                          controller.toTrue();
-                          await controller
-                              .verify(_currentInput.replaceFirst('0', '+62'));
-                          Get.to(OTPSreen());
-                        }
+                        await saveInput(_currentInput);
+                        await controller.toTrue();
+                        await controller.verify(widget.isResetPassword,
+                            _currentInput.replaceFirst('0', '+62').trim());
+                        controller.toFalse();
+                        Get.to(GetOTPYO(
+                            isResetPassword: widget.isResetPassword,
+                            title: "Kode OTP",
+                            description:
+                                "Kode Otp akan terisi otomatis jika nomor yang anda verifikasi berada di perangkat ini"));
+                        // }
                       },
                       child: Container(
                           width: 60,

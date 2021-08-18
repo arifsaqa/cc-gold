@@ -101,6 +101,33 @@ class UserController extends GetxController {
     }
   }
 
+  Future<String> resetSandi(String password) async {
+    toTrue();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var ok = pref.getString("phone");
+    try {
+      var asu = await AuthFunctions.resetPin(ok!, password);
+      if (asu != 1) {
+        Get.snackbar<void>("Status", "Reset pin berhasil!",
+            snackPosition: SnackPosition.TOP, colorText: Colors.green[600]);
+        await toFalse();
+        return "oke";
+      } else {
+        toFalse();
+        Get.snackbar<void>("Status", "Reset pin gagal!",
+            snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+        return "hmm";
+      }
+    } catch (e) {
+      print('while getting data reset ' + e.toString());
+      toFalse();
+      Get.snackbar<void>("Login Error",
+          "Somthing wrong with our app, try again or contact our IT Support",
+          snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+      return "cok";
+    }
+  }
+
   Future<void> logout() async {
     toTrue();
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -192,6 +219,7 @@ class UserController extends GetxController {
       if (cok != null) {
         userResponse.value.user = cok;
         user.value = cok;
+        print(user.value);
         return 1;
       }
       return 0;

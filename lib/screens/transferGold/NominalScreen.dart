@@ -124,7 +124,7 @@ class Body extends StatelessWidget {
 
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height - 230,
+      // height: size.height - 230,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

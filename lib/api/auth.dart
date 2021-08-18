@@ -27,14 +27,6 @@ class AuthFunctions {
     }
   }
 
-// {
-//   "name":"Gotou",
-//   "email":"gotou@gmail.com ",
-//   "password":"111222",
-//   "phone":"082332435833",
-//   "image":"ddd",
-//   "deviceId":"Lennovo asu"
-// }
   static Future<UserResponse?> register(
       {required String name,
       required String email,
@@ -131,5 +123,42 @@ class AuthFunctions {
     print(apiResult.body);
     dynamic jsonObject = json.decode(apiResult.body);
     return BankAccounts.fromJson(jsonObject as Map<String, dynamic>);
+  }
+
+  static Future<int?> verifiedByOTP(String token) async {
+    // print(token);
+    var apiResult = await http.post(
+      Uri.parse(UsersData().verifiedByOTP),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    print('on verify ' + apiResult.body);
+    if (apiResult.statusCode == 200) {
+      return 1;
+      //d
+    } else {
+      //show shit
+      return 0;
+    }
+  }
+
+  static Future<int?> resetPin(String phone, String password) async {
+    var apiResult = await http.post(Uri.parse(AuthURL().resetPin),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: jsonEncode({"phone": phone, "password": password}));
+    print(apiResult);
+    if (apiResult.statusCode == 200) {
+      return 1;
+      //d
+    } else {
+      //show shit
+      return 0;
+    }
   }
 }

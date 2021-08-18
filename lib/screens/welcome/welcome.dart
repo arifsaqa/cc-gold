@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
@@ -26,15 +25,25 @@ class _StateWelcome extends State<Welcome> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      int cok = await cek.getUserId();
+      int? cok = await cek.getUserId();
       redirect(cok);
     });
   }
 
-  void redirect(int isSignin) async {
+  void redirect(int? isSignin) async {
     setState(() {
       _loadingHere = true;
     });
+    if (isSignin == 0 || isSignin == null) {
+      print("go to login screen  " + isSignin.toString());
+      Timer(Duration(seconds: 3), () {
+        Get.offAndToNamed<void>("/login");
+        setState(() {
+          _loadingHere = false;
+        });
+      });
+      return;
+    }
     int i = await controller.getUserById(isSignin);
     if (i != 0) {
       print(isSignin);

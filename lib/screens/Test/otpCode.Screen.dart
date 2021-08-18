@@ -1,19 +1,70 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:pin_input_text_field/pin_input_text_field.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/verify.dart';
+import 'package:learnUI/sharedPreferrences/userLocal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
-class OTPSreen extends StatefulWidget {
+enum StatusPage { SEND_NUMBER, WAIT_OTP }
+
+class GetOTPYO extends StatefulWidget {
+  final String title, description;
+  final bool isResetPassword;
+  GetOTPYO({
+    required this.title,
+    required this.description,
+    required this.isResetPassword,
+  });
+
   @override
-  _OTPSreenState createState() => _OTPSreenState();
+  _StateAuth createState() => _StateAuth();
 }
 
-class _OTPSreenState extends State<OTPSreen> {
+class _StateAuth extends State<GetOTPYO> with CodeAutoFill {
   String _code = "";
   String signature = "{{ app signature }}";
-
+  int _count = 0;
+  // late Timer  _timer;
+  // var condition = StatusPage.SEND_NUMBER;
+  var controller = Get.put(Verify());
   @override
   void initState() {
     super.initState();
+    listenForCode();
+    smsAutoFill();
+    _count = controller.timeOut.value * controller.rensendIncrement.value;
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
+      decrementTimeOut();
+      if (_count == 0) {
+        setState(() {
+          t.cancel();
+        });
+      }
+    });
+  }
+
+  @override
+  void codeUpdated() {
+    setState(() {
+      _code = code!;
+    });
+  }
+
+  void decrementTimeOut() {
+    if (mounted) {
+      setState(() {
+        _count -= 1;
+      });
+    }
+  }
+
+  void smsAutoFill() async {
+    await SmsAutoFill().listenForCode;
   }
 
   @override
@@ -22,28 +73,70 @@ class _OTPSreenState extends State<OTPSreen> {
     super.dispose();
   }
 
+  Text titleAlert(String cek) {
+    if (cek == "verif") {
+      return Text(
+        "Verifikasi",
+        textScaleFactor: 1.0,
+        style: TextStyle(color: Colors.black),
+      );
+    } else {
+      return Text(
+        "Login",
+        textScaleFactor: 1.0,
+        style: TextStyle(color: Colors.black),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              PhoneFieldHint(),
-              Spacer(),
+    return Scaffold(
+        body: SafeArea(
+            child: Container(
+      height: MediaQuery.of(context).size.height,
+      color: Color(background),
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    margin: EdgeInsets.only(bottom: 10, top: 100),
+                    child: Text(
+                      widget.title,
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                        fontFamily: "MetroBold",
+                        fontSize: md,
+                      ),
+                    ),
+                  ))
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.description,
+                      textScaleFactor: 1.0,
+                      style: TextStyle(fontSize: sm, height: 1.5),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
               PinFieldAutoFill(
                 decoration: UnderlineDecoration(
-                  textStyle: TextStyle(fontSize: 20, color: Colors.black),
-                  colorBuilder:
-                      FixedColorBuilder(Colors.black.withOpacity(0.3)),
+                  textStyle: TextStyle(fontSize: 20, color: Colors.white),
+                  colorBuilder: FixedColorBuilder(Colors.white),
                 ),
                 currentCode: _code,
                 onCodeSubmitted: (code) {},
@@ -53,119 +146,71 @@ class _OTPSreenState extends State<OTPSreen> {
                   }
                 },
               ),
-              Spacer(),
-              TextFieldPinAutoFill(
-                currentCode: _code,
+              SizedBox(
+                height: 30,
               ),
-              Spacer(),
-              ElevatedButton(
-                child: Text('Listen for sms code'),
-                onPressed: () async {
-                  await SmsAutoFill().listenForCode;
-                },
-              ),
-              ElevatedButton(
-                child: Text('Set code to 123456'),
-                onPressed: () async {
-                  setState(() {
-                    _code = '123456';
-                  });
-                },
-              ),
-              SizedBox(height: 8.0),
-              Divider(height: 1.0),
-              SizedBox(height: 4.0),
-              Text("App Signature : $signature"),
-              SizedBox(height: 4.0),
-              ElevatedButton(
-                child: Text('Get app signature'),
-                onPressed: () async {
-                  signature = await SmsAutoFill().getAppSignature;
-                  setState(() {});
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => CodeAutoFillTestPage()));
-                },
-                child: Text("Test CodeAutoFill mixin"),
-              )
-            ],
+              controller.loading.value
+                  ? SpinKitCircle(
+                      color: Colors.white,
+                      size: 50.0,
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.resolveWith(
+                                        (states) => Color(_count == 0
+                                            ? upperGradient
+                                            : lowerGradient))),
+                            onPressed: _count == 0
+                                ? () async {
+                                    SharedPreferences phone =
+                                        await SharedPreferences.getInstance();
+                                    int i = await controller.verify(
+                                        widget.isResetPassword,
+                                        phone
+                                            .getString('phone')!
+                                            .replaceFirst('0', '+62')
+                                            .trim(),
+                                        resend: controller.resendToken.value);
+                                    if (i == 1) {
+                                      controller.verifiedByOTP();
+                                    }
+                                  }
+                                : null,
+                            child: Text(
+                              "Kirim ulang kode",
+                              textScaleFactor: 1,
+                              style: TextStyle(color: Color(background)),
+                            )),
+                        Text(
+                          _count.toString(),
+                          textScaleFactor: 1,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.resolveWith(
+                                        (states) => Color(_count == 0
+                                            ? upperGradient
+                                            : lowerGradient))),
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text(
+                              "Ganti Nomor",
+                              textScaleFactor: 1,
+                              style: TextStyle(color: Color(background)),
+                            ))
+                      ],
+                    )
+            ]),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class CodeAutoFillTestPage extends StatefulWidget {
-  @override
-  _CodeAutoFillTestPageState createState() => _CodeAutoFillTestPageState();
-}
-
-class _CodeAutoFillTestPageState extends State<CodeAutoFillTestPage>
-    with CodeAutoFill {
-  String? appSignature;
-  String? otpCode;
-
-  @override
-  void codeUpdated() {
-    setState(() {
-      otpCode = code!;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    listenForCode();
-
-    SmsAutoFill().getAppSignature.then((signature) {
-      setState(() {
-        appSignature = signature;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    cancel();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontSize: 18);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Listening for code"),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 32, 32, 0),
-            child: Text(
-              "This is the current app signature: $appSignature",
-            ),
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Builder(
-              builder: (_) {
-                if (otpCode == null) {
-                  return Text("Listening for code...", style: textStyle);
-                }
-                return Text("Code Received: $otpCode", style: textStyle);
-              },
-            ),
-          ),
-          const Spacer(),
         ],
       ),
-    );
+    )));
   }
 }

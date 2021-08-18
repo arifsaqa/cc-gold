@@ -102,10 +102,8 @@ class _StateHead extends State<Head> {
                                         height: 40,
                                         width: 231,
                                         child: MyCustomForm(
-                                          onChange: (context) => setState(() {
-                                            // _currentInput = context;
-                                            // print(context);
-                                          }),
+                                          onChange: (context) =>
+                                              setState(() {}),
                                           onSubmit: (context) => setState(() {
                                             // _currentInput = context;
                                             print(context);
@@ -150,6 +148,7 @@ class MyCustomForm extends StatefulWidget {
 
 class MyCustomFormState extends State<MyCustomForm> {
   final myController = TextEditingController();
+  final transactionController = Get.find<TransactionController>();
   dynamic clearTextInput() {
     myController.clear();
   }
@@ -157,6 +156,9 @@ class MyCustomFormState extends State<MyCustomForm> {
   @override
   void initState() {
     super.initState();
+    if (transactionController.selectedNumber.value == '') {
+      myController.text = transactionController.selectedNumber.value;
+    }
   }
 
   @override
