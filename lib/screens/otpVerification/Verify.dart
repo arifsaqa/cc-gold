@@ -3,13 +3,10 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/verify.dart';
-import 'package:learnUI/main.dart';
-import 'package:learnUI/screens/Test/otpCode.Screen.dart';
-import 'package:learnUI/screens/welcome/password.dart';
+import 'package:learnUI/screens/otpVerification/otpCode.Screen.dart';
 import 'package:learnUI/screens/welcome/registerScreen.dart';
 import 'package:learnUI/screens/welcome/textField.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 
 enum StatusPage { SEND_NUMBER, WAIT_OTP }
 

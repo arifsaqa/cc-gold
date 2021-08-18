@@ -130,7 +130,9 @@ class TransactionController extends GetxController {
       var asu = await DataFetching().getTransaction(ok!);
       if (asu != null) {
         for (var i = 0; i < asu.data.length; i++) {
-          asu.data[i].destinationNumber != null
+          asu.data[i].destinationNumber != null &&
+                  (!transactionsTF.value.data.contains(asu.data[i]) &&
+                      !transactions.value.data.contains(asu.data[i]))
               ? transactionsTF.value.data.add(asu.data[i])
               : transactions.value.data.add(asu.data[i]);
         }

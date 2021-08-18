@@ -149,7 +149,7 @@ class _PromoBuildState extends State<Body> {
                                                               .transactions
                                                               .value
                                                               .data[index]
-                                                              .type ==
+                                                              .type !=
                                                           1
                                                       ? "Jual Emas " +
                                                           controller

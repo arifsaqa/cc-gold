@@ -4,11 +4,7 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/userController.dart';
-import 'package:learnUI/screens/Test/Verify.dart';
-import 'package:learnUI/screens/welcome/auth.dart';
-import 'package:learnUI/screens/welcome/resetPinScreen.dart';
-import 'package:learnUI/sharedPreferrences/userLocal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:learnUI/screens/otpVerification/Verify.dart';
 
 enum StateStatus { done, not }
 
@@ -60,7 +56,7 @@ class _StatePassword extends State<Password> {
   }
 
   void cekPassword() async {
-    LocalUser cek = LocalUser();
+    // LocalUser cek = LocalUser();
     var cekLogin = await controller.login(_typedPassword);
     if (cekLogin == "oke") {
       await controller.getUserSaldo();

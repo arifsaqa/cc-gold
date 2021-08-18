@@ -17,6 +17,7 @@ class NominalScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           title: Title(
               color: Color(background),

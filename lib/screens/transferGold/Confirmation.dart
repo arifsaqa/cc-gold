@@ -20,6 +20,7 @@ class Confirmation extends GetWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         title: Title(
             color: Color(background),

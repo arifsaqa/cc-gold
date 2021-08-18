@@ -1,5 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
@@ -20,6 +21,7 @@ class TransactionDetailScreen extends StatefulWidget {
 
 class TransactionDetailScreenState extends State<TransactionDetailScreen> {
   final dataController = Get.find<DataTreeController>();
+  bool _loading = true;
   int _price = 0;
   String getLabelOrTitle(int type) {
     switch (type) {
@@ -35,19 +37,23 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () async {
-      if (widget.data.type == 1) {
-        int price = await dataController.getBuyPriceById(widget.data.priceId);
-        setState(() {
-          _price = price;
-        });
-      } else {
-        int price = await dataController.getSellPriceById(widget.data.priceId);
-        setState(() {
-          _price = price;
-        });
-      }
-    });
+    getData();
+  }
+
+  void getData() async {
+    if (widget.data.type == 1) {
+      int price = await dataController.getBuyPriceById(widget.data.priceId);
+      setState(() {
+        _price = price;
+        _loading = false;
+      });
+    } else {
+      int price = await dataController.getSellPriceById(widget.data.priceId);
+      setState(() {
+        _price = price;
+        _loading = false;
+      });
+    }
   }
 
   @override
@@ -59,8 +65,11 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
   Widget build(BuildContext context) {
     print(widget.data.priceId);
     final formatter = Get.find<Formatter>();
-
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Detail Transaksi"),
+      ),
       body: Stack(children: [
         Container(
           margin: EdgeInsets.only(left: 20, right: 20, top: 26, bottom: 26),
@@ -336,7 +345,15 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
                   height: 25,
                 ),
               ),
-            ))
+            )),
+        Container(
+          height: _loading ? size.height : 0,
+          width: _loading ? size.width : 0,
+          color: Colors.black.withOpacity(0.5),
+          child: SpinKitCircle(
+            color: Color(background),
+          ),
+        ),
       ]),
     );
   }

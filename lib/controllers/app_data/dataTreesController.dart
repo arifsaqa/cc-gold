@@ -44,8 +44,8 @@ class DataTreeController extends GetxController {
     await toTrue();
     var res = await DataFetching().getSellPrice();
     if (res != null) {
-      sellPrices.value = await (res);
-      sellPrice = await res.price.obs;
+      sellPrices.value = (res);
+      sellPrice = res.price.obs;
       await toFalse();
     } else {
       print("page load before the data render");
@@ -71,8 +71,8 @@ class DataTreeController extends GetxController {
     await toTrue();
     var res = await DataFetching().getBuyPrice();
     if (res != null) {
-      buyPrices.value = await (res);
-      buyPrice = await res.price.obs;
+      buyPrices.value = (res);
+      buyPrice = res.price.obs;
       await toFalse();
     } else {
       print("page load before the data render");
@@ -86,8 +86,8 @@ class DataTreeController extends GetxController {
     var res = await DataFetching().getCurrentSellPrice();
     if (res != null) {
       print("sSellPRICEEEEEEEEEEEEEE" + res.price.price.toString());
-      currentSellPrice.value = await res;
-      sellPriceL.value.price = await res.price.price;
+      currentSellPrice.value = res;
+      sellPriceL.value = res.price;
       await toFalse();
     } else {
       print("page load before the data render");
@@ -101,8 +101,8 @@ class DataTreeController extends GetxController {
     var res = await DataFetching().getCurrentBuyPrice();
     if (res != null) {
       print("BUYPRICEEEEEEEEEEEEEE" + res.price.price.toString());
-      currentBuyPrice.value = await (res);
-      buyPriceL.value.price = await res.price.price;
+      currentBuyPrice.value = (res);
+      buyPriceL.value = res.price;
       await toFalse();
     } else {
       print("page load before the data render");

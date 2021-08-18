@@ -4,7 +4,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
-import 'package:learnUI/screens/Test/Verify.dart';
+import 'package:learnUI/screens/otpVerification/Verify.dart';
 import 'package:learnUI/screens/buyGold/BuyGoldScreen.dart';
 import 'package:learnUI/screens/transferGold/TransferGoldScreen.dart';
 import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';

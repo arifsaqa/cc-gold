@@ -91,6 +91,7 @@ class DataFetching {
         },
       );
       if (apiResult.statusCode == 200) {
+        print(apiResult.body);
         dynamic jsonObject = await json.decode(apiResult.body);
         var parsedPrice =
             CurrentPrice.fromJson(jsonObject as Map<String, dynamic>);

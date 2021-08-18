@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/userController.dart';
-import 'package:learnUI/screens/Test/Verify.dart';
-// import 'package:learnUI/sharedPreferrences/userLocal.dart';
 
 enum StateStatus { done, not }
 

@@ -2,13 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/api/auth.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/main.dart';
 import 'package:learnUI/screens/welcome/auth.dart';
 import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/screens/welcome/resetPinScreen.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Verify extends GetxController {
+  final userController = Get.put(UserController());
   var loading = false.obs;
   var resendToken = 0.obs;
   var timeOut = 30.obs;
@@ -52,7 +55,7 @@ class Verify extends GetxController {
         },
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
           Get.snackbar("Verifikasi", "Verifikasi Berhasil",
-              colorText: Colors.white);
+              colorText: Colors.green[400]);
           i = 1;
           !isResetPassword
               ? () async {
@@ -61,12 +64,10 @@ class Verify extends GetxController {
                   if (res == 1) {
                     Get.snackbar("Status", "Verifikasi berhasil",
                         colorText: Colors.green);
-                    // await Future.delayed(
-                    Get.toNamed('/logged');
-                    // Duration(
-                    //   seconds: 3,
-                    // ), () {
-                    // });
+                    SharedPreferences getId =
+                        await SharedPreferences.getInstance();
+                    await userController.getUserById(getId.getInt("userId")!);
+                    await Get.to(LoggedIn());
                     return;
                   } else {
                     Get.snackbar("Status", "Verifikasi gagal",

@@ -24,6 +24,7 @@ class _SuccessPaymentScreenState extends State<SuccessPaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         title: Title(
             color: Color(background),

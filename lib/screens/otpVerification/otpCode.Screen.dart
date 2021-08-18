@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/controllers/verify.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,7 +32,8 @@ class _StateAuth extends State<GetOTPYO> with CodeAutoFill {
   int _count = 0;
   // late Timer  _timer;
   // var condition = StatusPage.SEND_NUMBER;
-  var controller = Get.put(Verify());
+  final controller = Get.put(Verify());
+  final userController = Get.find<UserController>();
   @override
   void initState() {
     super.initState();
@@ -176,7 +178,7 @@ class _StateAuth extends State<GetOTPYO> with CodeAutoFill {
                                             .trim(),
                                         resend: controller.resendToken.value);
                                     if (i == 1) {
-                                      controller.verifiedByOTP();
+                                      await controller.verifiedByOTP();
                                     }
                                   }
                                 : null,
@@ -197,9 +199,11 @@ class _StateAuth extends State<GetOTPYO> with CodeAutoFill {
                                         (states) => Color(_count == 0
                                             ? upperGradient
                                             : lowerGradient))),
-                            onPressed: () {
-                              Get.back();
-                            },
+                            onPressed: _count == 0
+                                ? () {
+                                    Get.back();
+                                  }
+                                : null,
                             child: Text(
                               "Ganti Nomor",
                               textScaleFactor: 1,
