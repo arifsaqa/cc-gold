@@ -10,6 +10,12 @@ import 'package:learnUI/screens/transferGold/TransferGoldScreen.dart';
 import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';
 
 class ShortCuts extends StatelessWidget {
+  void alert() {
+    Get.snackbar("Status",
+        "Anda belum memiliki saldo emas,\nBeli atau isi saldo dahulu!",
+        colorText: Colors.red[400]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,60 +40,66 @@ class ShortCuts extends StatelessWidget {
     final transactionController = Get.find<TransactionController>();
     return GestureDetector(
       onTap: () {
-        userController.user.value.isVerified == 0
-            ? Get.defaultDialog(
-                title: "",
-                middleText: "Verifikasi akun anda untuk melakukan transaksi",
-                backgroundColor: Color(background),
-                titleStyle: TextStyle(color: Colors.white),
-                middleTextStyle: TextStyle(color: Colors.white),
-                confirm: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.green)),
-                    onPressed: () {
-                      Get.back();
-                      Get.to(VerifyPhone(
-                          isResetPassword: false,
-                          title: "Verifikasi",
-                          description: "Verifikasi nomor hp anda",
-                          onClick: 'ha'));
-                    },
-                    child: Text("Verif akun")),
-                cancel: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.yellow)),
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: Text(
-                      "Nanti",
-                      style: TextStyle(color: Color(background)),
-                    )),
-              )
-            : () {
-                /*
-              "Beli Emas", BuyGold()),
-          _buildButtonColumn(
-              "images/sell.png", context, "Jual Emas", SellGoldScreen()),
-          _buildButtonColumn(
-              "images/transfer1.png", context, "Transfer Emas"
-              */
-                switch (label) {
-                  case "Beli Emas":
-                    transactionController.transactionType.value = 1;
-                    break;
-                  case "Jual Emas":
-                    transactionController.transactionType.value = 2;
-                    break;
-                  default:
-                    transactionController.transactionType.value = 3;
-                }
-
+        if (userController.user.value.isVerified == 0) {
+          Get.defaultDialog(
+            title: "",
+            middleText: "Verifikasi akun anda untuk melakukan transaksi",
+            backgroundColor: Color(background),
+            titleStyle: TextStyle(color: Colors.white),
+            middleTextStyle: TextStyle(color: Colors.white),
+            confirm: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.green)),
+                onPressed: () {
+                  Get.back();
+                  Get.to(VerifyPhone(
+                      isResetPassword: false,
+                      title: "Verifikasi",
+                      description: "Verifikasi nomor hp anda",
+                      onClick: 'ha'));
+                },
+                child: Text("Verif akun")),
+            cancel: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.yellow)),
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(
+                  "Nanti",
+                  style: TextStyle(color: Color(background)),
+                )),
+          );
+        } else {
+          switch (label) {
+            case "Beli Emas":
+              transactionController.transactionType.value = 1;
+              Navigator.push<void>(context,
+                  MaterialPageRoute(builder: (context) => destination));
+              break;
+            case "Jual Emas":
+              transactionController.transactionType.value = 2;
+              if (userController.saldo.value.saldo == null ||
+                  userController.saldo.value.saldo!.gram == 0) {
+                alert();
+              } else {
                 Navigator.push<void>(context,
                     MaterialPageRoute(builder: (context) => destination));
-              }();
+              }
+              break;
+            default:
+              transactionController.transactionType.value = 3;
+              if (userController.saldo.value.saldo == null ||
+                  userController.saldo.value.saldo!.gram == 0) {
+                alert();
+              } else {
+                Navigator.push<void>(context,
+                    MaterialPageRoute(builder: (context) => destination));
+              }
+          }
+        }
       },
       child: Center(
         child: Container(

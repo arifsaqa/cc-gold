@@ -26,6 +26,17 @@ class _PromoBuildState extends State<Body> {
     });
   }
 
+  String getLabelOrTitle(int type) {
+    switch (type) {
+      case 1:
+        return "Pembelian";
+      case 2:
+        return "Penjualan";
+      default:
+        return "Transfer";
+    }
+  }
+
   void _getTransactions() async {
     await controller.getTransaction();
   }
@@ -36,7 +47,7 @@ class _PromoBuildState extends State<Body> {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        Container(
           padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 24),
           child: Text(
             "Riwayat Transaksi",
@@ -48,18 +59,18 @@ class _PromoBuildState extends State<Body> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
+          margin: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.05),
-                    spreadRadius: 10,
+                    spreadRadius: 2,
                     blurRadius: 2,
-                    offset: Offset(2, 10))
+                    offset: Offset(2, 5))
               ]),
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 10),
           child: Obx(
             () => controller.loading.value
                 ? Container(
@@ -68,7 +79,7 @@ class _PromoBuildState extends State<Body> {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: 3,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           return Shimmer(
                               gradient: LinearGradient(stops: [
@@ -82,19 +93,20 @@ class _PromoBuildState extends State<Body> {
                               ]),
                               child: Container(
                                 margin: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
+                                    vertical: 10, horizontal: 10),
                                 width: 327,
-                                height: 80,
+                                height: 50,
                                 decoration: BoxDecoration(
                                     color: Color(background),
                                     borderRadius: BorderRadius.circular(8)),
                               ));
                         }))
                 : controller.transactions.value.data.length > 0
-                    ? SizedBox(
-                        height: 310,
+                    ? Container(
+                        height: size.height / 2.5,
                         width: size.width,
                         child: ListView.builder(
+                          // shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemCount: controller.transactions.value.data.length,
                           itemBuilder: (context, index) {
@@ -145,28 +157,12 @@ class _PromoBuildState extends State<Body> {
                                                     EdgeInsets.only(bottom: 10),
                                                 width: size.width * .6,
                                                 child: Text(
-                                                  controller
-                                                              .transactions
-                                                              .value
-                                                              .data[index]
-                                                              .type !=
-                                                          1
-                                                      ? "Jual Emas " +
-                                                          controller
-                                                              .transactions
-                                                              .value
-                                                              .data[index]
-                                                              .gram
-                                                              .toString() +
-                                                          " gram"
-                                                      : "Beli Emas " +
-                                                          controller
-                                                              .transactions
-                                                              .value
-                                                              .data[index]
-                                                              .gram
-                                                              .toString() +
-                                                          " gram",
+                                                  getLabelOrTitle(controller
+                                                          .transactions
+                                                          .value
+                                                          .data[index]
+                                                          .type) +
+                                                      " Emas",
                                                   textScaleFactor: 1.0,
                                                   style: TextStyle(
                                                       color: Colors.black,

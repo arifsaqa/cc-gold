@@ -65,13 +65,16 @@ class _StatePassword extends State<Password> {
       setState(() {
         _typedPassword = '';
       });
-      await Get.off<void>(widget.redirecto);
+      await Get.off(widget.redirecto);
     }
   }
 
   @override
   void dispose() {
     super.dispose();
+    setState(() {
+      _typedPassword = '';
+    });
   }
 
   @override

@@ -23,10 +23,8 @@ class WalletScreen extends StatelessWidget {
               ),
             )),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [Head(), Body()],
-        ),
+      body: Column(
+        children: [Head(), Body()],
       ),
     );
   }

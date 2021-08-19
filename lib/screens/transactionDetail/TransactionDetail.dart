@@ -322,7 +322,17 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
                       )
                     ])
                   : ElevatedButton(
-                      onPressed: () {}, child: Text("Verifikasi Transaksi")),
+                      onPressed: () {
+                        Get.defaultDialog(
+                            custom: Icon(
+                              Icons.pending,
+                              color: Color(background),
+                            ),
+                            middleText: "Working on it :)",
+                            middleTextStyle:
+                                TextStyle(color: Color(background)));
+                      },
+                      child: Text("Verifikasi Transaksi")),
             ],
           ),
         ),

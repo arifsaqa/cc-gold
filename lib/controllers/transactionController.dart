@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learnUI/api/data.dart';
 import 'package:learnUI/models/transaction/transactions.dart';
+import 'package:learnUI/models/transaction/transaction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionController extends GetxController {
@@ -122,6 +123,13 @@ class TransactionController extends GetxController {
     }
   }
 
+  List<Transaction>? get tfTransactions => transactions.value.data
+      .where((element) => element.destinationNumber != null)
+      .toList();
+  List<Transaction>? get sellPriceTransaction => transactions.value.data
+      .where((element) => element.destinationNumber == null)
+      .toList();
+
   Future<String> getTransaction() async {
     loading.value = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -129,16 +137,7 @@ class TransactionController extends GetxController {
     try {
       var asu = await DataFetching().getTransaction(ok!);
       if (asu != null) {
-        for (var i = 0; i < asu.data.length; i++) {
-          if (asu.data[i].destinationNumber != null &&
-              transactionsTF.value.data.contains(asu.data[i])) {
-            transactionsTF.value.data.add(asu.data[i]);
-          } else {
-            if (!transactions.value.data.contains(asu.data[i])) {
-              transactions.value.data.add(asu.data[i]);
-            }
-          }
-        }
+        transactions.value = asu;
         loading.value = false;
         return "oke";
       } else {

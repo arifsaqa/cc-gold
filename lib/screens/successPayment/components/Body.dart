@@ -9,7 +9,6 @@ import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
-import 'package:learnUI/models/transactionType.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:learnUI/screens/successPayment/components/Separator.dart';
 

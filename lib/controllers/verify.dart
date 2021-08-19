@@ -64,8 +64,10 @@ class Verify extends GetxController {
                     SharedPreferences getId =
                         await SharedPreferences.getInstance();
                     await userController.getUserById(getId.getInt("userId")!);
-                    await Get.to(LoggedIn());
-                    return;
+                    await Future.delayed(Duration(seconds: 3), () {
+                      Get.to(LoggedIn());
+                      return;
+                    });
                   } else {
                     Get.snackbar("Status", "Verifikasi gagal",
                         colorText: Colors.red);
