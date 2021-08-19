@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:learnUI/api/auth.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/main.dart';
-import 'package:learnUI/screens/welcome/auth.dart';
-import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/screens/welcome/resetPinScreen.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +28,6 @@ class Verify extends GetxController {
     await toTrue();
     int i = 0;
     try {
-      // print(phone);
       await auth.verifyPhoneNumber(
         phoneNumber: phone,
         timeout: Duration(seconds: timeOut.value * rensendIncrement.value),

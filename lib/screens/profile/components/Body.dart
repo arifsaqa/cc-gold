@@ -103,7 +103,7 @@ class _StateBody extends State<Body> {
                       onTap: index == settings.length - 1
                           ? () async {
                               await controller.logout();
-                              Get.toNamed<void>('/login');
+                              Get.offAndToNamed<void>('/login');
                               transactionController.resetTransactionStates();
                             }
                           : null,
