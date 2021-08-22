@@ -38,7 +38,6 @@ class Saldo extends StatefulWidget {
 }
 
 class _SaldoState extends State<Saldo> {
-  bool display = true;
   var _image;
 
   Widget pickImage() {

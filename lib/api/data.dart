@@ -25,8 +25,6 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
         var parsedPromos = Promos.fromJson(jsonObject as Map<String, dynamic>);
@@ -91,7 +89,6 @@ class DataFetching {
         },
       );
       if (apiResult.statusCode == 200) {
-        print(apiResult.body);
         dynamic jsonObject = await json.decode(apiResult.body);
         var parsedPrice =
             CurrentPrice.fromJson(jsonObject as Map<String, dynamic>);
@@ -113,7 +110,6 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
         var parsedPrice =
@@ -160,7 +156,6 @@ class DataFetching {
       );
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
-        print(apiResult.body);
         var parsedPrice =
             CurrentPriceData.fromJson(jsonObject as Map<String, dynamic>);
         return parsedPrice;
@@ -204,8 +199,6 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.statusCode);
-      print(apiResult.body);
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =
           PaymentMethodResponse.fromJson(jsonObject as Map<String, dynamic>);
@@ -224,7 +217,6 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
-      print(apiResult.body);
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =
           Transactions.fromJson(jsonObject as Map<String, dynamic>);
@@ -267,8 +259,6 @@ class DataFetching {
             "destinationNumber": destinationNumber,
             "message": message,
           }));
-      print(apiResult.statusCode);
-      print(apiResult.body);
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =
           Transaction.fromJson(jsonObject as Map<String, dynamic>);

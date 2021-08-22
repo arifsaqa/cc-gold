@@ -21,7 +21,6 @@ class PromoController extends GetxController {
     await toTrue();
     try {
       var res = await DataFetching().getPromo();
-      print(res);
       if (res != null) {
         promos.value = (res);
         promo = res.promos.obs;

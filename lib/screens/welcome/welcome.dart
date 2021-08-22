@@ -37,7 +37,7 @@ class _StateWelcome extends State<Welcome> {
     if (isSignin == 0 || isSignin == null) {
       print("go to login screen  " + isSignin.toString());
       Timer(Duration(seconds: 3), () {
-        Get.offNamed("/login");
+        Get.offAndToNamed("/login");
         setState(() {
           _loadingHere = false;
         });
@@ -52,7 +52,7 @@ class _StateWelcome extends State<Welcome> {
       if (istokenValid != 0) {
         await controller.getUserSaldo();
         Timer(Duration(milliseconds: 90), () {
-          Get.offNamed('/logged');
+          Get.offAllNamed('/logged');
           setState(() {
             _loadingHere = false;
           });

@@ -31,6 +31,17 @@ class _StateAuth extends State<VerifyPhone> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration(seconds: 1), () async {
+      _getPhone();
+    });
+  }
+
+  void _getPhone() async {
+    SharedPreferences a = await SharedPreferences.getInstance();
+    String? phone = a.getString('phone');
+    setState(() {
+      _currentInput = phone != null ? phone : '';
+    });
   }
 
   @override
@@ -105,6 +116,7 @@ class _StateAuth extends State<VerifyPhone> {
                   padding: EdgeInsets.only(top: 20),
                   margin: EdgeInsets.only(right: 20),
                   child: MyCustomForm1(
+                    initialValue: _currentInput,
                     onChange: (context) => setState(() {
                       _currentInput = context;
                     }),

@@ -4,12 +4,16 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
+import 'package:learnUI/controllers/verify.dart';
 import 'package:learnUI/screens/otpVerification/Verify.dart';
 import 'package:learnUI/screens/buyGold/BuyGoldScreen.dart';
+import 'package:learnUI/screens/otpVerification/otpCode.Screen.dart';
 import 'package:learnUI/screens/transferGold/TransferGoldScreen.dart';
 import 'package:learnUI/screens/sellGold/SellGoldScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ShortCuts extends StatelessWidget {
+  final controller = Get.put(Verify());
   void alert() {
     Get.snackbar("Status",
         "Anda belum memiliki saldo emas,\nBeli atau isi saldo dahulu!",
@@ -51,13 +55,20 @@ class ShortCuts extends StatelessWidget {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith(
                         (states) => Colors.green)),
-                onPressed: () {
+                onPressed: () async {
                   Get.back();
-                  Get.to(VerifyPhone(
+                  SharedPreferences a = await SharedPreferences.getInstance();
+                  String? phone = a.getString('phone');
+                  await controller.toTrue();
+                  await controller.verify(
+                      false, phone!.replaceFirst('0', '+62').trim());
+                  controller.toFalse();
+                  Get.to(GetOTPYO(
                       isResetPassword: false,
-                      title: "Verifikasi",
-                      description: "Verifikasi nomor hp anda",
-                      onClick: 'ha'));
+                      title: "Kode OTP",
+                      description:
+                          "Kode Otp akan terisi otomatis jika nomor yang anda verifikasi berada di perangkat ini"));
+                  // }
                 },
                 child: Text("Verif akun")),
             cancel: ElevatedButton(
@@ -81,8 +92,7 @@ class ShortCuts extends StatelessWidget {
               break;
             case "Jual Emas":
               transactionController.transactionType.value = 2;
-              if (userController.saldo.value.saldo == null ||
-                  userController.saldo.value.saldo!.gram == 0) {
+              if (userController.saldo.value == 0) {
                 alert();
               } else {
                 Navigator.push<void>(context,
@@ -91,8 +101,8 @@ class ShortCuts extends StatelessWidget {
               break;
             default:
               transactionController.transactionType.value = 3;
-              if (userController.saldo.value.saldo == null ||
-                  userController.saldo.value.saldo!.gram == 0) {
+              if (userController.saldo.value == null ||
+                  userController.saldo.value.saldo == 0) {
                 alert();
               } else {
                 Navigator.push<void>(context,

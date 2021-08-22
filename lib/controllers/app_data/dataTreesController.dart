@@ -100,7 +100,6 @@ class DataTreeController extends GetxController {
     await toTrue();
     var res = await DataFetching().getCurrentBuyPrice();
     if (res != null) {
-      print("BUYPRICEEEEEEEEEEEEEE" + res.price.price.toString());
       currentBuyPrice.value = (res);
       buyPriceL.value = res.price;
       await toFalse();

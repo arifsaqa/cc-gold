@@ -8,6 +8,7 @@ import 'package:learnUI/api/data.dart';
 import 'package:learnUI/models/cekToken.dart';
 import 'package:learnUI/models/gold_news/article.dart';
 import 'package:learnUI/models/gold_news/gold_news.dart';
+import 'package:learnUI/models/saldo/new_saldo.dart';
 import 'package:learnUI/models/saldo/saldo_response.dart';
 import 'package:learnUI/models/user/user.dart';
 import 'package:learnUI/models/user/user_response.dart';
@@ -146,13 +147,14 @@ class UserController extends GetxController {
   }
 
   Future<String> register(String name, String email, String bankAccount,
-      String phone, String? image, String deviceId, String password) async {
+      String phone,int paymentMethodId, String? image, String deviceId, String password) async {
     await toTrue();
     try {
       var asu = await AuthFunctions.register(
           name: name,
           email: email,
           phone: phone,
+          paymentMethodId:paymentMethodId,
           bankAccount: bankAccount,
           deviceId: deviceId,
           image: image,
@@ -168,7 +170,6 @@ class UserController extends GetxController {
         await toFalse();
         Get.snackbar<void>("Register Success", "Welcome to CC Gold!",
             snackPosition: SnackPosition.TOP, colorText: Colors.green[600]);
-        print(await localUser.getUserId());
         return "oke";
       } else {
         await toFalse();
@@ -219,7 +220,6 @@ class UserController extends GetxController {
       if (cok != null) {
         userResponse.value.user = cok;
         user.value = cok;
-        print(user.value);
         return 1;
       }
       return 0;
@@ -233,7 +233,7 @@ class UserController extends GetxController {
     }
   }
 
-  var saldo = SaldoResponse(status: 0, saldo: null).obs;
+  var saldo = NewSaldoResponse(status: 0, saldo: 0).obs;
   var isSaldoVisible = true.obs;
 
   void toogleHideSaldo() {
@@ -243,13 +243,11 @@ class UserController extends GetxController {
   Future<void> getUserSaldo() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var userId = pref.getInt("userId");
-    print('User AAAAAidiiiiiiiiii' + userId.toString());
     await toTrue();
     var res = await AuthFunctions.getUserSaldo(userId!);
     saldo.value = (res);
     await toFalse();
   }
-
   var newsResponse =
       NewsRespon(articles: [], status: "Not fetching yet", totalResults: 0).obs;
   var goldNews = <Article>[].obs;

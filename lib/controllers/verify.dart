@@ -57,7 +57,6 @@ class Verify extends GetxController {
           !isResetPassword
               ? () async {
                   int res = await verifiedByOTP();
-                  print(res);
                   if (res == 1) {
                     Get.snackbar("Status", "Verifikasi berhasil",
                         colorText: Colors.green);
@@ -79,8 +78,6 @@ class Verify extends GetxController {
           Get.snackbar("Oke", "Kode Terkirim", colorText: Colors.white);
           resendToken.value = resend!;
           rensendIncrement.value += 1;
-          print(verificationId);
-          print(resend);
         },
       );
       return i;
@@ -98,7 +95,6 @@ class Verify extends GetxController {
     String? token = await user.getToken();
     try {
       int? res = await AuthFunctions.verifiedByOTP(token!);
-      print(res);
       return res!;
     } catch (e) {
       // print(res);

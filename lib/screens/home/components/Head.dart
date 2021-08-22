@@ -130,7 +130,7 @@ class Head extends StatelessWidget {
                           Obx(() => Text(
                                 "Rp. " +
                                     formatter.addDot(dataTreesController
-                                        .buyPriceL.value.price) +
+                                        .sellPriceL.value.price) +
                                     "/gr",
                                 textScaleFactor: 1.0,
                                 style: TextStyle(

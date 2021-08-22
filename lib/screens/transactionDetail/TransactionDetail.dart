@@ -341,7 +341,7 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
             right: 20,
             child: InkWell(
               onTap: () {
-                Get.toNamed<void>('/logged');
+                Get.offAndToNamed('/logged');
               },
               child: Container(
                 padding: EdgeInsets.all(8),

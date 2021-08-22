@@ -32,12 +32,30 @@ class Head extends StatelessWidget {
   }
 }
 
-class Saldo extends StatelessWidget {
+class Saldo extends StatefulWidget {
+  _SaldoState createState() => _SaldoState();
+}
+
+class _SaldoState extends State<Saldo> {
+  final controller = Get.find<UserController>();
+  final dataController = Get.find<DataTreeController>();
+  final formatter = Get.find<Formatter>();
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      // if (controller.transactions.value.data.length < 1) {
+      _getTransactions();
+      // }
+    });
+  }
+
+  void _getTransactions() {
+    controller.getUserSaldo();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<UserController>();
-    var dataController = Get.find<DataTreeController>();
-    final formatter = Get.find<Formatter>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -52,9 +70,8 @@ class Saldo extends StatelessWidget {
                   () => Text(
                     controller.isSaldoVisible.value
                         ? controller.saldo.value.saldo != null
-                            ? controller.saldo.value.saldo!.gram.toString() +
-                                " gram"
-                            : "0 gram"
+                            ? controller.saldo.value.saldo.toString()
+                            : 0.toString() + " gram"
                         : "**********",
                     textScaleFactor: 1.0,
                     style:
@@ -73,7 +90,7 @@ class Saldo extends StatelessWidget {
                       ? formatter.addDot(
                           dataController.currentSellPrice.value.price.price *
                               (controller.saldo.value.saldo != null
-                                  ? controller.saldo.value.saldo!.gram
+                                  ? controller.saldo.value.saldo!
                                   : 0))
                       : "*********",
                   textScaleFactor: 1.0,
