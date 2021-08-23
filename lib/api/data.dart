@@ -33,7 +33,7 @@ class DataFetching {
         return null;
       }
     } catch (e) {
-      print("Errrrrrrrrro cok $e");
+      print("Errrrrrrrrro cok $e get promo");
     }
   }
 
@@ -54,7 +54,7 @@ class DataFetching {
         return null;
       }
     } catch (e) {
-      print("Errrrrrrrrro cok $e");
+      print("Errrrrrrrrro cok $e get butprice");
     }
   }
 
@@ -75,7 +75,7 @@ class DataFetching {
         return null;
       }
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Errrrrrrrrror cooook $e sellprice");
     }
   }
 
@@ -97,7 +97,7 @@ class DataFetching {
         return null;
       }
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Errrrrrrrrror cooook $e current sell price");
     }
   }
 
@@ -119,7 +119,7 @@ class DataFetching {
         return null;
       }
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Errrrrrrrrror cooook $e  get sellpricxe");
     }
   }
 
@@ -141,7 +141,7 @@ class DataFetching {
         return null;
       }
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Errrrrrrrrror cooook $e getCurrne by price");
     }
   }
 
@@ -163,7 +163,7 @@ class DataFetching {
         return null;
       }
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Errrrrrrrrror cooook $e getBuyPrice");
     }
   }
 
@@ -204,7 +204,7 @@ class DataFetching {
           PaymentMethodResponse.fromJson(jsonObject as Map<String, dynamic>);
       return parsedPrice;
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Errrrrrrrrror cooook $e get payment method");
     }
   }
 
@@ -222,7 +222,7 @@ class DataFetching {
           Transactions.fromJson(jsonObject as Map<String, dynamic>);
       return parsedPrice;
     } catch (e) {
-      print("Error while get transaction data $e");
+      print("Error while get transaction data $e get transaction");
     }
   }
 

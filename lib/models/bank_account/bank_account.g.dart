@@ -11,6 +11,7 @@ BankAccount _$BankAccountFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     userId: json['userId'] as int,
     numberAccount: json['numberAccount'] as String,
+    paymentMethodId: json['paymentMethodId'] as int,
     createdAt: json['created_at'] as String,
     updatedAt: json['updated_at'] as String,
   );
@@ -20,6 +21,7 @@ Map<String, dynamic> _$BankAccountToJson(BankAccount instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userId': instance.userId,
+      'paymentMethodId': instance.paymentMethodId,
       'numberAccount': instance.numberAccount,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,

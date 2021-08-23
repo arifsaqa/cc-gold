@@ -11,7 +11,7 @@ Price _$PriceFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     price: json['price'] as int,
     createdAt: json['created_at'] as String,
-    updatedAt: json['updated_at'] as String,
+    updatedAt: json['updated_at'] as String?,
   );
 }
 

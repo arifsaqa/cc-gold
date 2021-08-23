@@ -19,10 +19,10 @@ class Price {
   String createdAt;
 
   @JsonKey(name: "updated_at")
-  String updatedAt;
+  String? updatedAt;
 
   DateTime? get getCreateAt => DateTime.tryParse(createdAt);
-  DateTime? get getUpdateAt => DateTime.tryParse(updatedAt);
+  DateTime? get getUpdateAt => DateTime.tryParse(updatedAt!);
 
   Price({
     required this.id,

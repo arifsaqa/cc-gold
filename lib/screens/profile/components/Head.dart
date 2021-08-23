@@ -24,7 +24,7 @@ class Head extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Saldo(),
+            HeadBody(),
           ],
         ),
       ),
@@ -32,12 +32,12 @@ class Head extends StatelessWidget {
   }
 }
 
-class Saldo extends StatefulWidget {
+class HeadBody extends StatefulWidget {
   @override
-  _SaldoState createState() => _SaldoState();
+  _HeadBodyState createState() => _HeadBodyState();
 }
 
-class _SaldoState extends State<Saldo> {
+class _HeadBodyState extends State<HeadBody> {
   var _image;
 
   Widget pickImage() {

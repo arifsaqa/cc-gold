@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
+import 'package:learnUI/screens/profile/profileSetting/components/Body.dart';
+
 class ProfileSettingScreen extends StatelessWidget {
   const ProfileSettingScreen({Key? key}) : super(key: key);
 
@@ -7,7 +9,8 @@ class ProfileSettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Title(  color: Color(background),
+        title: Title(
+            color: Color(background),
             child: Container(
               margin: EdgeInsets.only(left: 10),
               child: Text(
@@ -16,8 +19,21 @@ class ProfileSettingScreen extends StatelessWidget {
                 style: TextStyle(fontFamily: "MetroBold"),
               ),
             )),
+        actions: [
+          Center(
+              child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Simpan",
+                  textScaleFactor: 1.0,
+                  style: TextStyle(color: Colors.white),
+                )),
+          ))
+        ],
       ),
-      body: Container(),
+      body: Body(),
     );
   }
 }

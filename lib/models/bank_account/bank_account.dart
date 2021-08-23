@@ -8,7 +8,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'bank_account.g.dart';
-
+  //  "id": 1,
+  //           "userId": 16,
+  //           "numberAccount": "108564943494846",
+  //           "paymentMethodId": 1,
+  //           "created_at": "2021-08-22 18:51:28",
+  //           "updated_at": "2021-08-22 18:51:28"
 @JsonSerializable()
 class BankAccount {
   @JsonKey(name: "id")
@@ -16,6 +21,9 @@ class BankAccount {
 
   @JsonKey(name: "userId")
   int userId;
+
+  @JsonKey(name: "paymentMethodId")
+  int paymentMethodId;
 
   @JsonKey(name: "numberAccount")
   String numberAccount;
@@ -30,6 +38,7 @@ class BankAccount {
       {required this.id,
       required this.userId,
       required this.numberAccount,
+      required this.paymentMethodId,
       required this.createdAt,
       required this.updatedAt});
   DateTime? get getCreateAt => DateTime.tryParse(createdAt);

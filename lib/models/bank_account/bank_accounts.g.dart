@@ -9,8 +9,8 @@ part of 'bank_accounts.dart';
 BankAccounts _$BankAccountsFromJson(Map<String, dynamic> json) {
   return BankAccounts(
     status: json['status'] as int,
-    accountNumbers: (json['data'] as List<dynamic>)
-        .map((e) => BankAccount.fromJson(e as Map<String, dynamic>))
+    bankAccounts: (json['data'] as List<dynamic>?)
+        ?.map((e) => BankAccount.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
@@ -18,5 +18,5 @@ BankAccounts _$BankAccountsFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$BankAccountsToJson(BankAccounts instance) =>
     <String, dynamic>{
       'status': instance.status,
-      'data': instance.accountNumbers,
+      'data': instance.bankAccounts,
     };

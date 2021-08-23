@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:learnUI/api/auth.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/api/data.dart';
+import 'package:learnUI/models/bank_account/bank_accounts.dart';
 import 'package:learnUI/models/cekToken.dart';
 import 'package:learnUI/models/gold_news/article.dart';
 import 'package:learnUI/models/gold_news/gold_news.dart';
@@ -30,7 +31,7 @@ class UserController extends GetxController {
           createdAt: '',
           updatedAt: '')
       .obs;
-
+  var userBankAccount = BankAccounts(status: 0, bankAccounts: null).obs;
   var tokenStatus = IsTokenValid().obs;
   var loading = false.obs;
   var now = DateTime.now().obs;
@@ -146,15 +147,22 @@ class UserController extends GetxController {
     }
   }
 
-  Future<String> register(String name, String email, String bankAccount,
-      String phone,int paymentMethodId, String? image, String deviceId, String password) async {
+  Future<String> register(
+      String name,
+      String email,
+      String bankAccount,
+      String phone,
+      int paymentMethodId,
+      String? image,
+      String deviceId,
+      String password) async {
     await toTrue();
     try {
       var asu = await AuthFunctions.register(
           name: name,
           email: email,
           phone: phone,
-          paymentMethodId:paymentMethodId,
+          paymentMethodId: paymentMethodId,
           bankAccount: bankAccount,
           deviceId: deviceId,
           image: image,
@@ -216,10 +224,12 @@ class UserController extends GetxController {
 
   Future<int> getUserById(int id) async {
     try {
-      var cok = await AuthFunctions.getUserById(id);
-      if (cok != null) {
-        userResponse.value.user = cok;
-        user.value = cok;
+      var userDataResponse = await AuthFunctions.getUserById(id);
+      var bankAccountResponse = await AuthFunctions.getUserBankAccounts(id);
+      if (userDataResponse != null) {
+        userResponse.value.user = userDataResponse;
+        user.value = userDataResponse;
+        userBankAccount.value = bankAccountResponse;
         return 1;
       }
       return 0;
@@ -248,6 +258,7 @@ class UserController extends GetxController {
     saldo.value = (res);
     await toFalse();
   }
+
   var newsResponse =
       NewsRespon(articles: [], status: "Not fetching yet", totalResults: 0).obs;
   var goldNews = <Article>[].obs;
@@ -260,7 +271,7 @@ class UserController extends GetxController {
       goldNews.value = res.articles;
       await toFalse();
     } else {
-      print("page load before the data render");
+      print("page load before the data render gold News");
       await toFalse();
       return null;
     }

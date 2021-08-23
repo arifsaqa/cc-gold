@@ -21,9 +21,9 @@ class BankAccounts {
   int status;
 
   @JsonKey(name: "data")
-  List<BankAccount> accountNumbers;
+  List<BankAccount>? bankAccounts;
 
-  BankAccounts({required this.status, required this.accountNumbers});
+  BankAccounts({required this.status, required this.bankAccounts});
   factory BankAccounts.fromJson(Map<String, dynamic> json) =>
       _$BankAccountsFromJson(json);
   Map<String, dynamic> toJson() => _$BankAccountsToJson(this);

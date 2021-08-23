@@ -207,14 +207,18 @@ class _StateResgisterScreen extends State<RegisterScreen> {
                                         (PaymentMethod value) {
                                   return DropdownMenuItem<int>(
                                     value: value.id,
-                                    child: Text(value.name),
+                                    child: Text(value.name,
+                                        textScaleFactor: 1.0,
+                                        style: TextStyle(
+                                            fontFamily: "MetroReg",
+                                            fontSize: normal)),
                                   );
                                 }).toList(),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        SizedBox( 
                           height: 20,
                         ),
                         TextField(

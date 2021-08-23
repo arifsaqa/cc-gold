@@ -4,6 +4,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:learnUI/screens/profile/profileSetting/profileSettingScreen.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -100,13 +101,41 @@ class _StateBody extends State<Body> {
                     height: 70,
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: GestureDetector(
-                      onTap: index == settings.length - 1
-                          ? () async {
-                              await controller.logout();
-                              Get.offAllNamed('/login');
-                              transactionController.resetTransactionStates();
-                            }
-                          : null,
+                      onTap: () async {
+                        switch (index) {
+                          case 0:
+                            print("oke");
+                            Get.to(ProfileSettingScreen());
+                            break;
+                          case 1:
+                            Get.defaultDialog(
+                                content: Text(
+                              "Write me a FAQ (　＾∇＾)",
+                              style: TextStyle(color: Color(background)),
+                            ));
+                            break;
+                          case 2:
+                            Get.defaultDialog(
+                                content: Text(
+                              "(　＾∇＾)",
+                              style: TextStyle(color: Color(background)),
+                            ));
+                            break;
+                          case 3:
+                            Get.defaultDialog(
+                                content: Text(
+                              "(　＾∇＾)",
+                              style: TextStyle(color: Color(background)),
+                            ));
+                            break;
+                          case 4:
+                            await controller.logout();
+                            Get.offAllNamed('/login');
+                            transactionController.resetTransactionStates();
+                            break;
+                          default:
+                        }
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border(
