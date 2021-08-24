@@ -216,82 +216,121 @@ class _BodyState extends State<Body> {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  _awaitBankChoice(context);
-                },
-                child: Container(
-                    height: 100,
-                    width: 327,
-                    padding: EdgeInsets.only(left: 14, bottom: 22, top: 22),
-                    margin: EdgeInsets.only(left: 24, right: 24, top: 50),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(.08),
-                          offset: Offset(
-                            5.0,
-                            5.0,
-                          ),
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
+              Container(
+                  height: 140,
+                  width: 327,
+                  padding:
+                      EdgeInsets.only(left: 14, right: 14, bottom: 22, top: 22),
+                  margin: EdgeInsets.only(left: 24, right: 24, top: 50),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(.08),
+                        offset: Offset(
+                          5.0,
+                          5.0,
                         ),
-                        BoxShadow(
-                          color: Colors.white,
-                          offset: Offset(0.0, 0.0),
-                          blurRadius: 0.0,
-                          spreadRadius: 0.0,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ),
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            _awaitBankChoice(context);
+                          },
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Metode Pembayaran",
-                                  textScaleFactor: 1.0,
-                                  style: TextStyle(
-                                      fontSize: normal, color: Colors.black)),
-                              Row(children: [
-                                Obx(
-                                  () => Container(
-                                      width: 33,
-                                      height: 20,
-                                      child: FadeInImage.assetNetwork(
-                                          placeholder:
-                                              'images/circular-progress.gif',
-                                          image: base_url +
-                                              '/' +
-                                              paymentMethodController
-                                                  .paymentMethod[bankIndex]
-                                                  .logo)),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Obx(
-                                  () => Text(
-                                    paymentMethodController
-                                        .paymentMethod[bankIndex].name,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'MetroMedium'),
-                                  ),
-                                )
-                              ]),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Metode Pembayaran",
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          fontSize: normal,
+                                          color: Colors.black)),
+                                  Row(children: [
+                                    Obx(
+                                      () => Container(
+                                          width: 33,
+                                          height: 20,
+                                          child: FadeInImage.assetNetwork(
+                                              placeholder:
+                                                  'images/circular-progress.gif',
+                                              image: base_url +
+                                                  '/' +
+                                                  paymentMethodController
+                                                      .paymentMethod[bankIndex]
+                                                      .logo)),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Obx(
+                                      () => Text(
+                                        paymentMethodController
+                                            .paymentMethod[bankIndex].name,
+                                        textScaleFactor: 1.0,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: 'MetroMedium'),
+                                      ),
+                                    )
+                                  ]),
+                                ],
+                              ),
+                              Icon(Icons.chevron_right)
                             ],
                           ),
-                          Icon(Icons.chevron_right)
-                        ],
-                      ),
-                    )),
-              )
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Kode Referral",
+                              textScaleFactor: 1.0,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: sm),
+                            ),
+                            Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 1.5,
+                                            color: Color(background)))),
+                                height: 20,
+                                width: 100,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintStyle: TextStyle(
+                                        color: Colors.black.withOpacity(.5)),
+                                    hintText: "(optional)",
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(background))),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize: sm,
+                                    color: Colors.black,
+                                  ),
+                                ))
+                          ],
+                        )
+                      ]))
             ],
           ),
           Obx(() => (LoaderOverlay(

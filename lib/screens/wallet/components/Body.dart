@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/transactionController.dart';
-import 'package:learnUI/screens/successPayment/components/Body.dart';
 import 'package:learnUI/screens/transactionDetail/TransactionDetail.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -20,9 +19,7 @@ class _PromoBuildState extends State<Body> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      // if (controller.transactions.value.data.length < 1) {
       _getTransactions();
-      // }
     });
   }
 
@@ -43,8 +40,7 @@ class _PromoBuildState extends State<Body> {
 
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-        child: Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -58,179 +54,161 @@ class _PromoBuildState extends State<Body> {
                 fontWeight: FontWeight.bold),
           ),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(.05),
-                    spreadRadius: 2,
-                    blurRadius: 2,
-                    offset: Offset(2, 5))
-              ]),
-          padding: EdgeInsets.only(top: 10),
-          child: Obx(
-            () => controller.loading.value
-                ? Container(
-                    width: size.width,
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
+        Obx(
+          () => controller.loading.value
+              ? ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  // physics: NeverScrollableScrollPhysics(),
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return Shimmer(
+                        gradient: LinearGradient(stops: [
+                          0.4,
+                          0.5,
+                          0.6
+                        ], colors: [
+                          Color(lowerGradient),
+                          Color(upperGradient),
+                          Color(lowerGradient)
+                        ]),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          width: 327,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Color(background),
+                              borderRadius: BorderRadius.circular(8)),
+                        ));
+                  })
+              : controller.transactions.value.data.length > 0
+                  ? Expanded(
+                      child: ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 2,
+                        scrollDirection: Axis.vertical,
+                        itemCount: controller.transactions.value.data.length,
                         itemBuilder: (context, index) {
-                          return Shimmer(
-                              gradient: LinearGradient(stops: [
-                                0.4,
-                                0.5,
-                                0.6
-                              ], colors: [
-                                Color(lowerGradient),
-                                Color(upperGradient),
-                                Color(lowerGradient)
-                              ]),
+                          return InkWell(
+                            onTap: () {
+                              print(controller
+                                  .transactions.value.data[index].type);
+                              Get.to(TransactionDetailScreen(
+                                  data: controller
+                                      .transactions.value.data[index]));
+                            },
+                            child: Container(
+                              height: 100,
+                              padding: EdgeInsets.symmetric(horizontal: 24),
                               child: Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                width: 327,
-                                height: 50,
                                 decoration: BoxDecoration(
-                                    color: Color(background),
-                                    borderRadius: BorderRadius.circular(8)),
-                              ));
-                        }))
-                : controller.transactions.value.data.length > 0
-                    ? Container(
-                        height: size.height / 2.5,
-                        width: size.width,
-                        child: ListView.builder(
-                          // shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: controller.transactions.value.data.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                print(controller
-                                    .transactions.value.data[index].type);
-                                Get.to(TransactionDetailScreen(
-                                    data: controller
-                                        .transactions.value.data[index]));
-                              },
-                              child: Container(
-                                height: 100,
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    width: 1.0,
-                                    color: Colors.grey.withOpacity(.05),
-                                  ))),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(right: 10),
-                                            child: Image.asset(controller
-                                                        .transactions
-                                                        .value
-                                                        .data[index]
-                                                        .type ==
-                                                    1
-                                                ? "images/sellGold.png"
-                                                : "images/buyGold.png"),
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(bottom: 10),
-                                                width: size.width * .6,
-                                                child: Text(
-                                                  getLabelOrTitle(controller
-                                                          .transactions
-                                                          .value
-                                                          .data[index]
-                                                          .type) +
-                                                      " Emas",
-                                                  textScaleFactor: 1.0,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: size.width * .6,
-                                                child: Text(
-                                                  controller.getDay(controller
+                                    border: Border(
+                                        bottom: BorderSide(
+                                  width: 1.0,
+                                  color: Colors.grey.withOpacity(.05),
+                                ))),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          child: Image.asset(controller
                                                       .transactions
                                                       .value
                                                       .data[index]
-                                                      .getCreateAt),
-                                                  textScaleFactor: 1.0,
-                                                  style: TextStyle(
-                                                      color: Colors.black45,
-                                                      fontSize: 12),
-                                                ),
-                                              )
-                                            ],
+                                                      .type ==
+                                                  1
+                                              ? "images/sellGold.png"
+                                              : "images/buyGold.png"),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(bottom: 10),
+                                              width: size.width * .6,
+                                              child: Text(
+                                                getLabelOrTitle(controller
+                                                        .transactions
+                                                        .value
+                                                        .data[index]
+                                                        .type) +
+                                                    " Emas",
+                                                textScaleFactor: 1.0,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: size.width * .6,
+                                              child: Text(
+                                                controller.getDay(controller
+                                                    .transactions
+                                                    .value
+                                                    .data[index]
+                                                    .getCreateAt),
+                                                textScaleFactor: 1.0,
+                                                style: TextStyle(
+                                                    color: Colors.black45,
+                                                    fontSize: 12),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    controller.transactions.value.data[index]
+                                                .status !=
+                                            1
+                                        ? Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                color: Colors.yellow[800],
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(50))),
+                                            child: Icon(
+                                              Icons.pending_actions,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
                                           )
-                                        ],
-                                      ),
-                                      controller.transactions.value.data[index]
-                                                  .status !=
-                                              1
-                                          ? Container(
-                                              padding: EdgeInsets.all(8),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.yellow[800],
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(50))),
-                                              child: Icon(
-                                                Icons.pending_actions,
-                                                size: 20,
-                                                color: Colors.white,
-                                              ),
-                                            )
-                                          : Container(
-                                              padding: EdgeInsets.all(8),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.green,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(50))),
-                                              child: Icon(
-                                                Icons.done_outline_rounded,
-                                                size: 20,
-                                                color: Colors.white,
-                                              ),
-                                            )
-                                    ],
-                                  ),
+                                        : Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(50))),
+                                            child: Icon(
+                                              Icons.done_outline_rounded,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                  ],
                                 ),
                               ),
-                            );
-                          },
-                        ))
-                    : Text(
-                        "Belum ada transaksi",
-                        style: TextStyle(color: Colors.black),
+                            ),
+                          );
+                        },
                       ),
-          ),
-        )
+                    )
+                  : Text(
+                      "Belum ada transaksi",
+                      style: TextStyle(color: Colors.black),
+                    ),
+        ),
+        // )
       ],
-    ));
+    );
   }
 }

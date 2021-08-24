@@ -10,7 +10,6 @@ import 'package:learnUI/models/cekToken.dart';
 import 'package:learnUI/models/gold_news/article.dart';
 import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/models/saldo/new_saldo.dart';
-import 'package:learnUI/models/saldo/saldo_response.dart';
 import 'package:learnUI/models/user/user.dart';
 import 'package:learnUI/models/user/user_response.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';

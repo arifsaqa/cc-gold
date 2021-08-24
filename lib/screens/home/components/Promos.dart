@@ -21,9 +21,7 @@ class _PromoBuildState extends State<PromosBuild> {
     super.initState();
 
     Future.delayed(Duration.zero, () {
-      if (controller.promo.length < 1) {
-        _getPromo();
-      }
+      _getPromo();
     });
   }
 
@@ -46,7 +44,8 @@ class _PromoBuildState extends State<PromosBuild> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 24, right: 24, top: 10),
+              padding:
+                  EdgeInsets.only(left: 24, right: 24, top: 10, bottom: 10),
               child: Text(
                 "Promo Hari Ini",
                 textScaleFactor: 1.0,

@@ -83,7 +83,7 @@ class _StateResgisterScreen extends State<RegisterScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-              // height: double.infinity,
+              height: MediaQuery.of(context).size.height,
               width: size.width,
               color: Color(background),
               padding: const EdgeInsets.all(24),

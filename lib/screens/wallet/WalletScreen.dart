@@ -24,7 +24,10 @@ class WalletScreen extends StatelessWidget {
             )),
       ),
       body: Column(
-        children: [Head(), Body()],
+        children: [
+          SizedBox(height: 150, child: Head()),
+          Expanded(child: Body())
+        ],
       ),
     );
   }
