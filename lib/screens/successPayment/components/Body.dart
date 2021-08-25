@@ -38,15 +38,26 @@ class Body extends StatelessWidget {
         margin: EdgeInsets.only(left: 20, right: 20, top: 26, bottom: 26),
         padding: EdgeInsets.all(24),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(.05),
-                  spreadRadius: 10,
-                  blurRadius: 2,
-                  offset: Offset(2, 10))
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(.08),
+              offset: Offset(
+                5.0,
+                5.0,
+              ),
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+            BoxShadow(
+              color: Colors.white,
+              offset: Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Column(
@@ -313,7 +324,7 @@ class Body extends StatelessWidget {
       ),
       Positioned(
           top: 10,
-          right: 20,
+          right: 10,
           child: InkWell(
             onTap: () {
               transactionController.resetVariables();
@@ -323,8 +334,7 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                   color: Color(upperGradient),
-                  borderRadius:
-                      BorderRadius.only(topRight: Radius.circular(8))),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
               child: Image.asset(
                 "images/navs/homeActive.png",
                 width: 25,

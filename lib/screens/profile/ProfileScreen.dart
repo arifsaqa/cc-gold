@@ -22,10 +22,11 @@ class ProfileScreen extends GetWidget {
               ),
             )),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [Head(), Body()],
-        ),
+      body: Column(
+        children: [
+          SizedBox(height: 150, child: Head()),
+          Expanded(child: Body())
+        ],
       ),
     );
   }

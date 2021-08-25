@@ -121,8 +121,7 @@ class _PromoBuildState extends State<PromosBuild> {
                                                   null
                                               ? Text(
                                                   controller.promos.value
-                                                      .promos[index].title
-                                                      .toString(),
+                                                      .promos[index].title,
                                                   maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -136,8 +135,7 @@ class _PromoBuildState extends State<PromosBuild> {
                                                   heightFactor: 1.5,
                                                   child: Text(
                                                     controller.promos.value
-                                                        .promos[index].title
-                                                        .toString(),
+                                                        .promos[index].title,
                                                     textScaleFactor: 1.0,
                                                     maxLines: 2,
                                                     overflow:
@@ -178,8 +176,7 @@ class _PromoBuildState extends State<PromosBuild> {
                                         child: FadeInImage.assetNetwork(
                                           image: base_url +
                                               '/' +
-                                              controller.promo[index].image
-                                                  .toString(),
+                                              controller.promo[index].image,
                                           placeholder:
                                               'images/circular-progress.gif',
                                           fit: BoxFit.cover,

@@ -73,121 +73,128 @@ class _StateBody extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return SafeArea(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.05),
-                    spreadRadius: 10,
-                    blurRadius: 2,
-                    offset: Offset(2, 10))
-              ]),
-          child: SizedBox(
-              height: 370,
-              width: size.width,
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: settings.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 70,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: GestureDetector(
-                      onTap: () async {
-                        switch (index) {
-                          case 0:
-                            print("oke");
-                            Get.to(ProfileSettingScreen());
-                            break;
-                          case 1:
-                            Get.defaultDialog(
-                                content: Text(
-                              "Write me a FAQ (　＾∇＾)",
-                              style: TextStyle(color: Color(background)),
-                            ));
-                            break;
-                          case 2:
-                            Get.defaultDialog(
-                                content: Text(
-                              "(　＾∇＾)",
-                              style: TextStyle(color: Color(background)),
-                            ));
-                            break;
-                          case 3:
-                            Get.defaultDialog(
-                                content: Text(
-                              "(　＾∇＾)",
-                              style: TextStyle(color: Color(background)),
-                            ));
-                            break;
-                          case 4:
-                            await controller.logout();
-                            Get.offAllNamed('/login');
-                            transactionController.resetTransactionStates();
-                            break;
-                          default:
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                          width: 1.0,
-                          color: Colors.grey.withOpacity(.05),
-                        ))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(children: [
-                              Container(
-                                margin: EdgeInsets.only(right: 10),
-                                padding: EdgeInsets.all(0),
-                                child: Image.asset(settings[index].image),
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(38, 51, 70, .1),
-                                    borderRadius: BorderRadius.circular(8)),
-                                height: 40,
-                                width: 40,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      settings[index].title,
-                                      textScaleFactor: 1.0,
-                                      style: TextStyle(
-                                          color: index == settings.length - 1
-                                              ? Colors.black26
-                                              : Colors.black,
-                                          fontWeight: FontWeight.w600),
-                                    ),
+                  color: Colors.grey.withOpacity(.08),
+                  offset: Offset(
+                    5.0,
+                    5.0,
+                  ),
+                  blurRadius: 10.0,
+                  spreadRadius: 2.0,
+                ),
+                BoxShadow(
+                  color: Colors.white,
+                  offset: Offset(0.0, 0.0),
+                  blurRadius: 0.0,
+                  spreadRadius: 0.0,
+                ),
+              ],
+            ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: settings.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  height: 70,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: GestureDetector(
+                    onTap: () async {
+                      switch (index) {
+                        case 0:
+                          print("oke");
+                          Get.to(ProfileSettingScreen());
+                          break;
+                        case 1:
+                          Get.defaultDialog(
+                              content: Text(
+                            "Write me a FAQ (　＾∇＾)",
+                            style: TextStyle(color: Color(background)),
+                          ));
+                          break;
+                        case 2:
+                          Get.defaultDialog(
+                              content: Text(
+                            "(　＾∇＾)",
+                            style: TextStyle(color: Color(background)),
+                          ));
+                          break;
+                        case 3:
+                          Get.defaultDialog(
+                              content: Text(
+                            "(　＾∇＾)",
+                            style: TextStyle(color: Color(background)),
+                          ));
+                          break;
+                        case 4:
+                          await controller.logout();
+                          Get.offAllNamed('/login');
+                          transactionController.resetTransactionStates();
+                          break;
+                        default:
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        width: 1.0,
+                        color: Colors.grey.withOpacity(.05),
+                      ))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              padding: EdgeInsets.all(0),
+                              child: Image.asset(settings[index].image),
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(38, 51, 70, .1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              height: 40,
+                              width: 40,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    settings[index].title,
+                                    textScaleFactor: 1.0,
+                                    style: TextStyle(
+                                        color: index == settings.length - 1
+                                            ? Colors.black26
+                                            : Colors.black,
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ],
-                              )
-                            ]),
-                            Icon(
-                              Icons.chevron_right,
-                              size: 30,
-                              color: Color(light),
+                                ),
+                              ],
                             )
-                          ],
-                        ),
+                          ]),
+                          Icon(
+                            Icons.chevron_right,
+                            size: 30,
+                            color: Color(light),
+                          )
+                        ],
                       ),
                     ),
-                  );
-                },
-              )),
-        )
-      ],
-    ));
+                  ),
+                );
+              },
+            ),
+          ),
+        ]);
   }
 }

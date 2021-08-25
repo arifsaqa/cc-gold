@@ -22,8 +22,10 @@ class PaymentMethod {
 
   @JsonKey(name: "logo")
   String logo;
+
   @JsonKey(name: "created_at")
   String createdAt;
+
   @JsonKey(name: "updated_at")
   String updatedAt;
 

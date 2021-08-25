@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
-import 'package:learnUI/screens/successPayment/components/Head.dart';
 import 'package:learnUI/screens/successPayment/components/Body.dart';
 
 class SuccessPaymentScreen extends StatefulWidget {
@@ -34,13 +33,15 @@ class _SuccessPaymentScreenState extends State<SuccessPaymentScreen> {
               style: TextStyle(fontFamily: "MetroBold"),
             )),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Head(),
-            Body(),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Head(),
+              Body(),
+            ],
+          ),
         ),
       ),
     );

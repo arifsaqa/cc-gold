@@ -9,7 +9,7 @@ class PaymentMethodController extends GetxController {
     status: 0,
     paymentMethods: [],
   ).obs;
-  var paymentMethod = <PaymentMethod>[].obs;
+  RxList<PaymentMethod> paymentMethod = <PaymentMethod>[].obs;
 
   Future<void> toTrue() async {
     loading.value = true;
@@ -23,8 +23,8 @@ class PaymentMethodController extends GetxController {
     await toTrue();
     var res = await DataFetching().getPaymentMethods();
     if (res != null) {
-      paymentMethodResponse.value = await (res);
-      paymentMethod.value = await res.paymentMethods;
+      paymentMethodResponse.value =  (res);
+      paymentMethod.value =  res.paymentMethods;
       print(res);
       await toFalse();
     } else {

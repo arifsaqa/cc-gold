@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/controllers/verify.dart';
@@ -45,6 +46,7 @@ class ShortCuts extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     var userController = Get.find<UserController>();
     final transactionController = Get.find<TransactionController>();
+    final paymentMethodController = Get.find<PaymentMethodController>();
     return GestureDetector(
       onTap: () {
         if (userController.user.value.isVerified == 0) {
@@ -90,12 +92,16 @@ class ShortCuts extends StatelessWidget {
           switch (label) {
             case "Beli Emas":
               transactionController.transactionType.value = 1;
+              transactionController.payment.value =
+                  paymentMethodController.paymentMethod[0].id;
               transactionController.setSelectedPrice(
                   0, dataTreeController.buyPriceL.value.price);
               Navigator.push<void>(context,
                   MaterialPageRoute(builder: (context) => destination));
               break;
             case "Jual Emas":
+              transactionController.payment.value =
+                  paymentMethodController.paymentMethod[0].id;
               transactionController.transactionType.value = 2;
               if (userController.saldo.value.saldo == null ||
                   userController.saldo.value.saldo == 0) {
@@ -108,6 +114,8 @@ class ShortCuts extends StatelessWidget {
               }
               break;
             default:
+              transactionController.payment.value =
+                  paymentMethodController.paymentMethod[0].id;
               transactionController.transactionType.value = 3;
               if (userController.saldo.value.saldo == null ||
                   userController.saldo.value.saldo == 0) {

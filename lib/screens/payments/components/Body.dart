@@ -257,11 +257,14 @@ class _BodyState extends State<Body> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Metode Pembayaran",
-                                      textScaleFactor: 1.0,
-                                      style: TextStyle(
-                                          fontSize: normal,
-                                          color: Colors.black)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom:10.0),
+                                    child: Text("Metode Pembayaran",
+                                        textScaleFactor: 1.0,
+                                        style: TextStyle(
+                                            fontSize: normal,
+                                            color: Colors.black)),
+                                  ),
                                   Row(children: [
                                     Obx(
                                       () => Container(
