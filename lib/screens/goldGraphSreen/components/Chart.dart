@@ -49,7 +49,6 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

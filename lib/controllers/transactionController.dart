@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learnUI/api/data.dart';
+import 'package:learnUI/models/standart_response.dart';
 import 'package:learnUI/models/transaction/transactions.dart';
 import 'package:learnUI/models/transaction/transaction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,6 +81,11 @@ class TransactionController extends GetxController {
         break;
       default:
     }
+  }
+
+  Future<StandartResponse> postReferral(String refferal) async {
+    var oke = await DataFetching().postReferral(refferal);
+    return  oke;
   }
 
   Future<String> createTransation() async {

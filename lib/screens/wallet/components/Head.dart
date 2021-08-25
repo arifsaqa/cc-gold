@@ -54,62 +54,161 @@ class _SaldoState extends State<Saldo> {
     controller.getUserSaldo();
   }
 
+  void tukarPoint() {
+    Get.defaultDialog(
+      title: "Tukar Point?",
+      titlePadding: EdgeInsets.only(top: 20),
+      contentPadding: EdgeInsets.symmetric(vertical: 20),
+      middleText: "Anda yakin ingin menukar point?",
+      backgroundColor: Color(background),
+      titleStyle: TextStyle(color: Colors.white),
+      middleTextStyle: TextStyle(color: Colors.white),
+      confirm: TextButton(
+          style: ButtonStyle(),
+          onPressed: () {
+            Get.snackbar("Working on it", "Coming soon!");
+            // transactionController.resetTransactionStates();
+          },
+          child: Text(
+            "Ya",
+            style: TextStyle(color: Colors.white),
+          )),
+      cancel: TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text(
+            "Tidak",
+            style: TextStyle(color: Color(upperGradient)),
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Saldo Emas Kamu"),
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: GradientText(
-                    child: Obx(
-                  () => Text(
-                    controller.isSaldoVisible.value
-                        ? controller.saldo.value.saldo != null
-                            ? controller.saldo.value.saldo.toString()
-                            : 0.toString() + " gram"
-                        : "**********",
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Saldo Emas Kamu",
+                  textScaleFactor: 1.0,
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: GradientText(
+                        child: Obx(
+                      () => Text(
+                        controller.isSaldoVisible.value
+                            ? controller.saldo.value.saldo != null
+                                ? controller.saldo.value.saldo.toString() +
+                                    " gram"
+                                : 0.toString() + " gram"
+                            : "**********",
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                            fontSize: input, fontFamily: "MetroMedium"),
+                      ),
+                    ))),
+                Row(children: [
+                  Text(
+                    "Senilai Rp. ",
                     textScaleFactor: 1.0,
-                    style:
-                        TextStyle(fontSize: input, fontFamily: "MetroMedium"),
+                    style: TextStyle(fontSize: normal),
                   ),
-                ))),
-            Row(children: [
-              Text(
-                "Senilai Rp. ",
-                textScaleFactor: 1.0,
-                style: TextStyle(fontSize: normal),
-              ),
-              Obx(
-                () => Text(
-                  controller.isSaldoVisible.value
-                      ? formatter.addDot(
-                          dataController.currentSellPrice.value.price.price *
+                  Obx(
+                    () => Text(
+                      controller.isSaldoVisible.value
+                          ? formatter.addDot(dataController
+                                  .currentSellPrice.value.price.price *
                               (controller.saldo.value.saldo != null
                                   ? controller.saldo.value.saldo!
                                   : 0))
-                      : "*********",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(fontSize: normal),
-                ),
-              )
-            ])
+                          : "*********",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(fontSize: normal),
+                    ),
+                  )
+                ]),
+              ],
+            ),
+            IconButton(
+                onPressed: () {
+                  controller.toogleHideSaldo();
+                },
+                icon: Icon(
+                  controller.isSaldoVisible.value
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  color: Colors.white,
+                )),
           ],
         ),
-        IconButton(
-            onPressed: () {
-              controller.toogleHideSaldo();
-            },
-            icon: Icon(
-              controller.isSaldoVisible.value
-                  ? Icons.visibility
-                  : Icons.visibility_off,
-              color: Colors.white,
-            ))
+        SizedBox(
+          height: 30,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Point",
+                  textScaleFactor: 1.0,
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: GradientText(
+                        child: Obx(
+                      () => Text(
+                        controller.isSaldoVisible.value
+                            ? controller.userPoints.toString() + " poin"
+                            : "******",
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                            fontSize: input, fontFamily: "MetroMedium"),
+                      ),
+                    ))),
+              ],
+            ),
+            TextButton(
+                onPressed: () {
+                  tukarPoint();
+                },
+                child: Container(
+                  width: 130,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(upperGradient1),
+                            Color(middleGradient1),
+                            Color(lowerGragdient1),
+                          ]),
+                      borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                  child: Center(
+                    child: Text(
+                      "Tukar Poin",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: sm),
+                    ),
+                  ),
+                ))
+          ],
+        )
       ],
     );
   }

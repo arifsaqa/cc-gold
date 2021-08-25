@@ -7,7 +7,6 @@ import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/controllers/verify.dart';
-import 'package:learnUI/screens/otpVerification/Verify.dart';
 import 'package:learnUI/screens/buyGold/BuyGoldScreen.dart';
 import 'package:learnUI/screens/otpVerification/otpCode.Screen.dart';
 import 'package:learnUI/screens/transferGold/TransferGoldScreen.dart';

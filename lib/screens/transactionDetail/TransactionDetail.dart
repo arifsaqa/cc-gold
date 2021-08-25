@@ -6,7 +6,7 @@ import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
-import 'package:learnUI/controllers/transactionController.dart';
+// import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/models/transaction/transaction.dart';
 import 'package:learnUI/screens/successPayment/components/Body.dart';
 import 'package:learnUI/screens/successPayment/components/Separator.dart';

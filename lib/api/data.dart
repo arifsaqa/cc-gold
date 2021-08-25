@@ -9,8 +9,10 @@ import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/models/gold_prices/prices.dart';
 import 'package:learnUI/models/payment_methods/payment_method_response.dart';
 import 'package:learnUI/models/promo/promos.dart';
+import 'package:learnUI/models/standart_response.dart';
 import 'package:learnUI/models/transaction/transactions.dart';
 import 'package:learnUI/models/transaction/transaction.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DataFetching {
   final url = Get.put(DataUrl());
@@ -265,6 +267,29 @@ class DataFetching {
       return parsedPrice;
     } catch (e) {
       print("Errrrrrrrrror cooook $e");
+    }
+  }
+
+  Future<StandartResponse?> postReferral(String refferal) async {
+    try {
+      SharedPreferences id = await SharedPreferences.getInstance();
+      int? userId = id.getInt("userId");
+      var apiResult = await http.post(Uri.parse(url1.refferal),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: jsonEncode({
+            "userId": userId,
+            "refferal": refferal,
+          }));
+      print(apiResult.body);
+      dynamic jsonObject = await json.decode(apiResult.body);
+      var parsedPrice =
+          StandartResponse.fromJson(jsonObject as Map<String, dynamic>);
+      return parsedPrice;
+    } catch (e) {
+      print(e);
     }
   }
 }

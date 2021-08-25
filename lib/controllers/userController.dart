@@ -16,6 +16,7 @@ import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
+  var userPoints = 0.obs;
   var userResponse =
       UserResponse(status: 0, user: null, token: '', isDeviceMatch: false).obs;
   var user = User(
@@ -146,6 +147,16 @@ class UserController extends GetxController {
     }
   }
 
+//   {
+//     "name":"Kang Uye",
+//     "numberAccount":"0192912781",
+//     "email":"arif@gmail.com",
+//     "phone":"0811111111111",
+//     "deviceId":"092039287",
+//     "password":"111222",
+//     "paymentMethodId":1
+// }
+
   Future<String> register(
       String name,
       String email,
@@ -253,8 +264,15 @@ class UserController extends GetxController {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var userId = pref.getInt("userId");
     await toTrue();
-    var res = await AuthFunctions.getUserSaldo(userId!);
-    saldo.value = (res);
+    try {
+      var res = await AuthFunctions.getUserSaldo(userId!);
+      var resPoint = await AuthFunctions.getUserPoints(userId);
+      saldo.value = (res);
+      userPoints.value = resPoint.points != null ? resPoint.points!.point : 0;
+    } on Exception catch (e) {
+      print('getting saldo' + e.toString());
+      userPoints.value = 0;
+    }
     await toFalse();
   }
 
@@ -264,15 +282,20 @@ class UserController extends GetxController {
 
   Future<void> getGoldNews() async {
     await toTrue();
-    var res = await DataFetching().getGoldNews(yesterdayForApi, todayForApi);
-    if (res != null) {
-      newsResponse.value = (res);
-      goldNews.value = res.articles;
-      await toFalse();
-    } else {
-      print("page load before the data render gold News");
-      await toFalse();
-      return null;
+    
+    try {
+      var res = await DataFetching().getGoldNews(yesterdayForApi, todayForApi);
+      if (res != null) {
+        newsResponse.value = (res);
+        goldNews.value = res.articles;
+        await toFalse();
+      } else {
+        print("page load before the data render gold News");
+        await toFalse();
+        return null;
+      }
+    } on Exception catch (e) {
+        await toFalse();
     }
   }
 

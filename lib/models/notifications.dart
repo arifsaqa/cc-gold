@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class TodayNotif {
   final String title, time;

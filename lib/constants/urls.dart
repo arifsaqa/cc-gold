@@ -19,6 +19,8 @@ class UsersData {
   String get bankAccounts => base_url + apiVersion + 'bankAccounts/';
   String get getOrCreateTransaction => base_url + apiVersion + 'transactions/';
   String get verifiedByOTP => base_url + apiVersion + 'verifiedByOTP';
+  String get points => base_url + apiVersion + 'points/';
+  String get refferal => base_url + apiVersion + 'refferal';
 }
 
 class DataUrl {

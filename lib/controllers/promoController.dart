@@ -31,7 +31,6 @@ class PromoController extends GetxController {
         return null;
       }
     } catch (e) {
-      // TODO
       print(e);
     }
   }

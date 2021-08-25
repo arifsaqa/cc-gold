@@ -19,15 +19,44 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final paymentMethodController = Get.find<PaymentMethodController>();
+  final transactionController = Get.find<TransactionController>();
+  final controller = Get.find<DataTreeController>();
+  final formatter = Get.find<Formatter>();
   int bankIndex = 0;
   bool loading = false;
+  String _referralCode = '';
+  void confirmation() async {
+    transactionController.loading.value = true;
+    context.loaderOverlay.show();
+    if (_referralCode.length > 0) {
+      String? res = await transactionController.postReferral(_referralCode);
+      Get.snackbar("Referral", res!, colorText: Colors.red[400]); 
+     await  Future.delayed(Duration(seconds: 3), () async {
+        if (res.length>0) {
+          await transactionController.createTransation();
+          if (transactionController.loading.value) {
+            context.loaderOverlay.hide();
+          }
+          Get.off(transactionController.transactionType.value != 1
+              ? Password(isLoggingin: false, redirecto: SuccessPaymentScreen())
+              : SuccessPaymentScreen());
+        }
+        return;
+      });
+    } else {
+      await transactionController.createTransation();
+      if (transactionController.loading.value) {
+        context.loaderOverlay.hide();
+      }
+      Get.off(transactionController.transactionType.value != 1
+          ? Password(isLoggingin: false, redirecto: SuccessPaymentScreen())
+          : SuccessPaymentScreen());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final paymentMethodController = Get.find<PaymentMethodController>();
-    final transactionController = Get.find<TransactionController>();
-    final controller = Get.find<DataTreeController>();
-    final formatter = Get.find<Formatter>();
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height - 80,
@@ -258,7 +287,8 @@ class _BodyState extends State<Body> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom:10.0),
+                                    padding:
+                                        const EdgeInsets.only(bottom: 10.0),
                                     child: Text("Metode Pembayaran",
                                         textScaleFactor: 1.0,
                                         style: TextStyle(
@@ -315,8 +345,13 @@ class _BodyState extends State<Body> {
                                             width: 1.5,
                                             color: Color(background)))),
                                 height: 20,
-                                width: 100,
+                                width: 130,
                                 child: TextField(
+                                  onChanged: (val) {
+                                    setState(() {
+                                      _referralCode = val;
+                                    });
+                                  },
                                   decoration: InputDecoration(
                                     hintStyle: TextStyle(
                                         color: Colors.black.withOpacity(.5)),
@@ -378,19 +413,8 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       ElevatedButton(
-                        onPressed: () async {
-                          transactionController.loading.value = true;
-                          context.loaderOverlay.show();
-                          await transactionController.createTransation();
-                          if (transactionController.loading.value) {
-                            context.loaderOverlay.hide();
-                          }
-                          Get.off(
-                              transactionController.transactionType.value != 1
-                                  ? Password(
-                                      isLoggingin: false,
-                                      redirecto: SuccessPaymentScreen())
-                                  : SuccessPaymentScreen());
+                        onPressed: () {
+                          confirmation();
                         },
                         child: Text(
                           "Konfirmasi",

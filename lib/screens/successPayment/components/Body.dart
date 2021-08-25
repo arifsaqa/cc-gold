@@ -6,7 +6,7 @@ import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
-import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
+// import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -28,7 +28,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paymentMethodController = Get.find<PaymentMethodController>();
+    // final paymentMethodController = Get.find<PaymentMethodController>();
     final usercontroller = Get.find<UserController>();
     final transactionController = Get.find<TransactionController>();
     final controller = Get.find<DataTreeController>();

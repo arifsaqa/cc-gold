@@ -55,13 +55,43 @@ class _StatePassword extends State<Password> {
     }
   }
 
+  void confirmReset() {
+    Get.defaultDialog(
+      title: "Reset Sandi?",
+      titlePadding: EdgeInsets.all(10),
+      contentPadding: EdgeInsets.all(10),
+      middleText: "Anda yakin akan mereset sandi anda?",
+      backgroundColor: Color(background),
+      titleStyle: TextStyle(color: Colors.white),
+      middleTextStyle: TextStyle(color: Colors.white),
+      confirm: TextButton(
+          onPressed: () async {
+            Get.to(VerifyPhone(
+                isResetPassword: true,
+                title: "Verifikasi",
+                description: "Verifikasi nomor hp anda untuk mereset pin",
+                onClick: 'ha'));
+          },
+          child: Text(
+            "Ya",
+            style: TextStyle(color: Colors.white),
+          )),
+      cancel: TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text(
+            "Tidak",
+            style: TextStyle(color: Color(upperGradient)),
+          )),
+    );
+  }
+
   void cekPassword() async {
     // LocalUser cek = LocalUser();
     var cekLogin = await controller.login(_typedPassword);
     if (cekLogin == "oke") {
       await controller.getUserSaldo();
-      // int userId = await cek.getUserId();
-      // await controller.getUserById(userId);
       setState(() {
         _typedPassword = '';
       });
@@ -181,12 +211,7 @@ class _StatePassword extends State<Password> {
                         foregroundColor: MaterialStateProperty.resolveWith(
                             (state) => Colors.white)),
                     onPressed: () {
-                      Get.to(VerifyPhone(
-                          isResetPassword: true,
-                          title: "Verifikasi",
-                          description:
-                              "Verifikasi nomor hp anda untuk mereset pin",
-                          onClick: 'ha'));
+                      confirmReset();
                     },
                     child: Text(
                       'Lupa Pin?',

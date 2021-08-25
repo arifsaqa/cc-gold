@@ -4,9 +4,9 @@ import 'package:learnUI/constants/urls.dart';
 import 'package:learnUI/models/bank_account/bank_accounts.dart';
 import 'package:learnUI/models/cekToken.dart';
 import 'package:learnUI/models/saldo/new_saldo.dart';
-import 'package:learnUI/models/saldo/saldo_response.dart';
 import 'package:learnUI/models/user/user.dart';
 import 'package:learnUI/models/user/user_response.dart';
+import 'package:learnUI/models/user_points/user_points_resp.dart';
 
 class AuthFunctions {
   static Future<UserResponse?> login(String phone, String password) async {
@@ -112,6 +112,14 @@ class AuthFunctions {
         await http.get(Uri.parse(UsersData().userSaldo + userId.toString()));
     dynamic jsonObject = json.decode(apiResult.body);
     return NewSaldoResponse.fromJson(jsonObject as Map<String, dynamic>);
+  }
+
+  static Future<UserPointsResp> getUserPoints(int userId) async {
+    var apiResult =
+        await http.get(Uri.parse(UsersData().points + userId.toString()));
+    print(apiResult.body);
+    dynamic jsonObject = json.decode(apiResult.body);
+    return UserPointsResp.fromJson(jsonObject as Map<String, dynamic>);
   }
 
   static Future<BankAccounts> getUserBankAccounts(int userId) async {

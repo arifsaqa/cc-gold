@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // import 'package:get/route_manager.dart';
 import 'package:learnUI/screens/home/components/Body.dart';
 import 'package:learnUI/screens/home/components/Head.dart';
-import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

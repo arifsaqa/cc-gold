@@ -10,7 +10,6 @@ import 'package:shimmer/shimmer.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     final paymentMethodController = Get.find<PaymentMethodController>();
     final transactionController = Get.find<TransactionController>();
     return Container(

@@ -6,7 +6,6 @@ import 'package:learnUI/controllers/userController.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:learnUI/screens/profile/profileSetting/profileSettingScreen.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Setting {
   final String image, title;
@@ -64,6 +63,37 @@ class _StateBody extends State<Body> {
       await controller.getUserById(cok);
       // }
     });
+  }
+
+  void confirmLogout() {
+    Get.defaultDialog(
+      title: "Keluar?",
+      titlePadding: EdgeInsets.only(top: 20),
+      contentPadding: EdgeInsets.symmetric(vertical:20),
+      middleText: "Anda yakin ingin keluar?",
+      backgroundColor: Color(background),
+      titleStyle: TextStyle(color: Colors.white),
+      middleTextStyle: TextStyle(color: Colors.white),
+      confirm: TextButton(
+          onPressed: () async {
+            await controller.logout();
+            Get.back();
+            Get.offAllNamed('/login');
+            transactionController.resetTransactionStates();
+          },
+          child: Text(
+            "Ya",
+            style: TextStyle(color: Colors.white),
+          )),
+      cancel: TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text(
+            "Tidak",
+            style: TextStyle(color: Color(upperGradient)),
+          )),
+    );
   }
 
   @override
@@ -137,9 +167,7 @@ class _StateBody extends State<Body> {
                           ));
                           break;
                         case 4:
-                          await controller.logout();
-                          Get.offAllNamed('/login');
-                          transactionController.resetTransactionStates();
+                          confirmLogout();
                           break;
                         default:
                       }
