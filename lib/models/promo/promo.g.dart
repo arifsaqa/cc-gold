@@ -13,6 +13,7 @@ Promo _$PromoFromJson(Map<String, dynamic> json) {
     image: json['image'] as String,
     createdAt: json['created_at'] as String,
     updatedAt: json['updated_at'] as String,
+    discount: json['discount'] as int,
     description: json['description'] as String?,
   );
 }
@@ -22,6 +23,7 @@ Map<String, dynamic> _$PromoToJson(Promo instance) => <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
       'image': instance.image,
+      'discount': instance.discount,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };

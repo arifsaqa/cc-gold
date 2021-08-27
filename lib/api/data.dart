@@ -8,15 +8,19 @@ import 'package:learnUI/models/current_gold_price/current_price_data.dart';
 import 'package:learnUI/models/gold_news/gold_news.dart';
 import 'package:learnUI/models/gold_prices/prices.dart';
 import 'package:learnUI/models/payment_methods/payment_method_response.dart';
+import 'package:learnUI/models/phoneNumbers/phone_numbers.dart';
 import 'package:learnUI/models/promo/promos.dart';
 import 'package:learnUI/models/standart_response.dart';
+import 'package:learnUI/models/transaction/transactionResponse.dart';
 import 'package:learnUI/models/transaction/transactions.dart';
 import 'package:learnUI/models/transaction/transaction.dart';
+import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataFetching {
   final url = Get.put(DataUrl());
   final url1 = Get.put(UsersData());
+  final localData = LocalUser();
 
   Future<Promos?> getPromo() async {
     try {
@@ -27,6 +31,7 @@ class DataFetching {
           'Accept': 'application/json'
         },
       );
+      print(apiResult.body);
       if (apiResult.statusCode == 200) {
         dynamic jsonObject = await json.decode(apiResult.body);
         var parsedPromos = Promos.fromJson(jsonObject as Map<String, dynamic>);
@@ -228,7 +233,7 @@ class DataFetching {
     }
   }
 
-  Future<Transaction?> createTransaction(
+  Future<TransactionResponse?> createTransaction(
     int id, {
     required int type,
     required int payment,
@@ -258,19 +263,20 @@ class DataFetching {
             "nominal": nominal,
             "discount": discount,
             "barcode": barcode,
-            "destinationNumber": destinationNumber,
-            "message": message,
+            "destinationNumber":
+                destinationNumber == null ? "" : destinationNumber,
+            "message": message != null ? "" : message,
           }));
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =
-          Transaction.fromJson(jsonObject as Map<String, dynamic>);
+          TransactionResponse.fromJson(jsonObject as Map<String, dynamic>);
       return parsedPrice;
     } catch (e) {
-      print("Errrrrrrrrror cooook $e");
+      print("Errrrrrrrrror cooook while create transaction $e");
     }
   }
 
-  Future<StandartResponse?> postReferral(String refferal) async {
+  Future<StandartResponse> postReferral(String refferal) async {
     try {
       SharedPreferences id = await SharedPreferences.getInstance();
       int? userId = id.getInt("userId");
@@ -290,6 +296,51 @@ class DataFetching {
       return parsedPrice;
     } catch (e) {
       print(e);
+      return StandartResponse(status: 0);
+    }
+  }
+
+  Future<StandartResponse> postPromo(int promoId) async {
+    try {
+      SharedPreferences id = await SharedPreferences.getInstance();
+      int? userId = id.getInt("userId");
+      var apiResult = await http.post(
+          Uri.parse(url1.postPromo + promoId.toString()),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: jsonEncode({
+            "userId": userId,
+          }));
+      print(apiResult.body);
+      dynamic jsonObject = await json.decode(apiResult.body);
+      var parsedResponse =
+          StandartResponse.fromJson(jsonObject as Map<String, dynamic>);
+      return parsedResponse;
+    } catch (e) {
+      print(e);
+      return StandartResponse(status: 0);
+    }
+  }
+
+  Future<PhoneNumberResponse?> getuserNumbers() async {
+    String? token = await localData.getToken();
+    try {
+      var apiResult = await http.get(
+        Uri.parse(url.phoneNumbers),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      dynamic jsonObject = await json.decode(apiResult.body);
+      var parsedPrice =
+          PhoneNumberResponse.fromJson(jsonObject as Map<String, dynamic>);
+      return parsedPrice;
+    } catch (e) {
+      print("Error while get transaction data $e get phoneNumbers");
     }
   }
 }

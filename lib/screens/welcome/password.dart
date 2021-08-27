@@ -246,7 +246,10 @@ class _StatePassword extends State<Password> {
                   child: widget.isLoggingin
                       ? TextButton(
                           onPressed: () {
-                            Get.toNamed('/login');
+                            setState(() {
+                              _typedPassword = '';
+                            });
+                            Get.offAndToNamed('/login');
                             controller.loading.value = false;
                           },
                           child: Text("Ganti Akun Lain",

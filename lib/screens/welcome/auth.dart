@@ -37,7 +37,7 @@ class _StateHandlingField extends State<HandlingField> {
 
   Future<void> saveInput(String phone) async {
     SharedPreferences ref = await SharedPreferences.getInstance();
-    ref.setString("phone", phone);
+    ref.setString("phoneNumber", phone);
   }
 
   @override

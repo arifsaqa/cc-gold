@@ -150,8 +150,9 @@ class _StateAuth extends State<VerifyPhone> {
                       onPressed: () async {
                         await saveInput(_currentInput);
                         await controller.toTrue();
-                        await controller.verify(widget.isResetPassword,
-                            _currentInput.replaceFirst('0', '+62').trim());
+                        await controller.verify(
+                          widget.isResetPassword,
+                        );
                         controller.toFalse();
                         Get.to(GetOTPYO(
                             isResetPassword: widget.isResetPassword,

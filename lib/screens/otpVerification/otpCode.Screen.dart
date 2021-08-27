@@ -7,6 +7,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/controllers/verify.dart';
+import 'package:learnUI/sharedPreferrences/userLocal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -33,9 +34,11 @@ class _StateAuth extends State<GetOTPYO> with CodeAutoFill {
   // var condition = StatusPage.SEND_NUMBER;
   final controller = Get.put(Verify());
   final userController = Get.find<UserController>();
+  var phone = LocalUser();
   @override
   void initState() {
     super.initState();
+    controller.verify(widget.isResetPassword);
     listenForCode();
     smsAutoFill();
     _count = controller.timeOut.value * controller.rensendIncrement.value;
@@ -171,10 +174,6 @@ class _StateAuth extends State<GetOTPYO> with CodeAutoFill {
                                         await SharedPreferences.getInstance();
                                     int i = await controller.verify(
                                         widget.isResetPassword,
-                                        phone
-                                            .getString('phone')!
-                                            .replaceFirst('0', '+62')
-                                            .trim(),
                                         resend: controller.resendToken.value);
                                     if (i == 1) {
                                       await controller.verifiedByOTP();

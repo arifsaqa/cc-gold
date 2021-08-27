@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:learnUI/screens/transferGold/NominalScreen.dart';
@@ -13,7 +14,29 @@ class Head extends StatefulWidget {
 }
 
 class _StateHead extends State<Head> {
+  final transactionController = Get.find<TransactionController>();
+  final dataTeeController = Get.find<DataTreeController>();
+  var input = '';
   // _currentInput ="";
+  void checkPhoneNumber(String context) {
+    // dataTeeController.phoneNumbers.value.map((e) => null);
+    if (dataTeeController.phoneNumbers.contains(context)) {
+      transactionController.destinationNumber.value = context;
+      Get.to<void>(NominalScreen());
+    } else {
+      Get.snackbar("Nomor Hp", "Nomor hp tidak terdaftar sebagai user!",
+          colorText: Colors.red[400], duration: Duration(seconds: 3));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      dataTeeController.getUserNumbers();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final transactionController = Get.find<TransactionController>();
@@ -102,27 +125,37 @@ class _StateHead extends State<Head> {
                                         height: 40,
                                         width: 231,
                                         child: MyCustomForm(
-                                          onChange: (context) =>
-                                              setState(() {}),
-                                          onSubmit: (context) => setState(() {
-                                            // _currentInput = context;
-                                            print(context);
-                                            transactionController
-                                                .destinationNumber
-                                                .value = context;
-                                            Get.to<void>(NominalScreen());
+                                          onChange: (context) => setState(() {
+                                            input = context;
                                           }),
+                                          onSubmit: (context) => () {
+                                            checkPhoneNumber(context);
+                                          },
                                         )),
                                   ),
                                 ),
-                                Container(
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            left: BorderSide(
-                                                color: Color.fromRGBO(
-                                                    151, 151, 151, 1)))),
-                                    padding: EdgeInsets.all(15),
-                                    child: Image.asset("images/contact.png"))
+                                InkWell(
+                                  onTap: () {
+                                    transactionController
+                                        .destinationNumber.value = input;
+                                    Get.off(NominalScreen());
+                                  },
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              left: BorderSide(
+                                                  color: Color.fromRGBO(
+                                                      151, 151, 151, 1)))),
+                                      // padding: EdgeInsets.all(15),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 5),
+                                        child: Icon(
+                                          Icons.send,
+                                          size: 30,
+                                        ),
+                                      )),
+                                )
                               ],
                             ),
                           )

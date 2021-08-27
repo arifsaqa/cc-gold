@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learnUI/api/data.dart';
+import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/models/standart_response.dart';
 import 'package:learnUI/models/transaction/transactions.dart';
 import 'package:learnUI/models/transaction/transaction.dart';
@@ -11,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionController extends GetxController {
 //   {
+  var promoId = 0.obs;
   var selectedNumber = ''.obs;
   var transactions = Transactions(status: 0, data: []).obs;
   var transactionsTF = Transactions(status: 0, data: []).obs;
@@ -83,17 +85,76 @@ class TransactionController extends GetxController {
     }
   }
 
-  Future<StandartResponse> postReferral(String refferal) async {
-    var oke = await DataFetching().postReferral(refferal);
-    return  oke;
+  Future<String> postReferral(String refferal) async {
+    try {
+      var oke = await DataFetching().postReferral(refferal);
+      if (oke.status != 1) {
+        return "Gagal menggunakan kode referral, pastikan kode anda benar dan belum digunakan";
+      } else {
+        return "Kode referral berhasil digunakan";
+      }
+    } on Exception catch (e) {
+      print(e);
+      return "Gagal menggunakan kode referral";
+    }
+  }
+
+  Future<String> usePromo(int id) async {
+    try {
+      var oke = await DataFetching().postPromo(id);
+      if (oke.status != 1) {
+        return "Anda sudah menggunakan promo ini";
+      } else {
+        return "Promo berhasil digunakan";
+      }
+    } on Exception catch (e) {
+      print(e);
+      return "Gagal menggunakan promo";
+    }
   }
 
   Future<String> createTransation() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var ok = pref.getInt("userId");
     try {
+      if (discount.value != 0) {
+        var promoRes = await usePromo(promoId.value);
+        print("cooook" + promoRes);
+        if (promoRes != "Promo berhasil digunakan") {
+          Get.defaultDialog(
+            title: "Promo",
+            titlePadding: EdgeInsets.only(top: 20),
+            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            middleText: "Anda sudah menggunakan promo ini",
+            backgroundColor: Colors.white,
+            titleStyle: TextStyle(color: Colors.red[400]),
+            middleTextStyle: TextStyle(color: Colors.red[400]),
+            confirm: TextButton(
+                onPressed: () async {
+                  resetVariables();
+                  Get.offAllNamed('/logged');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(background),
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  child: Text(
+                    "Pilih promo lain",
+                    textScaleFactor: 1.0,
+                    style: TextStyle(color: Color(lowerGradient)),
+                  ),
+                )),
+          );
+          // Get.snackbar("Promo", promoRes,
+          //     colorText: promoRes == 'Promo berhasil digunakan'
+          //         ? Colors.green[400]
+          //         : Colors.red[400]);
+          return "Promo wes digae";
+        }
+      }
       var asu = await DataFetching().createTransaction(ok!,
-          nominal: getTotal.value,
+          nominal: getTotal.value - discount.value,
           type: transactionType.value,
           adminFee: adminfee.value,
           priceId: priceId.value,
@@ -104,10 +165,6 @@ class TransactionController extends GetxController {
           destinationNumber: destinationNumber.value,
           message: message.value);
       if (asu != null) {
-        // asu.destinationNumber != null
-        //     ? transactionsTF.value.data.add(asu)
-        //     : transactions.value.data.add(asu);
-
         loading.value = false;
         Get.snackbar<void>("Transation success!",
             "We're working asap to validate your transaction",
@@ -129,7 +186,7 @@ class TransactionController extends GetxController {
     }
   }
 
-  List<Transaction>? get tfTransactions => transactions.value.data
+  List<Transaction> get tfTransactions => transactions.value.data
       .where((element) => element.destinationNumber != null)
       .toList();
   List<Transaction>? get sellPriceTransaction => transactions.value.data
@@ -178,5 +235,6 @@ class TransactionController extends GetxController {
     payment.value = 0;
     destinationNumber.value = '';
     message.value = '';
+    promoId.value = 0;
   }
 }

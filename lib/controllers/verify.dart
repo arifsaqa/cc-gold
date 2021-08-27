@@ -24,12 +24,14 @@ class Verify extends GetxController {
   }
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  Future<int> verify(bool isResetPassword, String phone, {int? resend}) async {
+  Future<int> verify(bool isResetPassword, {int? resend}) async {
+    var phone = LocalUser();
+    String phoneNumber = await phone.phoneNumber();
     await toTrue();
     int i = 0;
     try {
       await auth.verifyPhoneNumber(
-        phoneNumber: phone,
+        phoneNumber: phoneNumber.replaceFirst("0", "+62"),
         timeout: Duration(seconds: timeOut.value * rensendIncrement.value),
         verificationFailed: (FirebaseAuthException e) {
           if (e.code == 'invalid-phone-number') {
@@ -64,7 +66,7 @@ class Verify extends GetxController {
                         await SharedPreferences.getInstance();
                     await userController.getUserById(getId.getInt("userId")!);
                     await Future.delayed(Duration(seconds: 3), () {
-                      Get.to(LoggedIn());
+                      Get.off(LoggedIn());
                       return;
                     });
                   } else {

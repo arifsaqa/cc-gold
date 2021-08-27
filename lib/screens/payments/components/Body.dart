@@ -30,28 +30,45 @@ class _BodyState extends State<Body> {
     transactionController.loading.value = true;
     context.loaderOverlay.show();
     if (_referralCode.length > 0) {
-      String? res = await transactionController.postReferral(_referralCode);
-      Get.snackbar("Referral", res!, colorText: Colors.red[400]); 
-     await  Future.delayed(Duration(seconds: 3), () async {
-        if (res.length>0) {
-          await transactionController.createTransation();
-          if (transactionController.loading.value) {
-            context.loaderOverlay.hide();
-          }
-          Get.off(transactionController.transactionType.value != 1
-              ? Password(isLoggingin: false, redirecto: SuccessPaymentScreen())
-              : SuccessPaymentScreen());
-        }
-        return;
-      });
-    } else {
-      await transactionController.createTransation();
+      String res = await transactionController.postReferral(_referralCode);
+      await execute(res);
       if (transactionController.loading.value) {
         context.loaderOverlay.hide();
       }
-      Get.off(transactionController.transactionType.value != 1
-          ? Password(isLoggingin: false, redirecto: SuccessPaymentScreen())
-          : SuccessPaymentScreen());
+    } else {
+      // await transactionController.usePromo(promoId);
+      var a = await transactionController.createTransation();
+      print(a);
+      if (transactionController.loading.value) {
+        context.loaderOverlay.hide();
+      }
+      if (a == "oke") {
+        Get.off(transactionController.transactionType.value != 1
+            ? Password(isLoggingin: false, redirecto: SuccessPaymentScreen())
+            : SuccessPaymentScreen());
+      }
+    }
+  }
+
+  Future<void> execute(String res) async {
+    Get.snackbar("Referral", res,
+        colorText: res == 'Kode referral berhasil digunakan'
+            ? Colors.green[400]
+            : Colors.red[400]);
+    await Future.delayed(Duration(seconds: 3), () {
+      print("wait");
+    });
+    if (res == 'Kode referral berhasil digunakan') {
+      var oke = await transactionController.createTransation();
+      print(oke);
+      if (oke == "oke") {
+        if (transactionController.loading.value) {
+          context.loaderOverlay.hide();
+        }
+        Get.off(transactionController.transactionType.value != 1
+            ? Password(isLoggingin: false, redirecto: SuccessPaymentScreen())
+            : SuccessPaymentScreen());
+      }
     }
   }
 
@@ -59,7 +76,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height - 80,
+      height: size.height - 70,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -164,7 +181,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
               Container(
-                height: 120,
+                height: 130,
                 width: 327,
                 padding:
                     EdgeInsets.only(left: 14, right: 14, bottom: 22, top: 22),
@@ -229,14 +246,30 @@ class _BodyState extends State<Body> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
+                          "Discount",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(color: Colors.black, fontSize: sm),
+                        ),
+                        Text(
+                          "Rp " + transactionController.discount.toString(),
+                          textScaleFactor: 1.0,
+                          style: TextStyle(color: Colors.black, fontSize: sm),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
                           "Total",
                           textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         ),
                         Text(
                           "Rp. " +
-                              formatter
-                                  .addDot(transactionController.getTotal.value),
+                              formatter.addDot(
+                                  transactionController.getTotal.value -
+                                      transactionController.discount.value),
                           textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         )
@@ -303,11 +336,9 @@ class _BodyState extends State<Body> {
                                           child: FadeInImage.assetNetwork(
                                               placeholder:
                                                   'images/circular-progress.gif',
-                                              image: base_url +
-                                                  '/' +
-                                                  paymentMethodController
-                                                      .paymentMethod[bankIndex]
-                                                      .logo)),
+                                              image: paymentMethodController
+                                                  .paymentMethod[bankIndex]
+                                                  .logo)),
                                     ),
                                     SizedBox(
                                       width: 10,

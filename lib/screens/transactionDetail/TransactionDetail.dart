@@ -68,7 +68,10 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Detail Transaksi"),
+        title: Text(
+          "Detail Transaksi",
+          style: TextStyle(fontFamily: ""),
+        ),
       ),
       body: Stack(children: [
         Container(

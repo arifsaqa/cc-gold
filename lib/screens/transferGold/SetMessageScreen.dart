@@ -110,7 +110,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
           child: Align(
             alignment: Alignment.topRight,
             child: ElevatedButton(
-              onPressed: () async {
+              onPressed: () {
+                print(myController.text);
                 transactionController.message.value = myController.text;
                 Get.to<void>(Confirmation());
               },

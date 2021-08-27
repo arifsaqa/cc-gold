@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnUI/constants/colors.dart';
-import 'package:learnUI/screens/profile/profileSetting/components/Body.dart';
+import 'components/body.dart';
 
 class ProfileSettingScreen extends StatelessWidget {
   const ProfileSettingScreen({Key? key}) : super(key: key);

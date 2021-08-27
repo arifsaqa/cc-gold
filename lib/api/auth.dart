@@ -126,6 +126,7 @@ class AuthFunctions {
     var apiResult =
         await http.get(Uri.parse(UsersData().bankAccounts + userId.toString()));
     dynamic jsonObject = json.decode(apiResult.body);
+    print(apiResult.body);
     return BankAccounts.fromJson(jsonObject as Map<String, dynamic>);
   }
 

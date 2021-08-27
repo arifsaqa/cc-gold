@@ -2,6 +2,25 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'transaction.g.dart';
 
+//     "status": 1,
+//     "data": {
+//         "userId": "4",
+//         "payment": 1,
+//         "type": 1,
+//         "gram": 1,
+//         "adminFee": 0,
+//         "priceId": 1,
+//         "nominal": 111,
+//         "status": false,
+//         "discount": 0,
+//         "destinationNumber": null,
+//         "message": null,
+//         "barcode": "Asklja",
+//         "updated_at": "2021-08-25T21:32:11.000000Z",
+//         "created_at": "2021-08-25T21:32:11.000000Z",
+//         "id": 72
+//     }
+// }
 @JsonSerializable()
 class Transaction {
   @JsonKey(name: 'id')

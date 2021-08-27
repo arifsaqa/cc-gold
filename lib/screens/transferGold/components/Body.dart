@@ -35,14 +35,13 @@ class Body extends StatelessWidget {
               width: size.width,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount:
-                    transactionController.transactionsTF.value.data.length,
+                itemCount: transactionController.tfTransactions.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
                       transactionController.destinationNumber.value =
-                          transactionController.transactionsTF.value.data[index]
-                              .destinationNumber
+                          transactionController
+                              .tfTransactions[index].destinationNumber
                               .toString();
                       Get.to<void>(NominalScreen());
                     },

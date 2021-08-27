@@ -1,4 +1,4 @@
-String base_url = 'https://ccgold.erahn.id';
+String base_url = 'https://ccgold.id';
 String apiVersion = '/api/v1/';
 String public = '/public/';
 
@@ -21,6 +21,7 @@ class UsersData {
   String get verifiedByOTP => base_url + apiVersion + 'verifiedByOTP';
   String get points => base_url + apiVersion + 'points/';
   String get refferal => base_url + apiVersion + 'refferal';
+  String get postPromo => base_url + apiVersion + 'promos/store/';
 }
 
 class DataUrl {
@@ -32,4 +33,5 @@ class DataUrl {
   String get sellPriceById => base_url + apiVersion + 'sellPrice/';
   String get buyPriceById => base_url + apiVersion + 'buyprice/';
   String get paymentMethods => base_url + apiVersion + 'paymentMethods';
+  String get phoneNumbers => base_url + apiVersion + 'numbers';
 }

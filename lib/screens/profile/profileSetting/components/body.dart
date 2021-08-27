@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/urls.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/app_data/payment_method_controller.dart';
 import 'package:learnUI/controllers/userController.dart';
 
 class Body extends StatefulWidget {
@@ -159,6 +161,15 @@ Widget buildColumn({
   required String label,
   dynamic value,
 }) {
+  final paymentMethodController = Get.find<PaymentMethodController>();
+  String getBankName(int id) {
+    var oke = paymentMethodController.paymentMethod
+        .where((item) => item.id == id)
+        .toList();
+
+    return oke[0].name;
+  }
+
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20),
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -202,8 +213,11 @@ Widget buildColumn({
                           Text(
                             value[index].numberAccount,
                             style: TextStyle(color: Color(background)),
-                          )
-                          
+                          ),
+                          Text(
+                            " (${getBankName(value[index].paymentMethodId)})",
+                            style: TextStyle(color: Color(background)),
+                          ),
                         ],
                       ),
                     );

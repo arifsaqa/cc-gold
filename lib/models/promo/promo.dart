@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:json_annotation/json_annotation.dart';
 // "id": 1,
 //           "title": "Promo Pertama",
@@ -21,6 +22,12 @@ class Promo {
   @JsonKey(name: "image")
   String image;
 
+  @JsonKey(name: "discount")
+  int discount;
+
+  // @JsonKey(name: "userList")
+  // List<dynamic>? userList;
+
   @JsonKey(name: "created_at")
   String createdAt;
 
@@ -34,8 +41,10 @@ class Promo {
       {required this.id,
       required this.title,
       required this.image,
+      // required this.userList,
       required this.createdAt,
       required this.updatedAt,
+      required this.discount,
       this.description});
   factory Promo.fromJson(Map<String, dynamic> json) => _$PromoFromJson(json);
   Map<String, dynamic> toJson() => _$PromoToJson(this);

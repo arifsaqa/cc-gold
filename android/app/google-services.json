@@ -14,15 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "576945534768-5sc5c41qnl4cvsth1o4cuk8509vnr553.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.oke",
-            "certificate_hash": "a219b7ff97be459777ae2ce071bc3099b708febc"
-          }
-        },
-        {
-          "client_id": "576945534768-f40s6egpppedda25gula75viv8vjsh70.apps.googleusercontent.com",
+          "client_id": "576945534768-rd53n3q2m2tatje5u2umfob9bom4gffh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.oke",

@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'transaction.dart';
-part 'transactions.g.dart';
+part 'transactionResponse.g.dart';
 
 //     "status": 1,
 //     "data": {
@@ -22,16 +22,16 @@ part 'transactions.g.dart';
 //     }
 // }
 @JsonSerializable()
-class Transactions {
+class TransactionResponse {
   @JsonKey(name: 'status')
   int status;
 
   @JsonKey(name: 'data')
-  List<Transaction> data;
+  Transaction data;
 
-  Transactions({required this.status, required this.data});
+  TransactionResponse({required this.status, required this.data});
 
-  factory Transactions.fromJson(Map<String, dynamic> json) =>
-      _$TransactionsFromJson(json);
-  Map<String, dynamic> toJson() => _$TransactionsToJson(this);
+  factory TransactionResponse.fromJson(Map<String, dynamic> json) =>
+      _$TransactionResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TransactionResponseToJson(this);
 }

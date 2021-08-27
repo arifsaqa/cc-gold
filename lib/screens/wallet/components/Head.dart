@@ -68,6 +68,7 @@ class _SaldoState extends State<Saldo> {
           onPressed: () {
             Get.snackbar("Working on it", "Coming soon!");
             // transactionController.resetTransactionStates();
+            Get.back();
           },
           child: Text(
             "Ya",

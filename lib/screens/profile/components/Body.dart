@@ -69,7 +69,7 @@ class _StateBody extends State<Body> {
     Get.defaultDialog(
       title: "Keluar?",
       titlePadding: EdgeInsets.only(top: 20),
-      contentPadding: EdgeInsets.symmetric(vertical:20),
+      contentPadding: EdgeInsets.symmetric(vertical: 20),
       middleText: "Anda yakin ingin keluar?",
       backgroundColor: Color(background),
       titleStyle: TextStyle(color: Colors.white),
@@ -105,10 +105,10 @@ class _StateBody extends State<Body> {
   Widget build(BuildContext context) {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),

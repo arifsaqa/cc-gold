@@ -62,10 +62,10 @@ class ShortCuts extends StatelessWidget {
                 onPressed: () async {
                   Get.back();
                   SharedPreferences a = await SharedPreferences.getInstance();
-                  String? phone = a.getString('phone');
                   await controller.toTrue();
                   await controller.verify(
-                      false, phone!.replaceFirst('0', '+62').trim());
+                    false,
+                  );
                   controller.toFalse();
                   Get.to(GetOTPYO(
                       isResetPassword: false,
@@ -90,6 +90,7 @@ class ShortCuts extends StatelessWidget {
         } else {
           switch (label) {
             case "Beli Emas":
+              transactionController.discount.value = 0;
               transactionController.transactionType.value = 1;
               transactionController.payment.value =
                   paymentMethodController.paymentMethod[0].id;
@@ -99,6 +100,7 @@ class ShortCuts extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => destination));
               break;
             case "Jual Emas":
+              transactionController.discount.value = 0;
               transactionController.payment.value =
                   paymentMethodController.paymentMethod[0].id;
               transactionController.transactionType.value = 2;
@@ -113,6 +115,7 @@ class ShortCuts extends StatelessWidget {
               }
               break;
             default:
+              transactionController.discount.value = 0;
               transactionController.payment.value =
                   paymentMethodController.paymentMethod[0].id;
               transactionController.transactionType.value = 3;

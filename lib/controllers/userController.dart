@@ -76,10 +76,10 @@ class UserController extends GetxController {
   LocalUser localUser = LocalUser();
   Future<String> login(String password) async {
     toTrue();
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    var ok = pref.getString("phone");
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    var ok = await localUser.phoneNumber();
     try {
-      var asu = await AuthFunctions.login(ok!, password);
+      var asu = await AuthFunctions.login(ok, password);
       if (asu != null) {
         userResponse.value = asu;
         user.value = (asu.user)!;
@@ -246,9 +246,9 @@ class UserController extends GetxController {
     } catch (e) {
       print('error while get user data by id' + e.toString());
 
-      Get.snackbar<void>(
-          "App's Error", "Somthing wrong!, Get to our IT support",
-          snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
+      // Get.snackbar<void>(
+      //     "App's Error", "Somthing wrong!, Get to our IT support",
+      //     snackPosition: SnackPosition.TOP, colorText: Colors.red[600]);
       return 0;
     }
   }
@@ -282,7 +282,7 @@ class UserController extends GetxController {
 
   Future<void> getGoldNews() async {
     await toTrue();
-    
+
     try {
       var res = await DataFetching().getGoldNews(yesterdayForApi, todayForApi);
       if (res != null) {
@@ -295,7 +295,7 @@ class UserController extends GetxController {
         return null;
       }
     } on Exception catch (e) {
-        await toFalse();
+      await toFalse();
     }
   }
 

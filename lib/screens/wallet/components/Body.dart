@@ -202,9 +202,13 @@ class _PromoBuildState extends State<Body> {
                         },
                       ),
                     )
-                  : Text(
-                      "Belum ada transaksi",
-                      style: TextStyle(color: Colors.black),
+                  : Expanded(
+                      child: Center(
+                        child: Text(
+                          "Belum ada transaksi",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
         ),
         // )
