@@ -37,6 +37,7 @@ class Saldo extends StatefulWidget {
 }
 
 class _SaldoState extends State<Saldo> {
+  bool _loading = false;
   final controller = Get.find<UserController>();
   final dataController = Get.find<DataTreeController>();
   final formatter = Get.find<Formatter>();
@@ -54,6 +55,15 @@ class _SaldoState extends State<Saldo> {
     controller.getUserSaldo();
   }
 
+  Future<void> execute(String res) async {
+    Get.snackbar("Poin", res,
+        colorText: res == 'Poin berhasil digunakan, saldo akan diupdate!'
+            ? Colors.green[400]
+            : Colors.red[400]);
+
+    return;
+  }
+
   void tukarPoint() {
     Get.defaultDialog(
       title: "Tukar Point?",
@@ -64,11 +74,11 @@ class _SaldoState extends State<Saldo> {
       titleStyle: TextStyle(color: Colors.white),
       middleTextStyle: TextStyle(color: Colors.white),
       confirm: TextButton(
-          style: ButtonStyle(),
-          onPressed: () {
-            Get.snackbar("Working on it", "Coming soon!");
-            // transactionController.resetTransactionStates();
+          // style: ButtonStyle(),
+          onPressed: () async {
             Get.back();
+            String res = await controller.usePoints();
+            execute(res);
           },
           child: Text(
             "Ya",

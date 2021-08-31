@@ -299,6 +299,39 @@ class UserController extends GetxController {
     }
   }
 
+  var loadingPoint = false.obs;
+  Future<void> loadingPointTrue() async {
+    loadingPoint.value = true;
+  }
+
+  Future<void> loadingPointFalse() async {
+    loadingPoint.value = false;
+  }
+
+  Future<String> usePoints() async {
+    try {
+      await loadingPointTrue();
+      var oke = await DataFetching().usePoint();
+      if (oke.status != 1) {
+        await loadingPointFalse();
+        return "Gagal menukar poin, pastikan point anda cukup!";
+      } else {
+        await loadingPointFalse();
+        return "Poin berhasil digunakan, saldo akan diupdate!";
+      }
+    } on Exception catch (e) {
+      print(e);
+      await loadingPointFalse();
+      return "Gagal menggunakan kode referral";
+    } finally {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      var userId = pref.getInt("userId");
+      var resPoint = await AuthFunctions.getUserPoints(userId!);
+      var res = await AuthFunctions.getUserSaldo(userId);
+      userPoints.value = resPoint.points != null ? resPoint.points!.point : 0;
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();

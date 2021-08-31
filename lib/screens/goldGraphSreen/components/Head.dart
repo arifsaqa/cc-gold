@@ -10,6 +10,7 @@ class Head extends StatefulWidget {
 
 class _StateHead extends State<Head> {
   bool isSale = true;
+  int indexFromParent = 0;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,6 +55,7 @@ class _StateHead extends State<Head> {
                       onTap: () {
                         setState(() {
                           isSale = false;
+                          indexFromParent = 0;
                         });
                       },
                       child: Container(

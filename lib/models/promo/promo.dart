@@ -25,8 +25,8 @@ class Promo {
   @JsonKey(name: "discount")
   int discount;
 
-  // @JsonKey(name: "userList")
-  // List<dynamic>? userList;
+  @JsonKey(name: "type")
+  int type;
 
   @JsonKey(name: "created_at")
   String createdAt;
@@ -41,7 +41,7 @@ class Promo {
       {required this.id,
       required this.title,
       required this.image,
-      // required this.userList,
+      required this.type,
       required this.createdAt,
       required this.updatedAt,
       required this.discount,

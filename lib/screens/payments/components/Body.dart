@@ -434,7 +434,8 @@ class _BodyState extends State<Body> {
                           Text(
                             "Rp. " +
                                 formatter.addDot(
-                                    transactionController.getTotal.value),
+                                    transactionController.getTotal.value -
+                                        transactionController.discount.value),
                             textScaleFactor: 1.0,
                             style: TextStyle(
                                 color: Colors.black,

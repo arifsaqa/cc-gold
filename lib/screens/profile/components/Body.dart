@@ -4,6 +4,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/controllers/userController.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:learnUI/screens/faq_policy_screen/faq.dart';
 import 'package:learnUI/screens/profile/profileSetting/profileSettingScreen.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 
@@ -136,7 +137,7 @@ class _StateBody extends State<Body> {
               itemCount: settings.length,
               itemBuilder: (context, index) {
                 return Container(
-                  height: 70,
+                  height: 62.5,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: GestureDetector(
                     onTap: () async {
@@ -146,11 +147,7 @@ class _StateBody extends State<Body> {
                           Get.to(ProfileSettingScreen());
                           break;
                         case 1:
-                          Get.defaultDialog(
-                              content: Text(
-                            "Write me a FAQ (　＾∇＾)",
-                            style: TextStyle(color: Color(background)),
-                          ));
+                          Get.to(FaqScreen());
                           break;
                         case 2:
                           Get.defaultDialog(

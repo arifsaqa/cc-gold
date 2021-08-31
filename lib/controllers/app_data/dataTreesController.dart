@@ -2,9 +2,13 @@ import 'package:get/state_manager.dart';
 import 'package:learnUI/api/data.dart';
 import 'package:learnUI/models/current_gold_price/current_price.dart';
 import 'package:learnUI/models/current_gold_price/current_price_data.dart';
+import 'package:learnUI/models/faq/faq.dart';
+import 'package:learnUI/models/faq/faq_response.dart';
 import 'package:learnUI/models/gold_prices/price.dart';
 import 'package:learnUI/models/gold_prices/prices.dart';
 import 'package:learnUI/models/phoneNumbers/phone_numbers.dart';
+import 'package:learnUI/models/policy/policy.dart';
+import 'package:learnUI/models/policy/policy_response.dart';
 
 class DataTreeController extends GetxController {
   var loading = false.obs;
@@ -47,6 +51,36 @@ class DataTreeController extends GetxController {
     if (res != null) {
       sellPrices.value = (res);
       sellPrice = res.price.obs;
+      await toFalse();
+    } else {
+      print("page load before the data render");
+      await toFalse();
+      return null;
+    }
+  }
+
+  var sellPriceGraph = Prices(status: 0, message: "", price: []).obs;
+  Future<void> getSellGraph(String timeline) async {
+    await toTrue();
+    var res = await DataFetching().getSellPriceGraph(timeline);
+    if (res != null) {
+      sellPriceGraph.value = (res);
+      // sellPrice = res.price.obs;
+      await toFalse();
+    } else {
+      print("page load before the data render");
+      await toFalse();
+      return null;
+    }
+  }
+
+  var buyPriceGraph = Prices(status: 0, message: "", price: []).obs;
+  Future<void> getBuyGraph(String timeline) async {
+    await toTrue();
+    var res = await DataFetching().getBuyPriceGraph(timeline);
+    if (res != null) {
+      buyPriceGraph.value = (res);
+      // sellPrice = res.price.obs;
       await toFalse();
     } else {
       print("page load before the data render");
@@ -130,6 +164,38 @@ class DataTreeController extends GetxController {
     if (res != null) {
       await toFalse();
       phoneNumbers.value = res.phoneNumbers;
+      return 1;
+    } else {
+      print("page load before the data render");
+      await toFalse();
+      return 0;
+    }
+  }
+
+  var policies =
+      PolicyResponse(status: 0, message: "not fetch yet", data: []).obs;
+  var faqs = FaqResponse(status: 0, message: "not fetch yet", data: []).obs;
+
+  Future<int> getPolicies() async {
+    await toTrue();
+    var res = await DataFetching().getPolicies();
+    if (res != null) {
+      await toFalse();
+      policies.value = res;
+      return 1;
+    } else {
+      print("page load before the data render");
+      await toFalse();
+      return 0;
+    }
+  }
+
+  Future<int> getFaqs() async {
+    await toTrue();
+    var res = await DataFetching().getFaq();
+    if (res != null) {
+      await toFalse();
+      faqs.value = res;
       return 1;
     } else {
       print("page load before the data render");

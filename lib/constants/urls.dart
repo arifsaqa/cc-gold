@@ -22,6 +22,7 @@ class UsersData {
   String get points => base_url + apiVersion + 'points/';
   String get refferal => base_url + apiVersion + 'refferal';
   String get postPromo => base_url + apiVersion + 'promos/store/';
+  String get usePoints => base_url + apiVersion + 'points/use';
 }
 
 class DataUrl {
@@ -34,4 +35,8 @@ class DataUrl {
   String get buyPriceById => base_url + apiVersion + 'buyprice/';
   String get paymentMethods => base_url + apiVersion + 'paymentMethods';
   String get phoneNumbers => base_url + apiVersion + 'numbers';
+  String get faqs => base_url + apiVersion + 'faqs';
+  String get policy => base_url + apiVersion + 'policy';
+  String get sellPriceGraph => base_url + apiVersion + 'sellGraph/';
+  String get buyPriceGraph => base_url + apiVersion + 'buyGraph/';
 }

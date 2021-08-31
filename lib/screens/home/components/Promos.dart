@@ -43,16 +43,25 @@ class _PromoBuildState extends State<PromosBuild> {
     await controller.getPromoFunction();
   }
 
+  int getDiscount(int percent) {
+    double getPercent = percent / 100;
+    double a = dataTreeController.buyPriceL.value.price * getPercent;
+    print(dataTreeController.buyPriceL.value.price);
+    print(getPercent);
+    print(a);
+    return a.toInt();
+  }
+
   void confirmPromo(int discount, int promoId) {
     Get.defaultDialog(
       title: "Gunakan promo?",
       titlePadding: EdgeInsets.only(top: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       middleText:
-          "Anda akan menggunakan promo ini \ndan mendapatkan \ndiscount sebesar Rp. ${discount.toString()}?",
+          "Anda akan menggunakan promo ini dan mendapatkan discount sebesar Rp. ${discount.toString()}?",
       backgroundColor: Color(background),
       titleStyle: TextStyle(color: Colors.white),
-      middleTextStyle: TextStyle(color: Colors.white),
+      middleTextStyle: TextStyle(color: Colors.white, height: 1.3),
       confirm: TextButton(
           onPressed: () async {
             // String res = await transactionController.usePromo(promoId);
@@ -172,7 +181,11 @@ class _PromoBuildState extends State<PromosBuild> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            confirmPromo(controller.promo[index].discount,
+                            confirmPromo(
+                                controller.promo[index].type == 1
+                                    ? getDiscount(
+                                        controller.promo[index].discount)
+                                    : controller.promo[index].discount,
                                 controller.promo[index].id);
                           },
                           child: Row(

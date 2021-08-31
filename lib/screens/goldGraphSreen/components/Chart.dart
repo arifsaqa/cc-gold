@@ -1,8 +1,16 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
+import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/models/goldData.dart';
+
+class BottomTitles {
+  String label;
+  String value;
+  BottomTitles({required this.label, required this.value});
+}
 
 class Chart extends StatefulWidget {
   final bool isSale;
@@ -13,13 +21,31 @@ class Chart extends StatefulWidget {
 }
 
 class _ChartState extends State<Chart> {
+  final controller = Get.find<DataTreeController>();
   int _active = 0;
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        // _active = widget.indexFromParent;
+      });
+    });
+  }
+
   List<Color> gradientColors = [
     Color(upperGradient),
     Color(middleGradient),
     Color(background),
   ];
-  List<String> bottomTitles = ["1D", "1W", "1M", "3M", "1Y", "5Y", "6Y"];
+  List<BottomTitles> bottomTitles = [
+    BottomTitles(label: "1W", value: "weekly"),
+    BottomTitles(label: "1M", value: "monthly"),
+    BottomTitles(label: "1Y", value: "yearly"),
+    BottomTitles(label: "3Y", value: "3years"),
+    BottomTitles(label: "6Y", value: "6years"),
+  ];
+  // ["1W", "1M", "3M", "1Y", "5Y", "6Y"];
 
   Widget listTitle(String value, int index) {
     return GestureDetector(
@@ -27,6 +53,12 @@ class _ChartState extends State<Chart> {
         setState(() {
           _active = index;
         });
+        if (widget.isSale) {
+          controller.getSellGraph(bottomTitles[index].value);
+        } else {
+          controller.getBuyGraph(bottomTitles[index].value);
+        }
+        print(controller.buyPriceGraph.value.price.length);
       },
       child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -64,10 +96,12 @@ class _ChartState extends State<Chart> {
                       Radius.circular(18),
                     ),
                     color: Color(0xff232d37)),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 18.0, left: 12.0),
-                  child: LineChart(
-                    widget.isSale ? salePrice() : buyPrice(),
+                child: Obx(
+                  () => Padding(
+                    padding: const EdgeInsets.only(right: 18.0, left: 12.0),
+                    child: LineChart(
+                      widget.isSale ? salePrice() : buyPrice(),
+                    ),
                   ),
                 ),
               ),
@@ -79,7 +113,7 @@ class _ChartState extends State<Chart> {
           mainAxisSize: MainAxisSize.min,
           children: [
             for (int index = 0; index < bottomTitles.length; index++)
-              listTitle(bottomTitles[index], index)
+              listTitle(bottomTitles[index].label, index)
           ],
         )
       ]),
@@ -121,13 +155,13 @@ class _ChartState extends State<Chart> {
         show: false,
       ),
       minX: 0,
-      maxX: 30,
-      minY: 0,
+      maxX: controller.buyPriceGraph.value.price.length.toDouble(),
+      minY: 500000,
       maxY: 1000000,
       lineBarsData: [
         LineChartBarData(
-          spots: buyPriceData.asMap().entries.map((e) {
-            return FlSpot(e.key.toDouble(), e.value);
+          spots: controller.buyPriceGraph.value.price.asMap().entries.map((e) {
+            return FlSpot(e.key.toDouble(), e.value.price.toDouble());
           }).toList(),
           isCurved: true,
           colors: [
@@ -186,13 +220,13 @@ class _ChartState extends State<Chart> {
         show: false,
       ),
       minX: 0,
-      maxX: 30,
-      minY: 0,
+      maxX: controller.sellPriceGraph.value.price.length.toDouble(),
+      minY: 500000,
       maxY: 1000000,
       lineBarsData: [
         LineChartBarData(
-          spots: salePriceData.asMap().entries.map((e) {
-            return FlSpot(e.key.toDouble(), e.value);
+          spots: controller.sellPriceGraph.value.price.asMap().entries.map((e) {
+            return FlSpot(e.key.toDouble(), e.value.price.toDouble());
           }).toList(),
           isCurved: true,
           colors: [

@@ -186,12 +186,12 @@ class TransactionController extends GetxController {
     }
   }
 
-  List<Transaction> get tfTransactions => transactions.value.data
-      .where((element) => element.destinationNumber != null)
-      .toList();
-  List<Transaction>? get sellPriceTransaction => transactions.value.data
-      .where((element) => element.destinationNumber == null)
-      .toList();
+  // List<Transaction> get tfTransactions => transactions.value.data
+  //     .where((element) => element.destinationNumber != null)
+  //     .toList();
+  // List<Transaction>? get sellPriceTransaction => transactions.value.data
+  //     .where((element) => element.destinationNumber == null)
+  //     .toList();
 
   Future<String> getTransaction() async {
     loading.value = true;
@@ -201,6 +201,12 @@ class TransactionController extends GetxController {
       var asu = await DataFetching().getTransaction(ok!);
       if (asu != null) {
         transactions.value = asu;
+        var tempTfTansaction = <Transaction>[];
+        for (var val in asu.data) {
+          tempTfTansaction.add(val);
+        }
+        print(tempTfTansaction[0].destinationNumber);
+        transactionsTF.value = asu;
         loading.value = false;
         return "oke";
       } else {

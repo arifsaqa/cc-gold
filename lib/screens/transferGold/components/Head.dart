@@ -19,7 +19,6 @@ class _StateHead extends State<Head> {
   var input = '';
   // _currentInput ="";
   void checkPhoneNumber(String context) {
-    // dataTeeController.phoneNumbers.value.map((e) => null);
     if (dataTeeController.phoneNumbers.contains(context)) {
       transactionController.destinationNumber.value = context;
       Get.to<void>(NominalScreen());
@@ -136,9 +135,7 @@ class _StateHead extends State<Head> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    transactionController
-                                        .destinationNumber.value = input;
-                                    Get.off(NominalScreen());
+                                    checkPhoneNumber(input);
                                   },
                                   child: Container(
                                       decoration: BoxDecoration(
@@ -158,7 +155,29 @@ class _StateHead extends State<Head> {
                                 )
                               ],
                             ),
-                          )
+                          ),
+                          // input.length > 0
+                          //     ? Positioned(
+                          //         bottom: 0,
+                          //         child: Container(
+                          //           child: ListView.builder(
+                          //               shrinkWrap: true,
+                          //               scrollDirection: Axis.vertical,
+                          //               itemCount: dataTeeController
+                          //                   .phoneNumbers.length,
+                          //               itemBuilder: (context, index) =>
+                          //                   dataTeeController
+                          //                           .phoneNumbers[index]
+                          //                           .contains(input)
+                          //                       ? Text(
+                          //                           dataTeeController
+                          //                               .phoneNumbers[index],
+                          //                           style: TextStyle(
+                          //                               color: Colors.black),
+                          //                         )
+                          //                       : Container()),
+                          //         ))
+                          //     : Container()
                         ],
                       ),
                     ]),

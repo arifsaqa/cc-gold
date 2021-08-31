@@ -10,6 +10,7 @@ import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/models/transaction/transaction.dart';
 import 'package:learnUI/screens/successPayment/components/Body.dart';
 import 'package:learnUI/screens/successPayment/components/Separator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TransactionDetailScreen extends StatefulWidget {
   final Transaction data;
@@ -70,7 +71,7 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
       appBar: AppBar(
         title: Text(
           "Detail Transaksi",
-          style: TextStyle(fontFamily: ""),
+          style: TextStyle(fontFamily: "MetroBold"),
         ),
       ),
       body: Stack(children: [
@@ -331,11 +332,52 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
                               Icons.pending,
                               color: Color(background),
                             ),
-                            middleText: "Working on it :)",
+                            title: "Konfirmasi",
+                            titleStyle: TextStyle(
+                                color: Color(background),
+                                fontWeight: FontWeight.bold),
+                            middleText: "Kamu akan diarahkan ke whatsapp admin",
                             middleTextStyle:
-                                TextStyle(color: Color(background)));
+                                TextStyle(color: Color(background)),
+                            cancel: InkWell(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Container(
+                                child: Text(
+                                  "Tidak",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                decoration: BoxDecoration(
+                                    color: Color(lowerGradient),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                              ),
+                            ),
+                            confirm: InkWell(
+                              onTap: () async {
+                                await canLaunch(
+                                        "https://wa.me/6285604041552?text=Saya%20ingin%20mengkonfirmasi%20${getLabelOrTitle(widget.data.type)}%20Emas%20Sebesar%20${widget.data.gram.toString()}%20gram%20dengan%20kode%20transaksi%20${widget.data.barcode}")
+                                    ? await launch(
+                                        "https://wa.me/6285604041552?text=Saya%20ingin%20mengkonfirmasi%20${getLabelOrTitle(widget.data.type)}%20Emas%20Sebesar%20${widget.data.gram.toString()}%20gram%20dengan%20kode%20transaksi%20${widget.data.barcode}")
+                                    : throw 'Could not launch url';
+                              },
+                              child: Container(
+                                child: Text("Oke",
+                                    style:
+                                        TextStyle(color: Color(upperGradient))),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                decoration: BoxDecoration(
+                                    color: Color(background),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                              ),
+                            ));
                       },
-                      child: Text("Verifikasi Transaksi")),
+                      child: Text("Konfirmasi Transaksi")),
             ],
           ),
         ),
