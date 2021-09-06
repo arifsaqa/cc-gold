@@ -99,7 +99,9 @@ class _StateBody extends State<Body> {
                           image: base_url + '/' + controller.user.value.image,
                           imageErrorBuilder: (BuildContext context,
                               Object exception, StackTrace? stackTrace) {
-                            return Center(child: const Text('ʕ•́ᴥ•̀ʔ'));
+                            return Center(
+                                child:
+                                    Text("${controller.user.value.name[0]}"));
                           },
                           placeholder: 'images/profile.png',
                           fit: BoxFit.cover,
@@ -111,19 +113,19 @@ class _StateBody extends State<Body> {
               backgroundColor: Colors.white,
             ),
           ),
-          Center(
-            child: TextButton(
-              child: Text(
-                "Ganti Foto Profil",
-                textScaleFactor: 1.0,
-                style: TextStyle(color: Color(background)),
-              ),
-              onPressed: () {
-                showBottomSheet(
-                    context: context, builder: (context) => pickImage());
-              },
-            ),
-          ),
+          // Center(
+          //   child: TextButton(
+          //     child: Text(
+          //       "Ganti Foto Profil",
+          //       textScaleFactor: 1.0,
+          //       style: TextStyle(color: Color(background)),
+          //     ),
+          //     onPressed: () {
+          //       showBottomSheet(
+          //           context: context, builder: (context) => pickImage());
+          //     },
+          //   ),
+          // ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -139,7 +141,7 @@ class _StateBody extends State<Body> {
                   value: controller.user.value.email),
               buildColumn(
                   context: context,
-                  icon: Icons.credit_card,
+                  icon: Icons.phone,
                   label: "Nama",
                   value: controller.user.value.phone),
               buildColumn(
@@ -192,16 +194,28 @@ Widget buildColumn({
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "No Rekening :",
-                textScaleFactor: 1.0,
-                style: TextStyle(color: Color(background)),
+              Row(
+                children: [
+                  Icon(
+                    icon,
+                    color: Color(lowerGradient),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      "No Rekening :",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(color: Color(background)),
+                    ),
+                  ),
+                ],
               ),
               ListView.builder(
                   shrinkWrap: true,
                   itemCount: value.length,
                   itemBuilder: (context, index) {
                     return Container(
+                      padding: const EdgeInsets.only(left: 10.0),
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         children: [

@@ -23,11 +23,16 @@ class _StateBody extends State<Body> {
     super.initState();
     Future.delayed(Duration.zero, () {
       _getNumbers();
+      _getTransactions();
     });
   }
 
   void _getNumbers() async {
     await dataTreeController.getUserNumbers();
+  }
+
+  void _getTransactions() async {
+    await transactionController.getTransaction();
   }
 
   @override
@@ -37,7 +42,7 @@ class _StateBody extends State<Body> {
 
   void confirmDestinationNumber(String destinationNumber) {
     Get.defaultDialog(
-      title: "Gunakan promo?",
+      title: "Gunakan Nomor?",
       titlePadding: EdgeInsets.only(top: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       middleText:
@@ -105,8 +110,11 @@ class _StateBody extends State<Body> {
                     transactionController.transactionsTF.value.data.length,
                 itemBuilder: (context, index) {
                   return transactionController.transactionsTF.value.data[index]
-                              .destinationNumber !=
-                          null
+                                  .destinationNumber !=
+                              null &&
+                          transactionController
+                                  .transactionsTF.value.data[index].type ==
+                              3
                       ? InkWell(
                           onTap: () {
                             confirmDestinationNumber(transactionController

@@ -11,6 +11,7 @@ CurrentPrice _$CurrentPriceFromJson(Map<String, dynamic> json) {
     status: json['status'] as int,
     message: json['message'] as String,
     price: CurrentPriceData.fromJson(json['data'] as Map<String, dynamic>),
+    diff: (json['diff'] as num).toDouble(),
   );
 }
 
@@ -19,4 +20,5 @@ Map<String, dynamic> _$CurrentPriceToJson(CurrentPrice instance) =>
       'status': instance.status,
       'message': instance.message,
       'data': instance.price,
+      'diff': instance.diff,
     };

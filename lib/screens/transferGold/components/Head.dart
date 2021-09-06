@@ -5,6 +5,7 @@ import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
 import 'package:learnUI/controllers/transactionController.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:learnUI/controllers/userController.dart';
 import 'package:learnUI/screens/transferGold/NominalScreen.dart';
 // import 'package:learnUI/screens/transferGold/components/CustomForm.dart';
 
@@ -15,13 +16,19 @@ class Head extends StatefulWidget {
 
 class _StateHead extends State<Head> {
   final transactionController = Get.find<TransactionController>();
+  final userController = Get.find<UserController>();
   final dataTeeController = Get.find<DataTreeController>();
   var input = '';
   // _currentInput ="";
   void checkPhoneNumber(String context) {
-    if (dataTeeController.phoneNumbers.contains(context)) {
+    if (dataTeeController.phoneNumbers.contains(context) &&
+        context != userController.user.value.phone) {
       transactionController.destinationNumber.value = context;
       Get.to<void>(NominalScreen());
+    } else if (context == userController.user.value.phone) {
+      Get.snackbar(
+          "Nomor Hp", "Anda tidak bisa mentransfer ke akun anda sendiri!",
+          colorText: Colors.red[400], duration: Duration(seconds: 3));
     } else {
       Get.snackbar("Nomor Hp", "Nomor hp tidak terdaftar sebagai user!",
           colorText: Colors.red[400], duration: Duration(seconds: 3));

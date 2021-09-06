@@ -111,11 +111,18 @@ class Head extends StatelessWidget {
                         children: [
                           Row(children: [
                             Icon(
-                              Icons.trending_up,
+                              dataTreesController.currentSellPrice.value.diff >
+                                      0
+                                  ? Icons.trending_up
+                                  : Icons.trending_down,
                               size: 20,
                               color: Colors.black38,
                             ),
-                            Text("0,74%",
+                            Text(
+                                dataTreesController.currentSellPrice.value.diff
+                                        .abs()
+                                        .toString() +
+                                    "%",
                                 textScaleFactor: 1.0,
                                 style: TextStyle(
                                     fontSize: xm, color: Colors.black38))
@@ -166,11 +173,17 @@ class Head extends StatelessWidget {
                         children: [
                           Row(children: [
                             Icon(
-                              Icons.trending_down,
+                              dataTreesController.currentBuyPrice.value.diff > 0
+                                  ? Icons.trending_up
+                                  : Icons.trending_down,
                               size: 20,
                               color: Colors.black38,
                             ),
-                            Text("0,74%",
+                            Text(
+                                dataTreesController.currentBuyPrice.value.diff
+                                        .abs()
+                                        .toString() +
+                                    "%",
                                 textScaleFactor: 1.0,
                                 style: TextStyle(
                                     fontSize: xm, color: Colors.black38))

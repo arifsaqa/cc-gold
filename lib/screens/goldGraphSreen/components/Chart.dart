@@ -27,8 +27,9 @@ class _ChartState extends State<Chart> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
+      controller.getSellGraph('yearly');
       setState(() {
-        // _active = widget.indexFromParent;
+        _active = 2;
       });
     });
   }

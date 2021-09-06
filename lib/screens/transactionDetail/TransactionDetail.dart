@@ -30,8 +30,10 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
         return "Pembelian";
       case 2:
         return "Penjualan";
-      default:
+      case 3:
         return "Transfer";
+      default:
+        return "Terima Transfer";
     }
   }
 
@@ -102,10 +104,12 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
                         alignment: Alignment.center,
                         children: [
                           CustomPaint(
-                            painter: Painter(),
+                            painter: Painter(status: widget.data.status),
                           ),
                           Icon(
-                            Icons.pending_actions,
+                            widget.data.status == 1
+                                ? Icons.done_sharp
+                                : Icons.pending_actions,
                             size: 30,
                             color: Colors.white,
                           ),
@@ -212,7 +216,9 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.data.type == 3 ? "Jumlah" : "Nominal",
+                          widget.data.type == 3 || widget.data.type == 4
+                              ? "Jumlah"
+                              : "Nominal",
                           textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         ),
@@ -224,7 +230,7 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
                         )
                       ],
                     ),
-                    widget.data.type == 3
+                    widget.data.type == 3 || widget.data.type == 4
                         ? SizedBox(
                             height: 0,
                           )
@@ -245,13 +251,15 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
                               )
                             ],
                           ),
-                    widget.data.type == 3
+                    widget.data.type == 3 || widget.data.type == 4
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "No Tujuan",
+                                widget.data.type == 4
+                                    ? "No Pentransfer"
+                                    : "No Tujuan",
                                 textScaleFactor: 1.0,
                                 style: TextStyle(
                                     height: 1.5,

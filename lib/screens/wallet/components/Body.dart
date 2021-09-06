@@ -29,8 +29,10 @@ class _PromoBuildState extends State<Body> {
         return "Pembelian";
       case 2:
         return "Penjualan";
-      default:
+      case 3:
         return "Transfer";
+      default:
+        return "Terima Transfer";
     }
   }
 

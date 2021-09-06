@@ -147,7 +147,7 @@ class _HeadBodyState extends State<HeadBody> {
                       image: base_url + '/' + controller.user.value.image,
                       imageErrorBuilder: (BuildContext context,
                           Object exception, StackTrace? stackTrace) {
-                        return const Text('ʕ•́ᴥ•̀ʔ');
+                        return Text("${controller.user.value.name[0]}");
                       },
                       placeholder: 'images/profile.png',
                       fit: BoxFit.cover,

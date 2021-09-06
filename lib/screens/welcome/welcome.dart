@@ -6,9 +6,7 @@ import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/deviceDataController.dart';
 import 'package:learnUI/controllers/userController.dart';
-import 'package:learnUI/main.dart';
 import 'package:learnUI/screens/sharedComponents/MyGradient.dart';
-import 'package:learnUI/screens/welcome/password.dart';
 import 'package:learnUI/sharedPreferrences/userLocal.dart';
 
 class Welcome extends StatefulWidget {
@@ -20,60 +18,14 @@ class _StateWelcome extends State<Welcome> {
   LocalUser cek = LocalUser();
   UserController controller = Get.find<UserController>();
   DeviceDataController deviceController = Get.put(DeviceDataController());
-  bool _loadingHere = false;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      int? cok = await cek.getUserId();
-      redirect(cok);
-    });
-  }
-
-  void redirect(int? isSignin) async {
-    setState(() {
-      _loadingHere = true;
-    });
-    if (isSignin == 0 || isSignin == null) {
-      print("go to login screen  " + isSignin.toString());
       Timer(Duration(seconds: 3), () {
         Get.offAndToNamed("/login");
-        setState(() {
-          _loadingHere = false;
-        });
       });
-      return;
-    }
-    int i = await controller.getUserById(isSignin);
-    if (i != 0) {
-      print(isSignin);
-      var token = await cek.getToken();
-      var istokenValid = await controller.istokenValid(token!);
-      if (istokenValid != 0) {
-        await controller.getUserSaldo();
-        Timer(Duration(milliseconds: 90), () {
-          Get.offAllNamed('/logged');
-          setState(() {
-            _loadingHere = false;
-          });
-        });
-      } else {
-        Timer(Duration(milliseconds: 90), () {
-          Get.off(Password(redirecto: LoggedIn(), isLoggingin: true));
-          setState(() {
-            _loadingHere = false;
-          });
-        });
-      }
-    } else {
-      print("go to login screen  " + isSignin.toString());
-      Timer(Duration(seconds: 3), () {
-        Get.offNamed("/login");
-        setState(() {
-          _loadingHere = false;
-        });
-      });
-    }
+    });
   }
 
   @override

@@ -216,7 +216,7 @@ class TransactionController extends GetxController {
     } catch (e) {
       print('while creating transaction  ' + e.toString());
       loading.value = false;
-      Get.snackbar<void>("Login Error",
+      Get.snackbar<void>("Error",
           "Somthing wrong with our app, try again or contact our IT Support",
           snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
       return "cok";

@@ -19,19 +19,19 @@ class ProfileSettingScreen extends StatelessWidget {
                 style: TextStyle(fontFamily: "MetroBold"),
               ),
             )),
-        actions: [
-          Center(
-              child: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Simpan",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(color: Colors.white),
-                )),
-          ))
-        ],
+        // actions: [
+        //   Center(
+        //       child: Padding(
+        //     padding: const EdgeInsets.only(right: 8.0),
+        //     child: TextButton(
+        //         onPressed: () {},
+        //         child: Text(
+        //           "Simpan",
+        //           textScaleFactor: 1.0,
+        //           style: TextStyle(color: Colors.white),
+        //         )),
+        //   ))
+        // ],
       ),
       body: Body(),
     );

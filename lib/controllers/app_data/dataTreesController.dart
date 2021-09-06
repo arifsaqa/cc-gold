@@ -2,12 +2,9 @@ import 'package:get/state_manager.dart';
 import 'package:learnUI/api/data.dart';
 import 'package:learnUI/models/current_gold_price/current_price.dart';
 import 'package:learnUI/models/current_gold_price/current_price_data.dart';
-import 'package:learnUI/models/faq/faq.dart';
 import 'package:learnUI/models/faq/faq_response.dart';
 import 'package:learnUI/models/gold_prices/price.dart';
 import 'package:learnUI/models/gold_prices/prices.dart';
-import 'package:learnUI/models/phoneNumbers/phone_numbers.dart';
-import 'package:learnUI/models/policy/policy.dart';
 import 'package:learnUI/models/policy/policy_response.dart';
 
 class DataTreeController extends GetxController {
@@ -21,6 +18,7 @@ class DataTreeController extends GetxController {
   var currentSellPrice = CurrentPrice(
           status: 0,
           message: "not fetching yet",
+          diff: 0,
           price:
               CurrentPriceData(createdAt: '', id: 0, price: 0, updatedAt: ''))
       .obs;
@@ -28,6 +26,7 @@ class DataTreeController extends GetxController {
   var currentBuyPrice = CurrentPrice(
           status: 0,
           message: "not fetching yet",
+          diff: 0,
           price:
               CurrentPriceData(createdAt: '', id: 0, price: 0, updatedAt: ''))
       .obs;

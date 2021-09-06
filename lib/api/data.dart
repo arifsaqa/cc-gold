@@ -246,8 +246,8 @@ class DataFetching {
     required int nominal,
     required int discount,
     required String barcode,
-    String? destinationNumber,
-    String? message,
+    required String destinationNumber,
+    required String message,
   }) async {
     try {
       var apiResult = await http.post(
@@ -267,8 +267,8 @@ class DataFetching {
             "discount": discount,
             "barcode": barcode,
             "destinationNumber":
-                destinationNumber == null ? "" : destinationNumber,
-            "message": message != null ? "" : message,
+                destinationNumber.length > 0 ? destinationNumber : "",
+            "message": message.length > -0 ? message : "",
           }));
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =

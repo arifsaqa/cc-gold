@@ -72,7 +72,7 @@ class Body extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         CustomPaint(
-                          painter: Painter(),
+                          painter: Painter(status: 0),
                         ),
                         Icon(
                           Icons.pending_actions,
@@ -347,6 +347,8 @@ class Body extends StatelessWidget {
 }
 
 class Painter extends CustomPainter {
+  int status;
+  Painter({required this.status});
   @override
   void paint(Canvas canvas, Size size) {
     double radius = 25.0;
@@ -356,12 +358,14 @@ class Painter extends CustomPainter {
     Path oval = Path()
       ..addOval(Rect.fromCircle(center: center, radius: radius + 10));
     Paint shadowPaint = Paint()
-      ..color = Colors.yellowAccent.withOpacity(0.8)
+      ..color = status == 1
+          ? Colors.greenAccent.withOpacity(0.8)
+          : Colors.yellowAccent.withOpacity(0.8)
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, 50);
     canvas.drawPath(oval, shadowPaint);
     // draw circle
     Paint thumbPaint = Paint()
-      ..color = Colors.yellow[700]!
+      ..color = status == 1 ? Colors.green[700]! : Colors.yellow[700]!
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, radius, thumbPaint);
   }
