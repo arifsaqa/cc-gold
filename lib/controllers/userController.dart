@@ -308,10 +308,10 @@ class UserController extends GetxController {
     loadingPoint.value = false;
   }
 
-  Future<String> usePoints() async {
+  Future<String> usePoints(int point) async {
     try {
       await loadingPointTrue();
-      var oke = await DataFetching().usePoint();
+      var oke = await DataFetching().usePoint(point);
       if (oke.status != 1) {
         await loadingPointFalse();
         return "Gagal menukar poin, pastikan point anda cukup!";

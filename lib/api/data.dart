@@ -327,7 +327,7 @@ class DataFetching {
     }
   }
 
-  Future<StandartResponse> usePoint() async {
+  Future<StandartResponse> usePoint(int point) async {
     try {
       SharedPreferences id = await SharedPreferences.getInstance();
       int? userId = id.getInt("userId");
@@ -336,9 +336,7 @@ class DataFetching {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: jsonEncode({
-            "userId": userId,
-          }));
+          body: jsonEncode({"userId": userId, "point": point}));
       print(apiResult.body);
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedResponse =

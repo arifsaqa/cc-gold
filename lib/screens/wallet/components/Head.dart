@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/state_manager.dart';
 import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
@@ -37,6 +38,7 @@ class Saldo extends StatefulWidget {
 }
 
 class _SaldoState extends State<Saldo> {
+  final textcontroller = TextEditingController();
   bool _loading = false;
   final controller = Get.find<UserController>();
   final dataController = Get.find<DataTreeController>();
@@ -68,20 +70,56 @@ class _SaldoState extends State<Saldo> {
     Get.defaultDialog(
       title: "Tukar Point?",
       titlePadding: EdgeInsets.only(top: 20),
-      contentPadding: EdgeInsets.symmetric(vertical: 20),
-      middleText: "Anda yakin ingin menukar point?",
+      // contentPadding: EdgeInsets.symmetric(vertical: 20),
+      //  /   middleText: "Anda yakin ingin menukar point?",
       backgroundColor: Color(background),
       titleStyle: TextStyle(color: Colors.white),
+      content: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          controller: textcontroller,
+          decoration: InputDecoration(
+            hintText: "Masukkan jumlah point",
+            counter: SizedBox.shrink(),
+            focusedErrorBorder: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.0),
+              borderSide: BorderSide(color: Colors.white, width: 1.5),
+            ),
+            hintStyle: TextStyle(
+                color: Color.fromRGBO(255, 255, 255, .5), fontSize: sm),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.0),
+              borderSide: BorderSide(
+                color: Color(lowerGradient),
+                width: 1.5,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.0),
+              borderSide: BorderSide(
+                color: Color(lowerGradient),
+                width: 1.5,
+              ),
+            ),
+          ),
+          onChanged: (val) {
+            print(val);
+          },
+        ),
+      ),
       middleTextStyle: TextStyle(color: Colors.white),
       confirm: TextButton(
           // style: ButtonStyle(),
           onPressed: () async {
             Get.back();
-            String res = await controller.usePoints();
+            String res =
+                await controller.usePoints(int.parse(textcontroller.text));
             execute(res);
           },
           child: Text(
-            "Ya",
+            "Oke",
             style: TextStyle(color: Colors.white),
           )),
       cancel: TextButton(
@@ -89,7 +127,7 @@ class _SaldoState extends State<Saldo> {
             Get.back();
           },
           child: Text(
-            "Tidak",
+            "Cancel",
             style: TextStyle(color: Color(upperGradient)),
           )),
     );
