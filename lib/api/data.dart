@@ -240,7 +240,7 @@ class DataFetching {
     int id, {
     required int type,
     required int payment,
-    required int gram,
+    required double gram,
     required int priceId,
     required int adminFee,
     required int nominal,
@@ -270,6 +270,7 @@ class DataFetching {
                 destinationNumber.length > 0 ? destinationNumber : "",
             "message": message.length > -0 ? message : "",
           }));
+      print(apiResult.body);
       dynamic jsonObject = await json.decode(apiResult.body);
       var parsedPrice =
           TransactionResponse.fromJson(jsonObject as Map<String, dynamic>);

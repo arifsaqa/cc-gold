@@ -23,7 +23,7 @@ class TransactionController extends GetxController {
   var transactionType = 0.obs;
 //   "type": "The type field is required.",
   var payment = 1.obs;
-  var gram = 1.obs; //gram
+  var gram = 1.0.obs; //gram
 //   "gram": "The gram field is required.",
   var priceId = 0.obs;
 //   "priceId": "The price id field is required.",
@@ -216,9 +216,9 @@ class TransactionController extends GetxController {
     } catch (e) {
       print('while creating transaction  ' + e.toString());
       loading.value = false;
-      Get.snackbar<void>("Error",
-          "Somthing wrong with our app, try again or contact our IT Support",
-          snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
+      // Get.snackbar<void>("Error",
+      //     "Somthing wrong with our app, try again or contact our IT Support",
+      //     snackPosition: SnackPosition.TOP, colorText: Colors.yellow[600]);
       return "cok";
     }
   }

@@ -104,10 +104,8 @@ class Body extends StatelessWidget {
                                           height: 58,
                                           width: 58,
                                           child: FadeInImage.assetNetwork(
-                                            image: base_url +
-                                                '/' +
-                                                paymentMethodController
-                                                    .paymentMethod[index].logo,
+                                            image: paymentMethodController
+                                                .paymentMethod[index].logo,
                                             placeholder:
                                                 'images/circular-progress.gif',
                                             fit: BoxFit.cover,

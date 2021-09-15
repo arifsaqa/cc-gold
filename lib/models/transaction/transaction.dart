@@ -33,7 +33,7 @@ class Transaction {
   int type;
 
   @JsonKey(name: 'gram')
-  int gram;
+  double gram;
 
   @JsonKey(name: 'payment')
   int payment;
