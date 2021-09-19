@@ -6,6 +6,7 @@ import 'package:learnUI/bindings/formater.dart';
 import 'package:learnUI/constants/colors.dart';
 import 'package:learnUI/constants/fontSizes.dart';
 import 'package:learnUI/controllers/app_data/dataTreesController.dart';
+import 'package:learnUI/controllers/userController.dart';
 // import 'package:learnUI/controllers/transactionController.dart';
 import 'package:learnUI/models/transaction/transaction.dart';
 import 'package:learnUI/screens/successPayment/components/Body.dart';
@@ -21,6 +22,8 @@ class TransactionDetailScreen extends StatefulWidget {
 }
 
 class TransactionDetailScreenState extends State<TransactionDetailScreen> {
+  final usercontroller = Get.find<UserController>();
+
   final dataController = Get.find<DataTreeController>();
   bool _loading = true;
   int _price = 0;
@@ -59,6 +62,17 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
     }
   }
 
+  IconData getIcon(status) {
+    switch (status) {
+      case 1:
+        return Icons.done_sharp;
+      case 2:
+        return Icons.highlight_off;
+      default:
+        return Icons.pending_actions;
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -76,348 +90,360 @@ class TransactionDetailScreenState extends State<TransactionDetailScreen> {
           style: TextStyle(fontFamily: "MetroBold"),
         ),
       ),
-      body: Stack(children: [
-        Container(
-          margin: EdgeInsets.only(left: 20, right: 20, top: 26, bottom: 26),
-          padding: EdgeInsets.all(24),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(.05),
-                    spreadRadius: 10,
-                    blurRadius: 2,
-                    offset: Offset(2, 10))
-              ]),
-          child: Column(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      height: 58,
-                      width: 58,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        alignment: Alignment.center,
-                        children: [
-                          CustomPaint(
-                            painter: Painter(status: widget.data.status),
-                          ),
-                          Icon(
-                            widget.data.status == 1
-                                ? Icons.done_sharp
-                                : Icons.pending_actions,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                        ],
-                      )),
-                  SizedBox(
-                    height: 10,
+      body: SingleChildScrollView(
+        child: Stack(children: [
+          Container(
+            margin: EdgeInsets.only(left: 20, right: 20, top: 26, bottom: 26),
+            padding: EdgeInsets.all(24),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(.05),
+                      spreadRadius: 10,
+                      blurRadius: 2,
+                      offset: Offset(2, 10))
+                ]),
+            child: Column(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        height: 58,
+                        width: 58,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          alignment: Alignment.center,
+                          children: [
+                            CustomPaint(
+                              painter: Painter(status: widget.data.status),
+                            ),
+                            Icon(
+                              getIcon(widget.data.status),
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                          ],
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      getLabelOrTitle(widget.data.type) + " Emas",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                          fontSize: header,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 18,
+                    ),
+                    const MySeparator(
+                      color: Color.fromRGBO(151, 151, 151, 1),
+                      height: 1,
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                  ],
+                ),
+                Row(children: [
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          textScaleFactor: 1.0,
+                          text: TextSpan(
+                              text: getLabelOrTitle(widget.data.type),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(priceLabel),
+                                  fontSize: normal,
+                                  fontFamily: "MetroReg"),
+                              children: [
+                                TextSpan(
+                                  text: ' Emas ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(priceLabel),
+                                      fontSize: normal,
+                                      fontFamily: "MetroReg"),
+                                ),
+                                TextSpan(
+                                  text: widget.data.gram.toString() + " gram",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(priceLabel),
+                                      fontSize: normal,
+                                      fontFamily: "MetroReg"),
+                                ),
+                              ]),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        RichText(
+                          textScaleFactor: 1.0,
+                          text: TextSpan(
+                              text: "Harga Emas : ",
+                              style: TextStyle(
+                                  color: Color(priceLabel),
+                                  fontSize: sm,
+                                  fontFamily: "MetroReg"),
+                              children: [
+                                TextSpan(
+                                  text: widget.data.type == 1
+                                      ? "Rp. " + formatter.addDot(_price)
+                                      : "Rp. " + formatter.addDot(_price),
+                                  style: TextStyle(
+                                      color: Color(priceLabel),
+                                      fontSize: sm,
+                                      fontFamily: "MetroReg"),
+                                ),
+                                TextSpan(
+                                  text: "/gram",
+                                  style: TextStyle(
+                                      color: Color(priceLabel),
+                                      fontSize: sm,
+                                      fontFamily: "MetroReg"),
+                                ),
+                              ]),
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    getLabelOrTitle(widget.data.type) + " Emas",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                        fontSize: header,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: 18,
-                  ),
-                  const MySeparator(
-                    color: Color.fromRGBO(151, 151, 151, 1),
-                    height: 1,
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                ],
-              ),
-              Row(children: [
+                ]),
                 Container(
+                  margin: EdgeInsets.only(top: 26),
+                  height: 120,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      RichText(
-                        textScaleFactor: 1.0,
-                        text: TextSpan(
-                            text: getLabelOrTitle(widget.data.type),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Color(priceLabel),
-                                fontSize: normal,
-                                fontFamily: "MetroReg"),
-                            children: [
-                              TextSpan(
-                                text: ' Emas ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(priceLabel),
-                                    fontSize: normal,
-                                    fontFamily: "MetroReg"),
-                              ),
-                              TextSpan(
-                                text: widget.data.gram.toString() + " gram",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(priceLabel),
-                                    fontSize: normal,
-                                    fontFamily: "MetroReg"),
-                              ),
-                            ]),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.data.type == 3 || widget.data.type == 4
+                                ? "Jumlah"
+                                : "Nominal",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(color: Colors.black, fontSize: sm),
+                          ),
+                          Text(
+                            "Rp. " + formatter.addDot(widget.data.nominal),
+                            // typeId == 2 ? label : price,
+                            textScaleFactor: 1.0,
+                            style: TextStyle(color: Colors.black, fontSize: sm),
+                          )
+                        ],
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      RichText(
-                        textScaleFactor: 1.0,
-                        text: TextSpan(
-                            text: "Harga Emas : ",
-                            style: TextStyle(
-                                color: Color(priceLabel),
-                                fontSize: sm,
-                                fontFamily: "MetroReg"),
-                            children: [
-                              TextSpan(
-                                text: widget.data.type == 1
-                                    ? "Rp. " + formatter.addDot(_price)
-                                    : "Rp. " + formatter.addDot(_price),
-                                style: TextStyle(
-                                    color: Color(priceLabel),
-                                    fontSize: sm,
-                                    fontFamily: "MetroReg"),
-                              ),
-                              TextSpan(
-                                text: "/gram",
-                                style: TextStyle(
-                                    color: Color(priceLabel),
-                                    fontSize: sm,
-                                    fontFamily: "MetroReg"),
-                              ),
-                            ]),
-                      ),
+                      widget.data.type == 3 || widget.data.type == 4
+                          ? SizedBox(
+                              height: 0,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Biaya Admin",
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: sm),
+                                ),
+                                Text(
+                                  "Rp " + widget.data.adminFee.toString(),
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: sm),
+                                )
+                              ],
+                            ),
+                      widget.data.status == 2
+                          ? Text("Pesan : " + widget.data.message.toString(),
+                              textScaleFactor: 1.0,
+                              style: TextStyle(
+                                  height: 1.5, color: Color(priceLabel)))
+                          : Container(),
+                      widget.data.type == 3 || widget.data.type == 4
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.data.type == 4
+                                      ? "No Pentransfer"
+                                      : "No Tujuan",
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                      height: 1.5,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(priceLabel),
+                                      fontSize: normal),
+                                ),
+                                Text(
+                                  widget.data.destinationNumber.toString(),
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                      height: 1.5,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(priceLabel),
+                                      fontSize: normal),
+                                ),
+                                Text(
+                                    "a/n " +
+                                        widget.data.destinationNumber
+                                            .toString(),
+                                    textScaleFactor: 1.0,
+                                    style: TextStyle(
+                                        height: 1.5, color: Color(priceLabel))),
+                                Text(
+                                    "Pesan : " + widget.data.message.toString(),
+                                    textScaleFactor: 1.0,
+                                    style: TextStyle(
+                                        height: 1.5, color: Color(priceLabel))),
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Total",
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: sm),
+                                ),
+                                Text(
+                                  "Rp. " +
+                                      formatter.addDot(widget.data.adminFee +
+                                          widget.data.nominal),
+                                  textScaleFactor: 1.0,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: sm),
+                                )
+                              ],
+                            ),
                     ],
                   ),
                 ),
-              ]),
-              Container(
-                margin: EdgeInsets.only(top: 26),
-                height: 120,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.data.type == 3 || widget.data.type == 4
-                              ? "Jumlah"
-                              : "Nominal",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(color: Colors.black, fontSize: sm),
+                SizedBox(
+                  height: 50,
+                ),
+                const MySeparator(
+                  color: Color.fromRGBO(151, 151, 151, 1),
+                  height: 1,
+                ),
+                SizedBox(
+                  height: 22,
+                ),
+                widget.data.status == 1
+                    ? Column(children: [
+                        BarcodeWidget(
+                          barcode: Barcode.code128(),
+                          data: widget.data.barcode,
+                          height: 67,
                         ),
                         Text(
-                          "Rp. " + formatter.addDot(widget.data.nominal),
-                          // typeId == 2 ? label : price,
+                          "No Pref " + widget.data.barcode,
                           textScaleFactor: 1.0,
                           style: TextStyle(color: Colors.black, fontSize: sm),
                         )
-                      ],
-                    ),
-                    widget.data.type == 3 || widget.data.type == 4
-                        ? SizedBox(
-                            height: 0,
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Biaya Admin",
-                                textScaleFactor: 1.0,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: sm),
-                              ),
-                              Text(
-                                "Rp " + widget.data.adminFee.toString(),
-                                textScaleFactor: 1.0,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: sm),
-                              )
-                            ],
-                          ),
-                    widget.data.type == 3 || widget.data.type == 4
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                widget.data.type == 4
-                                    ? "No Pentransfer"
-                                    : "No Tujuan",
-                                textScaleFactor: 1.0,
-                                style: TextStyle(
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(priceLabel),
-                                    fontSize: normal),
-                              ),
-                              Text(
-                                widget.data.destinationNumber.toString(),
-                                textScaleFactor: 1.0,
-                                style: TextStyle(
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(priceLabel),
-                                    fontSize: normal),
-                              ),
-                              Text(
-                                  "a/n " +
-                                      widget.data.destinationNumber.toString(),
-                                  textScaleFactor: 1.0,
-                                  style: TextStyle(
-                                      height: 1.5, color: Color(priceLabel))),
-                              Text("Pesan : " + widget.data.message.toString(),
-                                  textScaleFactor: 1.0,
-                                  style: TextStyle(
-                                      height: 1.5, color: Color(priceLabel))),
-                            ],
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Total",
-                                textScaleFactor: 1.0,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: sm),
-                              ),
-                              Text(
-                                "Rp. " +
-                                    formatter.addDot(widget.data.adminFee +
-                                        widget.data.nominal),
-                                textScaleFactor: 1.0,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: sm),
-                              )
-                            ],
-                          ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              const MySeparator(
-                color: Color.fromRGBO(151, 151, 151, 1),
-                height: 1,
-              ),
-              SizedBox(
-                height: 22,
-              ),
-              widget.data.status == 1
-                  ? Column(children: [
-                      BarcodeWidget(
-                        barcode: Barcode.code128(),
-                        data: widget.data.barcode,
-                        height: 67,
-                      ),
-                      Text(
-                        "No Pref " + widget.data.barcode,
-                        textScaleFactor: 1.0,
-                        style: TextStyle(color: Colors.black, fontSize: sm),
-                      )
-                    ])
-                  : ElevatedButton(
-                      onPressed: () {
-                        Get.defaultDialog(
-                            custom: Icon(
-                              Icons.pending,
-                              color: Color(background),
-                            ),
-                            title: "Konfirmasi",
-                            titleStyle: TextStyle(
-                                color: Color(background),
-                                fontWeight: FontWeight.bold),
-                            middleText: "Kamu akan diarahkan ke whatsapp admin",
-                            middleTextStyle:
-                                TextStyle(color: Color(background)),
-                            cancel: InkWell(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Container(
-                                child: Text(
-                                  "Tidak",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                decoration: BoxDecoration(
-                                    color: Color(lowerGradient),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8))),
-                              ),
-                            ),
-                            confirm: InkWell(
-                              onTap: () async {
-                                await canLaunch(
-                                        "https://wa.me/6285604041552?text=Saya%20ingin%20mengkonfirmasi%20${getLabelOrTitle(widget.data.type)}%20Emas%20Sebesar%20${widget.data.gram.toString()}%20gram%20dengan%20kode%20transaksi%20${widget.data.barcode}")
-                                    ? await launch(
-                                        "https://wa.me/6285604041552?text=Saya%20ingin%20mengkonfirmasi%20${getLabelOrTitle(widget.data.type)}%20Emas%20Sebesar%20${widget.data.gram.toString()}%20gram%20dengan%20kode%20transaksi%20${widget.data.barcode}")
-                                    : throw 'Could not launch url';
-                              },
-                              child: Container(
-                                child: Text("Oke",
-                                    style:
-                                        TextStyle(color: Color(upperGradient))),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                decoration: BoxDecoration(
+                      ])
+                    : widget.data.status == 0
+                        ? ElevatedButton(
+                            onPressed: () {
+                              Get.defaultDialog(
+                                  custom: Icon(
+                                    Icons.pending,
                                     color: Color(background),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8))),
-                              ),
-                            ));
-                      },
-                      child: Text("Konfirmasi Transaksi")),
-            ],
+                                  ),
+                                  title: "Konfirmasi",
+                                  titleStyle: TextStyle(
+                                      color: Color(background),
+                                      fontWeight: FontWeight.bold),
+                                  middleText:
+                                      "Kamu akan diarahkan ke whatsapp admin",
+                                  middleTextStyle:
+                                      TextStyle(color: Color(background)),
+                                  cancel: InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: Container(
+                                      child: Text(
+                                        "Tidak",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 20),
+                                      decoration: BoxDecoration(
+                                          color: Color(lowerGradient),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8))),
+                                    ),
+                                  ),
+                                  confirm: InkWell(
+                                    onTap: () async {
+                                      await canLaunch(
+                                              "https://wa.me/6285604041552?text=Saya%20ingin%20mengkonfirmasi%20${getLabelOrTitle(widget.data.type)}%20Emas%20Sebesar%20${widget.data.gram.toString()}%20gram,%20dengan%20kode%20transaksi%20${widget.data.barcode}%20,%20atas%20nama%20${usercontroller.user.value.name}")
+                                          ? await launch(
+                                              "https://wa.me/6285604041552?text=Saya%20ingin%20mengkonfirmasi%20${getLabelOrTitle(widget.data.type)}%20Emas%20Sebesar%20${widget.data.gram.toString()}%20gram,%20dengan%20kode%20transaksi%20${widget.data.barcode}%20,%20atas%20nama%20${usercontroller.user.value.name}")
+                                          : throw 'Could not launch url';
+                                      Get.back();
+                                    },
+                                    child: Container(
+                                      child: Text("Oke",
+                                          style: TextStyle(
+                                              color: Color(upperGradient))),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 20),
+                                      decoration: BoxDecoration(
+                                          color: Color(background),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8))),
+                                    ),
+                                  ));
+                            },
+                            child: Text("Konfirmasi Transaksi"))
+                        : Container(),
+              ],
+            ),
           ),
-        ),
-        Positioned(
-            top: 10,
-            right: 20,
-            child: InkWell(
-              onTap: () {
-                Get.offAndToNamed('/logged');
-              },
-              child: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: Color(upperGradient),
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(8))),
-                child: Image.asset(
-                  "images/navs/homeActive.png",
-                  width: 25,
-                  height: 25,
+          Positioned(
+              top: 10,
+              right: 20,
+              child: InkWell(
+                onTap: () {
+                  Get.offAndToNamed('/logged');
+                },
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: Color(upperGradient),
+                      borderRadius:
+                          BorderRadius.only(topRight: Radius.circular(8))),
+                  child: Image.asset(
+                    "images/navs/homeActive.png",
+                    width: 25,
+                    height: 25,
+                  ),
                 ),
-              ),
-            )),
-        Container(
-          height: _loading ? size.height : 0,
-          width: _loading ? size.width : 0,
-          color: Colors.black.withOpacity(0.5),
-          child: SpinKitCircle(
-            color: Color(background),
+              )),
+          Container(
+            height: _loading ? size.height : 0,
+            width: _loading ? size.width : 0,
+            color: Colors.black.withOpacity(0.5),
+            child: SpinKitCircle(
+              color: Color(background),
+            ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }

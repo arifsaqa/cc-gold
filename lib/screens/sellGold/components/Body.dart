@@ -185,7 +185,9 @@ class Body extends StatelessWidget {
                     controller.message.value = '';
                     controller.setBarcode(
                         DateFormat("ymdhs").format(usercontroller.now.value) +
-                            (2 + priceGetter.sellPriceL.value.id).toString());
+                            2.toString() +
+                            priceGetter.sellPriceL.value.id.toString() +
+                            usercontroller.user.value.id.toString());
                     Get.off(PaymentScreen());
                   },
                   child: Text(

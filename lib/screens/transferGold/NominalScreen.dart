@@ -286,7 +286,9 @@ class Body extends StatelessWidget {
                     controller.transactionType.value = 3;
                     controller.setBarcode(
                         DateFormat("ymdhs").format(usercontroller.now.value) +
-                            (2 + priceGetter.sellPriceL.value.id).toString());
+                            3.toString() +
+                            priceGetter.sellPriceL.value.id.toString() +
+                            usercontroller.user.value.id.toString());
                     Get.to<void>(SetMessage());
                   },
                   child: Text(

@@ -12,7 +12,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
     adminFee: json['adminFee'] as int,
     barcode: json['barcode'] as String,
     discount: json['discount'] as int,
-    gram: json['gram'] as double,
+    gram: (json['gram'] as num).toDouble(),
     payment: json['payment'] as int,
     destinationNumber: json['destinationNumber'] as String?,
     message: json['message'] as String?,

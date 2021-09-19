@@ -349,6 +349,18 @@ class Body extends StatelessWidget {
 class Painter extends CustomPainter {
   int status;
   Painter({required this.status});
+
+  Color getColor(status) {
+    switch (status) {
+      case 1:
+        return Colors.green[700]!;
+      case 2:
+        return Colors.red[700]!;
+      default:
+        return Colors.yellow[700]!;
+    }
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     double radius = 25.0;
@@ -365,7 +377,7 @@ class Painter extends CustomPainter {
     canvas.drawPath(oval, shadowPaint);
     // draw circle
     Paint thumbPaint = Paint()
-      ..color = status == 1 ? Colors.green[700]! : Colors.yellow[700]!
+      ..color = getColor(status)
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, radius, thumbPaint);
   }

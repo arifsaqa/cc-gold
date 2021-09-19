@@ -36,6 +36,48 @@ class _PromoBuildState extends State<Body> {
     }
   }
 
+  Container getIcon(status) {
+    switch (status) {
+      case 1:
+        return Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              color: Colors.green[800],
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          child: Icon(
+            Icons.done_outline_outlined,
+            size: 20,
+            color: Colors.white,
+          ),
+        );
+      case 2:
+        return Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              color: Colors.red[800],
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          child: Icon(
+            Icons.highlight_off,
+            size: 20,
+            color: Colors.white,
+          ),
+        );
+
+      default:
+        return Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              color: Colors.yellow[800],
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          child: Icon(
+            Icons.pending_actions,
+            size: 20,
+            color: Colors.white,
+          ),
+        );
+    }
+  }
+
   void _getTransactions() async {
     await controller.getTransaction();
   }
@@ -169,33 +211,48 @@ class _PromoBuildState extends State<Body> {
                                         )
                                       ],
                                     ),
-                                    controller.transactions.value.data[index]
-                                                .status !=
-                                            1
-                                        ? Container(
-                                            padding: EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                                color: Colors.yellow[800],
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(50))),
-                                            child: Icon(
-                                              Icons.pending_actions,
-                                              size: 20,
-                                              color: Colors.white,
-                                            ),
-                                          )
-                                        : Container(
-                                            padding: EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                                color: Colors.green,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(50))),
-                                            child: Icon(
-                                              Icons.done_outline_rounded,
-                                              size: 20,
-                                              color: Colors.white,
-                                            ),
-                                          )
+                                    getIcon(controller
+                                        .transactions.value.data[index].status),
+                                    // Container(
+                                    //   padding: EdgeInsets.all(8),
+                                    //   decoration: BoxDecoration(
+                                    //       color: Colors.yellow[800],
+                                    //       borderRadius: BorderRadius.all(
+                                    //           Radius.circular(50))),
+                                    //   child: Icon(
+                                    //     getIcon(controller.transactions.value
+                                    //         .data[index].status),
+                                    //     size: 20,
+                                    //     color: Colors.white,
+                                    //   ),
+                                    // ),
+                                    // controller.transactions.value.data[index]
+                                    //             .status !=
+                                    //         1
+                                    //     ? Container(
+                                    //         padding: EdgeInsets.all(8),
+                                    //         decoration: BoxDecoration(
+                                    //             color: Colors.yellow[800],
+                                    //             borderRadius: BorderRadius.all(
+                                    //                 Radius.circular(50))),
+                                    //         child: Icon(
+                                    //           Icons.pending_actions,
+                                    //           size: 20,
+                                    //           color: Colors.white,
+                                    //         ),
+                                    //       )
+                                    //     : Container(
+                                    //         padding: EdgeInsets.all(8),
+                                    //         decoration: BoxDecoration(
+                                    //             color: Colors.green,
+                                    //             borderRadius: BorderRadius.all(
+                                    //                 Radius.circular(50))),
+                                    //         child: Icon(
+                                    //           Icons.done_outline_rounded,
+                                    //           size: 20,
+                                    //           color: Colors.white,
+                                    //         ),
+                                    //       )
                                   ],
                                 ),
                               ),

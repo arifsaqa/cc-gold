@@ -331,7 +331,9 @@ class _StateBody extends State<Body> {
                     controller.message.value = '';
                     controller.setBarcode(
                         DateFormat("ymdhs").format(usercontroller.now.value) +
-                            (1 + priceGetter.buyPriceL.value.id).toString());
+                            1.toString() +
+                            priceGetter.buyPriceL.value.id.toString() +
+                            usercontroller.user.value.id.toString());
                     print(controller.transactionType);
                     Get.off(PaymentScreen());
                   },

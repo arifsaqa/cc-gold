@@ -19,12 +19,13 @@ class NewSaldoResponse {
   int status;
 
   @JsonKey(name: "saldo")
-  int? saldo;
+  double? saldo;
 
   NewSaldoResponse({
     required this.status,
     required this.saldo,
   });
-  factory NewSaldoResponse.fromJson(Map<String, dynamic> json) => _$NewSaldoResponseFromJson(json);
+  factory NewSaldoResponse.fromJson(Map<String, dynamic> json) =>
+      _$NewSaldoResponseFromJson(json);
   Map<String, dynamic> toJson() => _$NewSaldoResponseToJson(this);
 }

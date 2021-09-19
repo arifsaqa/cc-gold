@@ -9,7 +9,7 @@ part of 'new_saldo.dart';
 NewSaldoResponse _$NewSaldoResponseFromJson(Map<String, dynamic> json) {
   return NewSaldoResponse(
     status: json['status'] as int,
-    saldo: json['saldo'] as int?,
+    saldo: (json['saldo'] as num?)?.toDouble(),
   );
 }
 

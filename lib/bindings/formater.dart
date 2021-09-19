@@ -10,7 +10,7 @@ class DotFormatter extends Bindings {
 
 class Formatter {
   final formatter = NumberFormat("###,###,###,###,###");
-  String addDot(int any) {
+  String addDot(dynamic any) {
     return formatter.format(any);
   }
 }
